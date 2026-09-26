@@ -18,7 +18,7 @@ related:
   methods: [phase-estimation]
   questions: [dmrg-vs-qpe-cost-accuracy-oled, first-hand-payment-evidence]
 references:
-  - {arxiv: "2512.13657", title: "Towards Quantum Advantage in Chemistry", authors: "S. N. Genin, O. Kwon et al. (OTI Lumionics, Samsung SAIT)", year: 2026, note: "v2; Table 1, Table 2 and Supplementary Tables SI.1-2, SI.2-2, SI.3-1"}
+  - {arxiv: "2512.13657", doi: "10.1021/jacs.6c04752", title: "Towards Quantum Advantage in Chemistry", authors: "S. N. Genin, O. Kwon et al. (OTI Lumionics, Samsung SAIT)", year: 2026, note: "arXiv v2; Tables 1-2 and SI.1-2, SI.2-2, SI.3-1; journal version has a different title"}
   - {arxiv: "2111.04169", title: "Estimating Phosphorescent Emission Energies in Ir(III) Complexes using Large-Scale Quantum Computing Simulations", authors: "S. N. Genin et al.", year: 2021, note: "earlier nine-complex study, also run on classical hardware"}
 ---
 
