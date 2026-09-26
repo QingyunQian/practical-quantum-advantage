@@ -11,12 +11,13 @@ verdict: surviving
 dimensions:
   classical_hardness: {level: empirical, note: "OPI equals Reed–Solomon list recovery beyond the Guruswami–Sudan radius; no reduction to a standard assumption; best classical MCMC ~1.1^n; immune to relativizing dequantization (Marwaha et al.)"}
   quantum_easiness: {level: conditional, note: "polynomial time given an efficient decoder for the dual code B^T with decoding radius near m/2; nearly linear-time circuits exist for OPI"}
-  willingness_to_pay: {level: none, note: "the only published industrial attempt (automotive option-package ILP, Sabater et al.) needs gadgets that inflate variables and collapse code distance, and does not claim to beat Gurobi"}
+  willingness_to_pay: {level: none, note: "the published automotive pricing study has industry coauthors but no buyer-defined advantage target; its gadget encoding has distance 3 independent of size and does not beat Gurobi"}
 resources: {logical_qubits: "Õ(N) gates for OPI at size N", gates: "nearly linear in instance size (Rosmanis 2026)", note: "no fault-tolerant compilation of the Reed–Solomon decoder has been published"}
 related:
   problems: [combinatorial-optimization]
   applications: [automotive-pricing-integer-programming, cryptanalysis]
   methods: [grover-amplitude-estimation]
+  questions: [dqi-industrial-encoding-crossover]
 references:
   - {arxiv: "2408.08292", title: "Optimization by Decoded Quantum Interferometry", authors: "S. P. Jordan, N. Shutty, M. Wootters, A. Zalcman, A. Schmidhuber, R. King, S. V. Isakov, R. Babbush", year: 2025, note: "Nature 646, 831"}
   - {arxiv: "2509.14509", title: "Spin Glass Transitions Obstruct Decoded Quantum Interferometry", authors: "E. R. Anschuetz, D. Gamarnik, B. Lu", year: 2025}
@@ -42,7 +43,7 @@ Max-LINSAT asks, for a matrix B ∈ F_p^{m×n} and subsets F_i ⊂ F_p, for an x
 - **Unstructured instances are blocked.** Anschuetz, Gamarnik and Lu show that on random LDPC-type max-k-XOR-SAT the overlap-gap property obstructs DQI: the spin-glass transition prevents it from beating classical local algorithms asymptotically [2]. Kramer, Schubert and Eisert prove that beating the trivial r/q fraction on general max-LINSAT by a constant is NP-hard, so any advantage must come from structure [4].
 - **Complexity status is intermediate.** Marwaha et al. show the DQI output distribution can be sampled in low levels of the polynomial hierarchy, so sampling-hardness arguments of the RCS type do not apply, while the task of finding high-value outputs resists relativizing dequantization [3].
 - **The hard parameter region is shrinking from the top.** Sun and Wootters show that for prime-field OPI at rate n/m ≥ 0.6225 solutions beating the semicircle law exist, and at ≥ 0.7496 nearly perfect ones [5]; follow-up quantum algorithms exploit this, but classically it is an existence result. The region still believed hard is prime field, |F_i| ≈ p/2, rate 0.1–0.6, large p. Classical block-Gibbs MCMC approximates the DQI distribution at cost ~1.1ⁿ.
-- **No industrial instance carries the structure.** The one published attempt, option-package pricing as an integer linear program (Sabater et al.), converts ILP to pseudo-Boolean to max-XORSAT through gadgets that inflate the variable count and can drop the code distance to 2, which kills decodability; BP decoding success falls quickly with error weight, the worked circuit is m = 3, n = 2, and no advantage over Gurobi is claimed [7]. Code-based cryptography (HQC, BIKE) is not threatened because those schemes use random codes without decoders. Noisy polynomial interpolation, the cryptographic cousin of OPI, underlies protocols that were abandoned years ago.
+- **The published industrial encoding has not retained the favourable code structure.** The automotive option-package pricing study converts an ILP to max-XORSAT through gadgets. Repeating rows naively would give distance 2; the construction actually used has distance 3 independent of size [7, Sections 5.1 and 5.3]. The smallest relevant encoded example has 827 constraints and 345 variables. Gurobi solves every tested, smaller matrix optimally; the better BP2 decoder in the performance plots has no coherent circuit in the paper. See the [encoding crossover question](../questions/dqi-industrial-encoding-crossover.html). Code-based cryptography such as HQC and BIKE uses random codes without publicly available efficient decoders.
 
 ## Verdict
 
