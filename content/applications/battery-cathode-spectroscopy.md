@@ -1,61 +1,52 @@
 ---
 type: application
 id: battery-cathode-spectroscopy
-title: Operando spectroscopy of battery cathodes (XAS, XPS, RIXS)
-title_zh: 电池正极的 operando 谱学解读（XAS、XPS、RIXS）
-summary: Whether capacity fade in high-nickel NMC and LiNiO2 is driven by Ni or by O 2p oxidation is read off operando X-ray spectra, and the interpretation now depends on DFT+DMFT plus charge-transfer multiplet calculations rather than rigid-band DFT+U. The 3d-oxide core-level problem maps to a 5-orbital impurity with full Coulomb vertex and spin–orbit coupling (60–100 qubits), but the value is in interpreting spectra, not in designing materials, and classical impurity solvers are improving fast.
-summary_zh: 高镍 NMC 和 LiNiO2 的容量衰减到底是镍氧化还是氧 2p 氧化，是从 operando X 射线谱里读出来的，而这个解读现在依赖 DFT+DMFT 加电荷转移多重态计算，而不是刚性能带的 DFT+U。3d 氧化物的核能级问题对应一个带完整库仑顶点和自旋轨道耦合的 5 轨道杂质（60 到 100 个比特），但价值在于解释谱，而不是设计材料，而且经典杂质求解器进步很快。
+title: Interpreting battery-cathode X-ray spectra
+title_zh: 电池正极 X 射线谱的解读
+summary: XPS measurements on charged LiCoO2, LiNiO2 and NMC cathodes can be interpreted using DFT+DMFT occupation probabilities followed by a separate charge-transfer multiplet calculation. The cited study completed its DMFT impurity step with classical CT-QMC. It does not establish a classical solver failure, a quantum core-hole model, or a 60–100-qubit advantage instance.
+summary_zh: 对充电后的 LiCoO2、LiNiO2 和 NMC 正极，已有研究用 DFT+DMFT 求出电子占据概率，再用独立的电荷转移多重态模型解读 XPS。所引论文的 DMFT 杂质步骤由经典 CT-QMC 完成。它没有展示经典求解器失效、量子 core-hole 模型或 60 到 100 比特的优势实例。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: surviving
 dimensions:
-  classical_hardness: {level: empirical, note: "rigid-band DFT+U fails for delithiated LiNiO2/NMC (Xie et al. 2025); charge-transfer multiplet fits are semi-empirical; CT-HYB with full Coulomb vertex, spin–orbit coupling and a core hole at finite temperature has a sign problem; tensor-train and neural-network solvers are the moving classical frontier"}
-  quantum_easiness: {level: heuristic, note: "impurity Green's function and core-level response by Trotter or Krylov methods; a 14-qubit DMFT loop on a cuprate has been run on IBM hardware (Selisko et al.); resolution and bath count push T counts to 1e9–1e12; no fault-tolerant estimate with a core hole"}
-  willingness_to_pay: {level: second-hand, note: "battery makers and synchrotron beamlines run these measurements and fund interpretation, but the routine tools are DFT+U and multiplet fits; no company has stated a required accuracy for a computed spectrum"}
-resources: {logical_qubits: "60–100", gates: "1e9–1e12 T (illustrative scenario, not a resource estimate)", note: "5-orbital d impurity + spin–orbit coupling with 4–8 bath sites per spin-orbital (50–90 qubits) plus core-hole multiplet; T count for ~100 fs evolution at 10 meV resolution; Ivanov et al. give 1e10–1e12 T for static ground states of 200–900 spin-orbital NiO/PdO cells"}
+  classical_hardness: {level: none, note: "Xie et al. solved their published DFT+DMFT impurity with classical CT-QMC, then ran a separate Quanty multiplet calculation. Harder SOC/core-hole extensions are hypothetical for this application."}
+  quantum_easiness: {level: unknown, note: "No quantum algorithm was compiled for the published hybridisation functions or the complete XPS observable; neither overlap nor end-to-end cost is available."}
+  willingness_to_pay: {level: second-hand, note: "The research addresses charge compensation in cathodes, but no company requirement, procurement price or decision change attributable to faster impurity solving is documented."}
+resources: {logical_qubits: "unknown for a converged application model", gates: "unknown", note: "A discretised five-orbital impurity may fit tens of system qubits depending on bath size. The cited XPS calculation was performed classically in two separate stages; no matched quantum estimate is available."}
 related:
   applications: [battery-electrolyte-design, rare-earth-permanent-magnets, nuclear-fuel-actinide-spectra]
   problems: [linear-response-spectral-functions, excited-states]
   methods: [dmft-impurity-solver, phase-estimation]
   questions: [dmft-impurity-cost-vs-ctqmc-sign-problem]
 references:
-  - {arxiv: "2510.02875", title: "Redox Chemistry of LiCoO$_2$, LiNiO$_2$, and LiNi$_{1/3}$Mn$_{1/3}$Co$_{1/3}$O$_2$ Cathodes: Deduced via XPS, DFT+DMFT, and Charge Transfer Multiplet Simulations", authors: "R. Xie, M. Mellin, T. Jaegermann, J. P. Hofmann, F. M. F. de Groot, H. Zhang", year: 2025, note: "shows delithiation is not rigid-band; paramagnetic insulating LiNiO2 needs DMFT"}
-  - {arxiv: "1510.03859", title: "Hybrid quantum-classical approach to correlated materials", authors: "B. Bauer, D. Wecker, A. J. Millis, M. B. Hastings, M. Troyer", year: 2015}
-  - {arxiv: "2404.09527", title: "Dynamical Mean Field Theory for Real Materials on a Quantum Computer", authors: "J. Selisko et al., I. Tavernelli, T. Eckl", year: 2024, note: "Ca2CuO2Cl2 DMFT loop with a 14-qubit impurity on IBM hardware"}
-  - {arxiv: "2210.02403", title: "Quantum Computation for Periodic Solids in Second Quantization", authors: "A. V. Ivanov et al.", year: 2022, note: "1e10–1e12 T gates, up to 3e8 physical qubits, for 200–900 spin-orbital NiO/PdO"}
-  - {arxiv: "2603.15741", title: "Neural-Network Quantum Embedding Solvers for Correlated Materials", authors: "A. Valenti, H. Park, A. Georges, A. J. Millis, O. Parcollet", year: 2026}
-  - {arxiv: "2303.11199", title: "A Tensor Train Continuous Time Solver for Quantum Impurity Models", authors: "A. Erpenbeck et al., E. Gull", year: 2023}
+  - {arxiv: "2510.02875", title: "Redox Chemistry of LiCoO$_2$, LiNiO$_2$, and LiNi$_{1/3}$Mn$_{1/3}$Co$_{1/3}$O$_2$ Cathodes: Deduced via XPS, DFT+DMFT, and Charge Transfer Multiplet Simulations", authors: "R. Xie et al.", year: 2025, note: "Methods 4.2-4.3 and Figure 6: classical CT-QMC for DMFT, Quanty for XPS"}
+  - {arxiv: "1510.03859", title: "Hybrid quantum-classical approach to correlated materials", authors: "B. Bauer et al.", year: 2015, note: "general proposal to use a quantum impurity solver; not a benchmark of these cathodes"}
+  - {arxiv: "2404.09527", title: "Dynamical Mean Field Theory for Real Materials on a Quantum Computer", authors: "J. Selisko et al.", year: 2024, note: "separate small-impurity hardware demonstration"}
 ---
 
 ## Who needs it
 
-Cathode developers (LG Energy Solution, Samsung SDI, Umicore, BASF, CATL) and the synchrotron beamlines (SSRL, ALS, Diamond, SPring-8) that run operando X-ray absorption, photoemission and resonant inelastic scattering on cells during cycling. The decision is mechanistic: in high-nickel NMC and LiNiO2, is the capacity fade and oxygen release driven by Ni³⁺/Ni⁴⁺ redox or by oxidation of O 2p (ligand-hole) states? The answer determines whether to dope, coat or change the cut-off voltage, and it is read from spectra whose interpretation depends on a many-body calculation.
+Battery researchers use X-ray photoelectron spectroscopy (XPS) to study how transition-metal and oxygen states change as a cathode is charged. The work in [1] studied LiCoO2, LiNiO2 and NMC111 at different charge states. The samples were charged and then prepared for XPS; this paper does not report an *operando* quantum-computing workflow. Its scientific question is how 3d–2p hybridisation affects charge compensation and the observed satellite peaks. A buyer-defined accuracy or throughput requirement for this calculation is not given.
 
 ## Bottleneck
 
-The routine interpretation tools are DFT+U projected densities of states for K edges and semi-empirical charge-transfer multiplet (CTM) fits for L edges. Both fail on the relevant question. Xie, de Groot, Zhang and co-workers combined XPS with DFT+DMFT and CTM simulations for LiCoO2, LiNiO2 and NMC111 and showed that delithiation is not a rigid-band process and that the paramagnetic insulating state of LiNiO2, which is what the cell contains at room temperature, is obtained only with DMFT [1]. The d⁸L ligand-hole configurations and multiplet satellites that distinguish Ni oxidation from O oxidation are precisely the features a single-particle picture cannot produce.
+The calculation in [1] has two stages. First, charge-self-consistent DFT+DMFT uses **classical continuous-time quantum Monte Carlo** to obtain transition-metal 3d configuration probabilities. Second, a charge-transfer multiplet model in Quanty uses those probabilities to produce the core-level XPS spectra. The core-hole Hamiltonian belongs to that second stage. The paper's measured XPS and calculated spectra help interpret non-rigid-band redox behaviour, but do not show that the first stage was prohibitively costly or that solving it more accurately would change a material decision.
 
-The many-body kernel is a 5-orbital 3d impurity with the full Coulomb vertex, spin–orbit coupling, a core hole for the spectroscopy, and finite temperature. Continuous-time hybridisation-expansion QMC handles parts of this, but the sign problem grows exponentially with spin–orbit coupling, off-diagonal hybridisation and decreasing temperature; NRG stops at about 3 orbitals; matrix-product-state solvers reach 3 orbitals at zero temperature. This is the region Bauer et al. identified in 2015 for a roughly 100-logical-qubit impurity solver [2].
-
-The limit on value is that the output is an interpretation, not a design. A better spectrum assignment changes a hypothesis about degradation; the material decision still goes through synthesis and cycling.
+This distinction matters for a quantum proposal. A quantum DMFT impurity solver would replace only the first stage unless a separate algorithm and cost model were supplied for the core-hole multiplet calculation. A classically difficult extension with spin–orbit coupling or lower temperature may exist; it is not demonstrated by this particular cathode study.
 
 ## Computational problems
 
-- [Linear response and spectral functions](../problems/linear-response-spectral-functions.html): the impurity Green's function inside DFT+DMFT, and the core-hole response for XAS/RIXS.
-- [Excited states](../problems/excited-states.html): multiplet structure of d⁸L and d⁷ configurations with the core hole.
+- [Impurity Green's functions and spectral quantities](../problems/linear-response-spectral-functions.html) within DFT+DMFT, with a specified hybridisation function and accuracy.
+- [Excited-state and core-level response](../problems/excited-states.html) in the separate multiplet stage. Its bath, core-hole and broadening choices must be stated before comparing solvers.
 
 ## Best classical today
 
-DFT+U and CTM (Quanty, CTM4XAS) in industry; DFT+DMFT with CT-HYB in a few groups, temperature-limited when spin–orbit coupling matters. Two classical developments are eating into the sign-problem region: tensor-train CT-QMC evaluates the diagram sums deterministically without a sign problem [6], and neural-network impurity solvers trained on QMC data reach QMC accuracy orders of magnitude faster [5]. Neither yet covers a full 5-orbital plus core-hole problem at 300 K.
+For the named cathodes, the published workflow used classical CT-QMC plus Quanty [1]. This is the direct classical baseline. A quantum solver must be compared on the same impurity and output observable, including the full DMFT self-consistency loop and any remaining multiplet calculation. Advances in classical impurity solvers could further change that baseline.
 
 ## Best quantum today
 
-A DMFT loop on a real material (Ca2CuO2Cl2) with a 14-qubit impurity has been closed on IBM hardware [3]. The target impurity here needs 50–90 qubits (5 orbitals, spin–orbit, 4–8 bath sites per spin-orbital) plus the core-hole degrees of freedom, so 60–100 logical qubits. Evolving it for about 100 fs at 10 meV resolution costs 10^9–10^12 T gates per Green's function under the illustrative assumptions below. Both the bath discretisation and spectral resolution must be converged for the target model. For comparison, static ground states of 200–900 spin-orbital NiO/PdO cells were estimated at 10^10–10^12 T gates [4]. No fault-tolerant estimate that includes the core hole exists.
+A separate study closed a small DMFT loop on quantum hardware [3]. It does not establish an advantage for the cathode Hamiltonians in [1]. A simple count of impurity spin orbitals plus discretised bath orbitals can land in the 50–100 logical-qubit range, but the bath size required for converged XPS-related predictions, guiding-state preparation, quantum circuit cost and total workflow error have not been reported for these cathodes. We therefore give no T-gate range for this application.
 
 ## Verdict
 
-Surviving. The question is real and is asked by companies; the classical failure is specific (paramagnetic, spin–orbit-coupled, finite-temperature multiplet spectra); the kernel fits 100 logical qubits. Against it: the value is interpretive, the routine industrial tools are not even DMFT yet, classical solvers are advancing, and the gate count is 10^9–10^12 T, which is outside a five-year horizon. What would move it: a spectrum of delithiated LiNiO2 or NMC where DFT+DMFT with the best classical solver demonstrably cannot resolve the Ni-versus-O assignment, together with an end-to-end T-count for the 5-orbital impurity with core hole compared against tensor-train and neural-network solvers on the same hybridisation function.
-
-## Resource-count assumptions
-
-The gate range quoted here is a sensitivity calculation: assume 10²–10³ time steps, 10⁴–10⁵ compiled T gates per step and 10³–10⁴ repetitions of one measured circuit. Multiplying endpoints gives **10⁹–10¹² T gates**. These inputs are not calibrated for a named impurity or a target error. The range excludes state preparation, additional time points and Green's-function components, bath convergence and DMFT iterations, so it is not an end-to-end estimate or a hardware readiness claim. See the [impurity-solver page](../methods/dmft-impurity-solver.html) for the conditions that remain to be checked.
+Surviving as a possible research direction, with **no demonstrated classical bottleneck on the cited industrially relevant instance**. The next useful comparison would publish one cathode hybridisation function, observable and error target; measure CT-QMC and the strongest other classical solvers; and compile a quantum solver for that identical first-stage impurity. It must then show that improved impurity output changes the XPS assignment or another decision, rather than merely accelerating a component that [1] already solved.
