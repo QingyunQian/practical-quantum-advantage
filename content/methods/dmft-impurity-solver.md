@@ -24,7 +24,7 @@ references:
   - {arxiv: "2605.22920", title: "Estimating Green's functions with a robust quantum Arnoldi method", authors: "S. Nelson, A. D. Baczewski", year: 2026}
   - {arxiv: "2207.06135", title: "Learning Feynman Diagrams with Tensor Trains", authors: "Y. Núñez Fernández, M. Jeannin, P. T. Dumitrescu, T. Kloss, J. Kaye, O. Parcollet, X. Waintal", year: 2022, note: "tensor cross interpolation, sign-problem-free"}
   - {arxiv: "2603.15741", title: "Neural-network quantum embedding solvers for correlated materials", authors: "A. Valenti, I. Park, A. Georges, A. J. Millis, O. Parcollet", year: 2026}
-  - {arxiv: "1705.08027", title: "Crystal-field splittings in rare-earth-based hard magnets: an ab initio approach", authors: "P. Delange, S. Biermann, T. Miyake, L. Pourovskii", year: 2017, note: "Hubbard-I workaround for the 4f impurity"}
+  - {arxiv: "2206.15093", title: "Ce and Dy substitutions in Nd$_{2}$Fe$_{14}$B: site-specific magnetic anisotropy from first-principles", authors: "J. Boust et al.", year: 2022, note: "Direct Ce-substituted alloy calculation; mixed-valent Ce approximated while Nd 4f uses Hubbard-I"}
   - {arxiv: "1907.08570", title: "A Multiorbital Quantum Impurity Solver for General Interactions and Hybridizations", authors: "E. Eidelstein, E. Gull, G. Cohen", year: 2019, note: "classical Inchworm handles low-temperature examples where CT-HYB fails"}
   - {arxiv: "2601.04832", title: "Affordable Five-Orbital Dynamical Mean-Field Theory for Layered Iridates and Rhodates", authors: "L. Gaspard, C. Martins", year: 2026, note: "hybrid versus full five-orbital DMFT on two oxides"}
 ---
@@ -38,7 +38,7 @@ DMFT replaces the lattice self-energy by a local one, obtained from an Anderson 
 1. The embedding must be adequate. DMFT is exact only in infinite coordination; the quantum solver removes solver error, not the errors from the choice of U, double counting or the single-site approximation, which are typically larger.
 2. The bath discretisation must fit the register and converge the requested observable. The small bath counts used in the examples are assumptions, not a uniform convergence guarantee. Real-frequency resolution may require larger baths; the required count must be measured for each model.
 3. The impurity ground state (or thermal state) must be preparable with non-negligible overlap; for f shells with strong multiplet structure this is not automatic.
-4. The target regime must be one where the best classical solvers actually fail at the requested accuracy. Multi-orbital spin–orbit models, dynamical f-shell treatments and low-temperature clusters are candidates for such a benchmark. The cited cathode example is not one: its DMFT step was solved with classical CT-QMC.
+4. The target regime must be one where the best classical solvers actually fail at the requested accuracy. Multi-orbital spin–orbit models, dynamical f-shell treatments and low-temperature clusters are candidates. The cited cathode example was solved with CT-QMC. The Ce-substituted magnet calculation [6] approximated the mixed-valent Ce contribution while fitting magnetic measurements; that approximation is a research gap, not evidence that CT-QMC failed on this alloy.
 
 ## Known limits
 
