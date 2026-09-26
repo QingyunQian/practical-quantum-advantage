@@ -36,7 +36,15 @@ Our [reanalysis script](https://github.com/yuchenguommm/practical-quantum-advant
 | Q1 classical iQCC timing [1] | 107.10 h for one CAS(70,70) singlet solver run | Full S0/T1 workflow time or quantum crossover |
 | Q1 CAS(100,100) [1] | 199.37 h for one singlet solver run | A hard correlated state; the authors' diagnostics favour a single-reference picture |
 
-Supplementary Table SI.3-1 separately lists Q1 iQCC gaps of 1.999, 1.988 and 1.932 eV at CAS(50,50), CAS(70,70) and CAS(100,100) [1]. These are non-monotone in distance from the measured 1.974 eV. Table SI.1-2, however, reports 1.982 eV for the benchmark's uncorrected Q1 iQCC result. The apparent difference between the two CAS(70,70) values needs clarification before treating the orbital sweep as a controlled cost–error curve. We have not merged those series in our figure.
+Supplementary Table SI.3-1 lists an active-space sweep for Q1's uncorrected iQCC gap, while Table SI.2-2 gives the **singlet-state solver** times on the same named molecule [1]. The [reanalysis data](https://github.com/yuchenguommm/practical-quantum-advantage/blob/main/numerics/results/oled_genin2026_reanalysis.json) combine those reported quantities without calling the result a full cost–error curve:
+
+| Q1 active space | System qubits | SI.3-1 gap (eV) | Absolute gap error (eV) | Singlet solver (h) |
+|---|---:|---:|---:|---:|
+| CAS(50,50) | 100 | 1.999 | 0.025 | 87.02 |
+| CAS(70,70) | 140 | 1.988 | 0.014 | 107.10 |
+| CAS(100,100) | 200 | 1.932 | 0.042 | 199.37 |
+
+The 100-system-qubit row is a concrete starting point for a near-term experiment. Those 100 qubits exclude ancillas and error correction; the 87.02 hours exclude the triplet solver, Hamiltonian generation and other workflow costs. The errors are non-monotone with active-space size. Table SI.1-2 also reports 1.982 eV for the benchmark's uncorrected Q1 iQCC result, rather than SI.3-1's 1.988 eV at CAS(70,70). That discrepancy needs clarification before joining the sweep to the 14-emitter benchmark. We have kept the two series separate in the figure.
 
 ## What would settle it
 

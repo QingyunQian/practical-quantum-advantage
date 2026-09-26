@@ -41,6 +41,14 @@ def main():
         assert abs(mae[method] - REPORTED_MAE[method]) < .001, (method, mae[method])
     q1 = rows[0]
     q1_error = {method: abs(float(q1[method]) - float(q1["experiment"])) for method in METHODS}
+    # The SI.3-1 orbital sweep is distinct from the SI.1-2 cohort series.
+    q1_sweep = [
+        {"cas_electrons": n, "cas_orbitals": n, "system_qubits": 2 * n,
+         "uncorrected_iqcc_gap_ev": Q1_IQCC_GAP[n],
+         "absolute_error_vs_experiment_ev": round(abs(Q1_IQCC_GAP[n] - float(q1["experiment"])), 3),
+         "singlet_solver_hours": Q1_SINGLET_HOURS[n]}
+        for n in (50, 70, 100)
+    ]
     result = {
         "source": SOURCE, "source_version": "arXiv:2512.13657v2", "n_emitters": len(rows),
         "units": "eV", "mae_from_rounded_supplement": mae,
@@ -48,6 +56,7 @@ def main():
         "q1_experiment": float(q1["experiment"]), "q1_absolute_error": q1_error,
         "q1_singlet_solver_hours_by_orbitals": Q1_SINGLET_HOURS,
         "q1_uncorrected_iqcc_gap_by_orbitals": Q1_IQCC_GAP,
+        "q1_active_space_sweep": q1_sweep,
         "limitations": [
             "The per-molecule gaps are rounded to 0.001 eV in the source tables.",
             "The Q1 runtime is for one singlet-state classical solver run, not the full emission-gap workflow.",

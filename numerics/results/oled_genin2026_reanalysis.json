@@ -35,6 +35,32 @@
     "70": 1.988,
     "100": 1.932
   },
+  "q1_active_space_sweep": [
+    {
+      "cas_electrons": 50,
+      "cas_orbitals": 50,
+      "system_qubits": 100,
+      "uncorrected_iqcc_gap_ev": 1.999,
+      "absolute_error_vs_experiment_ev": 0.025,
+      "singlet_solver_hours": 87.02
+    },
+    {
+      "cas_electrons": 70,
+      "cas_orbitals": 70,
+      "system_qubits": 140,
+      "uncorrected_iqcc_gap_ev": 1.988,
+      "absolute_error_vs_experiment_ev": 0.014,
+      "singlet_solver_hours": 107.1
+    },
+    {
+      "cas_electrons": 100,
+      "cas_orbitals": 100,
+      "system_qubits": 200,
+      "uncorrected_iqcc_gap_ev": 1.932,
+      "absolute_error_vs_experiment_ev": 0.042,
+      "singlet_solver_hours": 199.37
+    }
+  ],
   "limitations": [
     "The per-molecule gaps are rounded to 0.001 eV in the source tables.",
     "The Q1 runtime is for one singlet-state classical solver run, not the full emission-gap workflow.",
