@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ SECTION_TITLE[t][0] }} · Practical Quantum Advantage{% endblock %}
+{% block content %}
+<h1>{{ SECTION_TITLE[t][0] }} <span class="zh">{{ SECTION_TITLE[t][1] }}</span></h1>
+{% if t == 'claim' %}
+<table class="claims">
+<thead><tr><th>Claim</th><th>Date</th><th>Refuted by</th><th>Time to refute</th></tr></thead>
+<tbody>
+{% for e in items|sort(attribute='meta.claim.date', reverse=true) %}
+{% set c = e.meta.claim %}
+<tr class="{{ 'refuted' if c.refuted else 'standing' }}">
+<td><a href="{{ depth }}{{ e.href }}">{{ e.meta.title }}</a></td>
+<td>{{ c.date }}</td>
+<td>{% if c.refuted %}{{ c.refuted_by }}{% else %}<em>standing</em>{% endif %}</td>
+<td>{{ c.time_to_refute or '' }}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+{% else %}
+<div class="filters" data-filter-target=".cards .card">
+{% if t in ['application','problem','method'] %}
+{% for v in ['no-go','uneconomic','surviving','promising','unassessed'] %}<label><input type="checkbox" value="{{ v }}" checked> {{ VERDICT_LABEL[v][0] }}</label>{% endfor %}
+{% endif %}
+</div>
+<div class="cards">
+{% for e in items %}
+<a class="card" href="{{ depth }}{{ e.href }}" data-verdict="{{ e.meta.verdict or '' }}">
+  <h3>{{ e.meta.title }}{% if e.meta.title_zh %} <span class="zh">{{ e.meta.title_zh }}</span>{% endif %}</h3>
+  {{ m.verdict_badge(e.meta.verdict) }}
+  {% if e.type == 'question' %}<span class="badge">{{ e.meta.question.difficulty }}</span>{% endif %}
+  <p>{{ e.meta.summary }}</p>
+</a>
+{% endfor %}
+</div>
+{% endif %}
+{% endblock %}

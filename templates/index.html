@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block content %}
+<section class="hero">
+<h1>Practical Quantum Advantage</h1>
+<p class="lede">A living catalogue of quantum-computing application candidates. Every entry is judged on three dimensions: <strong>classically hard</strong>, <strong>quantumly easy</strong>, and <strong>someone pays</strong>. Verdicts are meant to be argued with: each page is a Markdown file, and pull requests from humans and agents are welcome.</p>
+<p class="lede zh">量子计算应用候选的活目录。每个条目都从三个维度评判：经典难、量子易、有人付费。每一页都是一个 Markdown 文件，欢迎人和 agent 提交 pull request 来推翻结论。</p>
+<p class="stats">
+{% for t in TYPES %}<a href="{{ t }}s/index.html"><b>{{ counts[t] }}</b> {{ SECTION_TITLE[t][0].lower() }}</a>{% endfor %}
+</p>
+<p class="stats">
+{% for v in ['promising','surviving','uneconomic','no-go','unassessed'] %}<span class="badge v-{{ v }}">{{ verdict_counts[v] }} {{ VERDICT_LABEL[v][0] }}</span> {% endfor %}
+</p>
+</section>
+
+<section>
+<h2>Latest advantage claims</h2>
+<table class="claims">
+<thead><tr><th>Claim</th><th>Date</th><th>Refuted by</th><th>Time to refute</th></tr></thead>
+<tbody>
+{% for e in claims %}{% set c = e.meta.claim %}
+<tr class="{{ 'refuted' if c.refuted else 'standing' }}"><td><a href="{{ e.href }}">{{ e.meta.title }}</a></td><td>{{ c.date }}</td><td>{% if c.refuted %}{{ c.refuted_by }}{% else %}<em>standing</em>{% endif %}</td><td>{{ c.time_to_refute or '' }}</td></tr>
+{% endfor %}
+</tbody>
+</table>
+<p><a href="claims/index.html">All claims →</a></p>
+</section>
+
+<section class="readme">
+{{ readme|safe }}
+</section>
+{% endblock %}

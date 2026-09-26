@@ -1,0 +1,135 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/yuchenguommm/practical-quantum-advantage/schema/entry.schema.json",
+  "title": "Practical Quantum Advantage entry",
+  "type": "object",
+  "required": ["type", "id", "title", "summary", "last_verified"],
+  "additionalProperties": false,
+  "properties": {
+    "type": {"enum": ["application", "problem", "method", "claim", "question"]},
+    "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
+    "title": {"type": "string", "minLength": 3},
+    "title_zh": {"type": "string"},
+    "summary": {"type": "string", "minLength": 20, "maxLength": 600},
+    "summary_zh": {"type": "string"},
+    "status": {"enum": ["seed", "reviewed", "disputed"], "default": "seed"},
+    "last_verified": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$"},
+    "tags": {"type": "array", "items": {"type": "string"}},
+
+    "verdict": {
+      "description": "Overall verdict. Required for application / problem / method.",
+      "enum": ["no-go", "uneconomic", "surviving", "promising", "unassessed"]
+    },
+    "dimensions": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "classical_hardness": {
+          "type": "object",
+          "required": ["level"],
+          "properties": {
+            "level": {"enum": ["reduction", "crypto", "lower-bound", "empirical", "none", "unknown"]},
+            "note": {"type": "string"}
+          }
+        },
+        "quantum_easiness": {
+          "type": "object",
+          "required": ["level"],
+          "properties": {
+            "level": {"enum": ["proven", "conditional", "heuristic", "unknown", "no"]},
+            "note": {"type": "string"}
+          }
+        },
+        "willingness_to_pay": {
+          "type": "object",
+          "required": ["level"],
+          "properties": {
+            "level": {"enum": ["first-hand", "second-hand", "none", "unknown"]},
+            "note": {"type": "string"}
+          }
+        }
+      }
+    },
+    "resources": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "logical_qubits": {"type": "string"},
+        "gates": {"type": "string", "description": "T or Toffoli count, or circuit depth"},
+        "note": {"type": "string"}
+      }
+    },
+    "related": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "applications": {"type": "array", "items": {"type": "string"}},
+        "problems": {"type": "array", "items": {"type": "string"}},
+        "methods": {"type": "array", "items": {"type": "string"}},
+        "claims": {"type": "array", "items": {"type": "string"}},
+        "questions": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+
+    "claim": {
+      "description": "claim entries only",
+      "type": "object",
+      "required": ["claimant", "date", "statement"],
+      "properties": {
+        "claimant": {"type": "string"},
+        "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"},
+        "statement": {"type": "string"},
+        "hardware": {"type": "string"},
+        "qubits": {"type": "integer"},
+        "refuted": {"type": "boolean"},
+        "refutation_date": {"type": "string", "pattern": "^\\d{4}-\\d{2}(-\\d{2})?$"},
+        "refuted_by": {"type": "string"},
+        "time_to_refute": {"type": "string"}
+      }
+    },
+
+    "question": {
+      "description": "question entries only",
+      "type": "object",
+      "required": ["what_would_settle_it", "difficulty"],
+      "properties": {
+        "what_would_settle_it": {"type": "string"},
+        "difficulty": {"enum": ["weekend", "month", "phd", "open-problem"]},
+        "claimed_by": {"type": "string"},
+        "resolved": {"type": "boolean"}
+      }
+    },
+
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["title"],
+        "additionalProperties": false,
+        "properties": {
+          "arxiv": {"type": "string", "pattern": "^\\d{4}\\.\\d{4,5}(v\\d+)?$"},
+          "doi": {"type": "string"},
+          "url": {"type": "string"},
+          "title": {"type": "string"},
+          "authors": {"type": "string"},
+          "year": {"type": "integer"},
+          "note": {"type": "string"}
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"type": {"enum": ["application", "problem", "method"]}}},
+      "then": {"required": ["verdict", "dimensions"]}
+    },
+    {
+      "if": {"properties": {"type": {"const": "claim"}}},
+      "then": {"required": ["claim"]}
+    },
+    {
+      "if": {"properties": {"type": {"const": "question"}}},
+      "then": {"required": ["question"]}
+    }
+  ]
+}

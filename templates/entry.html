@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% import "_macros.html" as m with context %}
+{% block title %}{{ e.meta.title }} · Practical Quantum Advantage{% endblock %}
+{% block content %}
+<article class="entry type-{{ e.type }}">
+<p class="crumb"><a href="{{ depth }}{{ e.type }}s/index.html">{{ SECTION_TITLE[e.type][0] }}</a></p>
+<h1>{{ e.meta.title }}{% if e.meta.title_zh %} <span class="zh">{{ e.meta.title_zh }}</span>{% endif %}</h1>
+<p class="meta">
+  {{ m.verdict_badge(e.meta.verdict) }}
+  <span class="status s-{{ e.meta.status or 'seed' }}">{{ e.meta.status or 'seed' }}</span>
+  <span>last verified {{ e.meta.last_verified }}</span>
+  <a class="edit" href="{{ BASE_URL }}/edit/main/content/{{ e.type }}s/{{ e.id }}.md">edit this page</a>
+</p>
+<p class="summary">{{ e.meta.summary }}</p>
+{% if e.meta.summary_zh %}<p class="summary zh">{{ e.meta.summary_zh }}</p>{% endif %}
+
+{% if e.meta.dimensions %}
+<table class="dims">
+<caption>Three dimensions</caption>
+{{ m.level('Classically hard', e.meta.dimensions.classical_hardness) }}
+{{ m.level('Quantumly easy', e.meta.dimensions.quantum_easiness) }}
+{{ m.level('Someone pays', e.meta.dimensions.willingness_to_pay) }}
+{% if e.meta.resources %}
+<tr><th>Resources</th><td>{% if e.meta.resources.logical_qubits %}{{ e.meta.resources.logical_qubits }} logical qubits{% endif %}{% if e.meta.resources.gates %}; {{ e.meta.resources.gates }}{% endif %}{% if e.meta.resources.note %} <span class="note">{{ e.meta.resources.note }}</span>{% endif %}</td></tr>
+{% endif %}
+</table>
+{% endif %}
+
+{% if e.type == 'claim' %}
+{% set c = e.meta.claim %}
+<table class="dims">
+<tr><th>Claimant</th><td>{{ c.claimant }}{% if c.hardware %} · {{ c.hardware }}{% endif %}{% if c.qubits %} · {{ c.qubits }} qubits{% endif %}</td></tr>
+<tr><th>Claimed</th><td>{{ c.date }}: {{ c.statement }}</td></tr>
+<tr><th>Refuted</th><td>{% if c.refuted %}{{ c.refutation_date }} by {{ c.refuted_by }}{% if c.time_to_refute %} ({{ c.time_to_refute }}){% endif %}{% else %}<strong>not yet</strong>{% endif %}</td></tr>
+</table>
+{% endif %}
+
+{% if e.type == 'question' %}
+{% set q = e.meta.question %}
+<table class="dims">
+<tr><th>Difficulty</th><td>{{ q.difficulty }}</td></tr>
+<tr><th>Would settle it</th><td>{{ q.what_would_settle_it }}</td></tr>
+<tr><th>Status</th><td>{% if q.resolved %}resolved{% elif q.claimed_by %}claimed by {{ q.claimed_by }}{% else %}open, unclaimed{% endif %}</td></tr>
+</table>
+{% endif %}
+
+<div class="body">{{ body|safe }}</div>
+{{ m.refs(e) }}
+<section class="related">
+<h2>Related</h2>
+{{ m.related_list(e, depth) }}
+</section>
+</article>
+{% endblock %}

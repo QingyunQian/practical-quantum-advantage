@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}Practical Quantum Advantage{% endblock %}</title>
+<link rel="stylesheet" href="{{ depth }}static/style.css">
+<script defer src="{{ depth }}static/app.js"></script>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="{{ depth }}index.html">Practical Quantum Advantage</a>
+  <nav>
+    <a href="{{ depth }}applications/index.html">Applications</a>
+    <a href="{{ depth }}problems/index.html">Problems</a>
+    <a href="{{ depth }}methods/index.html">Methods</a>
+    <a href="{{ depth }}claims/index.html">Claims</a>
+    <a href="{{ depth }}questions/index.html">Open questions</a>
+    <a href="{{ depth }}matrix.html">Matrix</a>
+    <a href="{{ BASE_URL }}" rel="noopener">GitHub</a>
+  </nav>
+  <input id="search" type="search" aria-label="Search the catalogue" placeholder="Search…" data-root="{{ depth }}" autocomplete="off">
+  <div id="search-results" hidden></div>
+</header>
+<main>
+{% block content %}{% endblock %}
+</main>
+<footer>
+  Content CC-BY-4.0 · Code MIT · <a href="{{ BASE_URL }}/blob/main/AGENTS.md">Contribute (humans and agents)</a> · Every page is a Markdown file; edit it and open a pull request.
+</footer>
+</body>
+</html>

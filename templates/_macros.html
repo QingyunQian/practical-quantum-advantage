@@ -1,0 +1,29 @@
+{% macro verdict_badge(v) -%}
+{% if v %}<span class="badge v-{{ v }}" title="{{ VERDICT_LABEL[v][1] }}">{{ VERDICT_LABEL[v][0] }}</span>{% endif %}
+{%- endmacro %}
+
+{% macro level(name, d) -%}
+{% if d %}<tr><th>{{ name }}</th><td><code class="lvl lvl-{{ d.level }}">{{ d.level }}</code>{% if d.note %} <span class="note">{{ d.note }}</span>{% endif %}</td></tr>{% endif %}
+{%- endmacro %}
+
+{% macro related_list(e, depth) -%}
+{% set rel = e.meta.related or {} %}
+{% for kind in ['applications','problems','methods','claims','questions'] %}
+  {% set items = resolve(kind, rel[kind]) %}
+  {% if items %}
+  <p class="rel"><span class="rel-kind">{{ kind }}</span>
+  {% for r in items %}<a href="{{ depth }}{{ r.href }}">{{ r.meta.title }}</a>{% if not loop.last %} · {% endif %}{% endfor %}</p>
+  {% endif %}
+{% endfor %}
+{%- endmacro %}
+
+{% macro refs(e) -%}
+{% if e.meta.references %}
+<h2 id="references">References</h2>
+<ol class="refs">
+{% for r in e.meta.references %}
+<li>{% if r.authors %}{{ r.authors }}, {% endif %}{% if r.arxiv %}<a href="https://arxiv.org/abs/{{ r.arxiv }}">{{ r.title }}</a>{% elif r.doi %}<a href="https://doi.org/{{ r.doi }}">{{ r.title }}</a>{% elif r.url %}<a href="{{ r.url }}">{{ r.title }}</a>{% else %}{{ r.title }}{% endif %}{% if r.year %} ({{ r.year }}){% endif %}{% if r.note %} <span class="note">— {{ r.note }}</span>{% endif %}</li>
+{% endfor %}
+</ol>
+{% endif %}
+{%- endmacro %}
