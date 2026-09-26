@@ -11,7 +11,7 @@ verdict: uneconomic
 dimensions:
   classical_hardness: {level: empirical, note: "path-dependent Monte Carlo work is substantial but parallel; the cited one-second classical comparator is an assumption, without a matched published runtime-and-error benchmark for the exact quantum contract"}
   quantum_easiness: {level: proven, note: "amplitude estimation gives 1/ε given a payoff oracle; the oracle (path generation plus payoff arithmetic) is the whole cost"}
-  willingness_to_pay: {level: second-hand, note: "Goldman Sachs co-authored the studies, but the one-second classical time is a model assumption and no desk-defined acceptance, throughput or procurement threshold is documented"}
+  willingness_to_pay: {level: first-hand, note: "Goldman Sachs researchers co-authored the benchmark studies, documenting direct industry interest. Their one-second comparator is a modelling assumption, not a desk-defined acceptance, throughput or procurement threshold."}
 resources: {logical_qubits: "8,000 in the 2021 autocallable estimate; 4,700 in a later QSP estimate with different error settings", gates: "2021 autocallable: 5.4e7 T-depth; later QSP: 4.5e7 T-depth and 2.4e9 T-count", note: "at an assumed one-second comparator these depths require about 54 MHz and 45 MHz respectively; the 2021 text separately quotes 10 MHz, inconsistent with its table"}
 related:
   problems: [monte-carlo-expectation, pde-solving]
