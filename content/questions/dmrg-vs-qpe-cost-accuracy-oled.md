@@ -19,6 +19,7 @@ related:
 references:
   - {arxiv: "2512.13657", title: "Towards Quantum Advantage in Chemistry", authors: "S. N. Genin, O. Kwon et al.", year: 2026, note: "v2, Table 2 and Supplementary Tables SI.1-2, SI.2-2, SI.3-1"}
   - {arxiv: "2208.02199", title: "Is there evidence for exponential quantum advantage in quantum chemistry?", authors: "S. Lee et al.", year: 2023}
+  - {arxiv: "2111.04169", title: "Estimating Phosphorescent Emission Energies in Ir(III) Complexes using Large-Scale Quantum Computing Simulations", authors: "S. N. Genin et al.", year: 2022, note: "nine Ir emitters at CAS(36,36), or 72 active-space qubits; classical iQCC+PT and DFT comparison"}
 ---
 
 ## Why it matters
@@ -45,6 +46,8 @@ Supplementary Table SI.3-1 lists an active-space sweep for Q1's uncorrected iQCC
 | CAS(100,100) | 200 | 1.932 | 0.042 | 199.37 |
 
 The 100-system-qubit row is a concrete starting point for a near-term experiment. Those 100 qubits exclude ancillas and error correction; the 87.02 hours exclude the triplet solver, Hamiltonian generation and other workflow costs. The errors are non-monotone with active-space size. Table SI.1-2 also reports 1.982 eV for the benchmark's uncorrected Q1 iQCC result, rather than SI.3-1's 1.988 eV at CAS(70,70). That discrepancy needs clarification before joining the sweep to the 14-emitter benchmark. We have kept the two series separate in the figure.
+
+A smaller alternative is the earlier nine-complex Ir benchmark at CAS(36,36), which maps to 72 active-space qubits [3]. Its iQCC+PT and fine-tuned DFT mean absolute deviations were 0.201 and 0.192 eV, respectively [3, Table 1]. A 72-qubit demonstration would still need to beat a measured classical baseline on the same molecular Hamiltonian; reproducing the already classically simulated circuit would only verify implementation. The older cohort has different molecules and methods, so its accuracy figures cannot be combined with Q1's active-space sweep.
 
 ## What would settle it
 
