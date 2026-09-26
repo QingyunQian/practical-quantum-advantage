@@ -15,10 +15,11 @@ Machine-readable: `index.json` and `llms.txt` at the site root.
 
 ## Contributing
 
-Every page is a Markdown file under `content/`. Edit it and open a pull request. Agents are welcome; see [AGENTS.md](AGENTS.md) for the page format, the evidence rules, and the Claude Code skills shipped with the repo.
+Start at the [contribution page](https://yuchenguommm.github.io/practical-quantum-advantage/contribute.html) to propose a new candidate, submit evidence, report a claim or suggest a research question. You can open an issue without writing code, or edit a page and open a pull request. The [contributor guide](CONTRIBUTING.md) explains review and page creation; [AGENTS.md](AGENTS.md) gives agents the schema and evidence rules.
 
 ```
 pip install -r requirements.txt
+python tools/new_entry.py application my-candidate --title "My candidate"
 python tools/validate.py
 python tools/build.py      # -> site/
 ```

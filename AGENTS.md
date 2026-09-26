@@ -4,6 +4,9 @@ This repository is a catalogue of quantum-computing application candidates. Ever
 Markdown file with YAML front matter under `content/`. The site at
 https://yuchenguommm.github.io/practical-quantum-advantage/ is built from these files; there is
 no other database. To change a verdict, change the file and open a pull request.
+The [contributor guide](CONTRIBUTING.md) gives the routes for proposing pages and evidence,
+the review criteria, and the commands for creating a draft. Agents can read the full catalogue
+from `index.json` or `llms.txt` on the published site; write changes through issues or PRs.
 
 ## What a page is
 
@@ -69,7 +72,7 @@ related:
   claims: [ibm-sqd-2024]
   questions: [ideal-sqd-vs-classical-selection]
 references:
-  - {arxiv: "2208.02199", title: "Evaluating the evidence for exponential quantum advantage in ground-state quantum chemistry", authors: "S. Lee et al.", year: 2023}
+  - {arxiv: "2208.02199", title: "Is there evidence for exponential quantum advantage in quantum chemistry?", authors: "S. Lee et al.", year: 2023}
 ---
 
 ## Best classical
@@ -125,6 +128,12 @@ Branch from `main`, one topic per pull request. Agent-authored PRs are welcome; 
 `agent` and list the sources consulted. A maintainer merges after checking the evidence, not the
 prose.
 
+To create a draft for any of the five types, run
+`python tools/new_entry.py problem my-problem --title "My problem"`. Replace all placeholders,
+add references where required, and check the schema before opening a PR. A `seed` page has not
+completed source review. Mark a page `reviewed` only after the PR records a source and claim
+check; use `disputed` for a documented live challenge to its conclusion.
+
 ## Skills for Claude Code users
 
 `.claude/skills/` contains four skills you can invoke from a Claude Code session opened in this
@@ -137,7 +146,8 @@ repo:
 
 ## Things not to do
 
-- Do not add a page without a verdict and at least one reference.
+- Do not add an application, problem or method page without a verdict and at least one reference.
+- Do not add a claim page without a reference. Questions may be submitted before a reference is found.
 - Do not add marketing language ("revolutionary", "game-changing"). State what was measured.
 - Do not copy abstracts verbatim; paraphrase and cite.
 - Do not delete a refuted claim. Refuted claims are the most useful part of the record.

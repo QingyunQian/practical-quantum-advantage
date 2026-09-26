@@ -34,6 +34,8 @@ def main() -> int:
         for sec in REQUIRED_SECTIONS.get(e.type, []):
             if not re.search(r"^" + re.escape(sec) + r"\s*$", e.body, re.M):
                 e.errors.append(f"missing section '{sec}'")
+        if str(e.meta.get("summary", "")).startswith("Replace with a concise, sourced description") or "Describe the evidence and cite primary sources." in e.body:
+            e.errors.append("page still contains generator placeholder text")
         if not e.meta.get("references") and e.type != "question":
             e.errors.append("no references")
     # cross-links

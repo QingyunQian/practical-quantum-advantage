@@ -60,5 +60,11 @@ table.claims { display: block; overflow-x: auto; }
 pre, code { font-family: ui-monospace, Consolas, monospace; font-size: 13px; }
 pre { background: var(--card); padding: 10px; overflow: auto; border-radius: 6px; }
 .readme { border-top: 1px solid var(--line); margin-top: 32px; padding-top: 12px; }
+.action-link { display: inline-block; padding: 8px 14px; border-radius: 6px; background: var(--link); color: var(--bg); font-weight: 600; }
+.action-link:hover { color: var(--bg); }
+.contribute-callout, .contribute-options article { border: 1px solid var(--line); border-radius: 10px; background: var(--card); padding: 14px 18px; margin-top: 22px; }
+.contribute-callout h2, .contribute-options h2 { margin-top: 0; }
+.contribute-options { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
+.contribute-options article { margin-top: 0; }
 @media (max-width: 600px) { header nav { font-size: 13px; } #search { min-width: 0; width: 100%; margin-left: 0; } }
 @media (max-width: 600px) { table.dims th { width: 100px; } }

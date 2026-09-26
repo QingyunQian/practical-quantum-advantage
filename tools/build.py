@@ -117,10 +117,14 @@ def main() -> None:
             verdict_counts[e.meta.get("verdict", "unassessed")] += 1
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     readme = readme.replace("](AGENTS.md)", f"]({BASE_URL}/blob/main/AGENTS.md)")
+    readme = readme.replace("](CONTRIBUTING.md)", f"]({BASE_URL}/blob/main/CONTRIBUTING.md)")
     html = env.get_template("index.html").render(
         counts=counts, verdict_counts=verdict_counts, claims=claims[:8], depth="", readme=render_md(readme)
     )
     (SITE / "index.html").write_text(html, encoding="utf-8")
+
+    html = env.get_template("contribute.html").render(depth="", counts=counts)
+    (SITE / "contribute.html").write_text(html, encoding="utf-8")
 
     # machine-readable exports
     export = []

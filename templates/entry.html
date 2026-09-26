@@ -50,5 +50,13 @@
 <h2>Related</h2>
 {{ m.related_list(e, depth) }}
 </section>
+<section class="contribute-callout">
+<h2>Improve this entry</h2>
+<p>Bring a new source, challenge the verdict, or report research progress. Changes are reviewed before publication.</p>
+<p><a href="{{ BASE_URL }}/edit/main/content/{{ e.type }}s/{{ e.id }}.md">Edit this page</a> ·
+{% if e.type == 'question' %}<a href="{{ BASE_URL }}/issues/new?template=research-progress.md&amp;title={{ ('Research: ' ~ e.id)|urlencode }}">Take on this question or report progress</a>{% else %}<a href="{{ BASE_URL }}/issues/new?template=evidence-update.md&amp;title={{ ('Evidence for ' ~ e.id)|urlencode }}">Submit evidence</a>{% endif %} ·
+<a href="{{ BASE_URL }}/commits/main/content/{{ e.type }}s/{{ e.id }}.md">View edit history</a> ·
+<a href="{{ depth }}contribute.html">How to contribute</a></p>
+</section>
 </article>
 {% endblock %}

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Contribute · Practical Quantum Advantage{% endblock %}
+{% block content %}
+<h1>Contribute to the catalogue</h1>
+<p class="lede">Every entry has a source file, public edit history and a review path. You can propose a change without writing code; a maintainer checks the evidence before it appears here.</p>
+<p class="zh">每个条目都有源文件和公开修改记录。你可以通过 GitHub Issue 提交新候选、证据或研究进展，也可以直接修改页面并提交 Pull Request；证据经过审核后才会发布。</p>
+
+<div class="contribute-options">
+  <article>
+    <h2>Propose a new page</h2>
+    <p>Suggest an application, computational problem, method, advantage claim or open research question. Search the catalogue first to avoid duplicates.</p>
+    <p><a href="{{ BASE_URL }}/issues/new?template=new-candidate.md">Candidate or method →</a><br>
+    <a href="{{ BASE_URL }}/issues/new?template=claim-refuted.md">Advantage claim →</a><br>
+    <a href="{{ BASE_URL }}/issues/new?template=research-question.md">Research question →</a></p>
+  </article>
+  <article>
+    <h2>Improve an existing page</h2>
+    <p>Open an entry and use <strong>Edit this page</strong> for a direct change. If you only have a source or a correction, send an issue with the page URL and the specific claim it affects.</p>
+    <p><a href="{{ BASE_URL }}/issues/new?template=evidence-update.md">Submit evidence or correction →</a><br>
+    <a href="{{ BASE_URL }}/issues/new?template=payment-evidence.md">Submit buyer evidence →</a></p>
+  </article>
+  <article>
+    <h2>Research an open question</h2>
+    <p>Each question says what result would settle it. Choose one, discuss your plan in an issue, then link a reproducible benchmark, preprint or analysis. An agent can work on the same task.</p>
+    <p><a href="questions/index.html">Browse {{ counts.question }} open questions →</a><br>
+    <a href="{{ BASE_URL }}/issues/new?template=research-progress.md">Take one on or report progress →</a></p>
+  </article>
+</div>
+
+<h2>Create a page yourself</h2>
+<p>Fork the repository and run the generator below from its root. It creates a draft for any of the five page types. Replace the placeholders, cite public sources and open a pull request. The ID is the permanent URL slug.</p>
+<pre><code>python -m pip install -r requirements.txt
+python tools/new_entry.py problem my-problem --title "My problem"
+python tools/validate.py
+python tools/verify_refs.py --strict
+python tools/build.py
+python tools/check_site.py</code></pre>
+<p>Read the <a href="{{ BASE_URL }}/blob/main/CONTRIBUTING.md">step-by-step contributor guide</a> and <a href="{{ BASE_URL }}/blob/main/AGENTS.md">page schema and evidence rules</a>. The issue routes require a GitHub account; the site does not currently have a no-account submission form.</p>
+
+<h2>Use an agent</h2>
+<p>Give your agent a specific question or page ID, ask it to read <a href="{{ BASE_URL }}/blob/main/AGENTS.md">AGENTS.md</a>, and have it cite the sources behind every change. It can read the whole catalogue from <a href="index.json">index.json</a> or <a href="llms.txt">llms.txt</a>. Agent-authored changes use the same pull request and human review process. There is no remote write API or automatic research bot yet.</p>
+{% endblock %}
