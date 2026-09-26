@@ -27,3 +27,5 @@ python numerics/dmft_discrete_kanamori_ed.py --impurity-level -1 --output numeri
 ```
 
 NumPy is required. `dmft_digitize_fig2.py` downloads the public arXiv v2 source and reads the dashed ED path endpoints from the original vector figure using requests and PyMuPDF. The extracted numbers are **approximate figure readouts**, not raw author data. With matplotlib, `plot_dmft_discrete_ed.py` regenerates the [comparison figure](figs/dmft_discrete_ed_audit.png). A level of `−1` gives a much closer match to the published endpoints, but it is an inference. Other undocumented conventions may contribute. The code therefore makes no claim to have reproduced the authors' exact input Hamiltonian.
+
+The JSON also records the low-energy gap. In the level-`−1` variant without the illustrative pair-hopping addition, a doublet lies only `0.0254t` above the ground doublet. Its relative Boltzmann weight at `βt=64` is about `0.20`; a zero-temperature calculation should not be compared directly with the paper's finite-temperature result.

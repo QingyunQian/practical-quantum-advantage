@@ -213,9 +213,17 @@ def main():
               "scope": "independent finite-temperature exact diagonalization; source Hamiltonian ambiguity is not resolved. Level -1 is a sensitivity check inferred from plotted endpoints, not a documented paper parameter. The added pair-hopping variant is illustrative, not a claim about the authors' implementation.",
               "numpy_version": np.__version__,
               "noninteracting_self_check_max_abs_error": noninteracting_self_check(),
-              "variants": {}}
+              "variants": {}, "low_energy_spectrum": {}}
     for name, include_pair_hopping in (("printed_eq5", False), ("printed_eq5_plus_pair_hopping", True)):
         blocks = diagonalize_all(include_pair_hopping)
+        ordered_energies = sorted(float(energy) for _, values, _ in blocks.values()
+                                  for energy in values)
+        multiplicity = sum(abs(energy - ordered_energies[0]) < 1e-10
+                           for energy in ordered_energies)
+        output["low_energy_spectrum"][name] = {
+            "ground_state_degeneracy": multiplicity,
+            "gap_above_ground_manifold": ordered_energies[multiplicity] - ordered_energies[0],
+        }
         output["variants"][name] = [green_function(blocks, beta) for beta in (8, 16, 32, 64)]
     content = json.dumps(output, indent=2) + "\n"
     if args.output:

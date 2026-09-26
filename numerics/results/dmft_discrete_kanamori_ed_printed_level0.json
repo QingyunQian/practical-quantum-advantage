@@ -419,5 +419,15 @@
         "ground_energy": -10.666476582241618
       }
     ]
+  },
+  "low_energy_spectrum": {
+    "printed_eq5": {
+      "ground_state_degeneracy": 1,
+      "gap_above_ground_manifold": 0.22743832539461906
+    },
+    "printed_eq5_plus_pair_hopping": {
+      "ground_state_degeneracy": 1,
+      "gap_above_ground_manifold": 0.23036850849591595
+    }
   }
 }
