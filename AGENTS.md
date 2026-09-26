@@ -66,7 +66,7 @@ verdict: surviving
 dimensions:
   classical_hardness: {level: empirical, note: "DMRG and SHCI reach chemical accuracy up to ~100 orbitals"}
   quantum_easiness:   {level: conditional, note: "needs initial-state overlap ≥ 1/poly; not guaranteed for strongly correlated systems"}
-  willingness_to_pay: {level: first-hand, note: "OLED emitter T1 within 0.05 eV (OTI Lumionics / Samsung SAIT)"}
+  willingness_to_pay: {level: first-hand, note: "industrial co-authors studied OLED emitters; the reported 0.0501 eV is achieved cohort error, not a buyer target"}
 resources: {logical_qubits: "140–200", gates: "1e9–1e10 T", note: "for CAS(70–100)"}
 related:
   applications: [oled-emitters, homogeneous-catalysis]

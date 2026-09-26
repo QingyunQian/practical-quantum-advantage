@@ -3,16 +3,16 @@ type: application
 id: cryptanalysis
 title: Cryptanalysis of RSA and elliptic-curve cryptography
 title_zh: RSA 与椭圆曲线密码的破解
-summary: The one application with a provable super-polynomial speedup, a proven algorithm and a buyer. Gidney's 2025 estimate puts RSA-2048 within reach of fewer than one million physical qubits running under a week. The buyer is a government or security agency, and the economic activity it drives is the migration away from the broken schemes, so this page is tagged out of scope for commercial quantum advantage.
-summary_zh: 唯一同时具备可证超多项式加速、已证明的算法和明确买家的应用。Gidney 2025 年的估计是不到一百万物理比特、一周之内破解 RSA-2048。买家是政府和安全机构，它带动的经济活动是从被攻破的方案迁移出去，因此本页标注为商业量子优势范围之外。
+summary: Shor gives a proven polynomial-time quantum algorithm for factoring and discrete logarithms; a superpolynomial separation from classical algorithms remains unproved and rests on cryptographic hardness assumptions. Gidney's 2025 RSA-2048 estimate is conditional on a hardware error and speed model. NIST's migration guidance documents defensive demand, not a purchase of quantum attacks.
+summary_zh: Shor 已证明量子计算机可以在多项式时间内分解整数、求离散对数；与经典算法之间是否存在超多项式分离尚未证明，困难性依赖密码学假设。Gidney 对 RSA-2048 的 2025 年估计依赖硬件误差率和速度假设。NIST 的迁移指南证明防御需求存在，不能证明有人采购量子攻击。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 tags: [out-of-scope-commercial]
-verdict: promising
+verdict: surviving
 dimensions:
-  classical_hardness: {level: crypto, note: "factoring and discrete logarithm are the assumptions RSA and ECC rest on; best classical is sub-exponential (number field sieve) and has not moved for RSA-2048"}
+  classical_hardness: {level: crypto, note: "best known general classical factoring uses subexponential number-field sieve; no unconditional superpolynomial classical lower bound is known"}
   quantum_easiness: {level: proven, note: "Shor's algorithm; Gidney–Ekerå 2019 gives 3n + 0.002 n lg n logical qubits and 0.3 n^3 Toffolis for n-bit RSA; Regev 2023 improves the asymptotics"}
-  willingness_to_pay: {level: first-hand, note: "NIST IR 8547 sets a timeline to deprecate RSA and ECC at 112-bit security by 2030 and disallow them by 2035; the buyer of the attack itself is a government"}
+  willingness_to_pay: {level: unknown, note: "NIST IR 8547 is a draft migration plan and documents demand for defensive replacement of vulnerable cryptography. It does not document a buyer or price for running a quantum factoring attack."}
 resources: {logical_qubits: "~6,200 (abstract circuit, n=2048)", gates: "~2.6e9 Toffoli", note: "Gidney 2025: under 1e6 physical qubits, under one week, assuming 0.1% gate error, 1 μs surface-code cycle, 10 μs reaction time; Gidney–Ekerå 2019: 2e7 physical qubits, 8 hours"}
 related:
   problems: [integer-factoring-hidden-subgroup]
@@ -23,16 +23,16 @@ references:
   - {arxiv: "2308.06572", title: "An Efficient Quantum Factoring Algorithm", authors: "O. Regev", year: 2023}
   - {arxiv: "1706.06752", title: "Quantum resource estimates for computing elliptic curve discrete logarithms", authors: "M. Roetteler, M. Naehrig, K. M. Svore, K. Lauter", year: 2017}
   - {url: "https://arxiv.org/abs/quant-ph/9508027", title: "Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer", authors: "P. W. Shor", year: 1997, note: "SIAM J. Comput. 26, 1484"}
-  - {url: "https://csrc.nist.gov/pubs/ir/8547/ipd", title: "Transition to Post-Quantum Cryptography Standards (NIST IR 8547, initial public draft)", authors: "NIST", year: 2024, note: "deprecation timeline for RSA and ECC"}
+  - {url: "https://csrc.nist.gov/pubs/ir/8547/ipd", title: "Transition to Post-Quantum Cryptography Standards (NIST IR 8547, initial public draft)", authors: "NIST", year: 2024, note: "proposed defensive transition timeline; not evidence of an offensive buyer"}
 ---
 
 ## Who needs it
 
-Governments and their signals-intelligence and security agencies, for offence; everyone who operates a public-key infrastructure, for defence. The offensive buyer does not publish targets, but the defensive side does: NIST's transition plan deprecates RSA and elliptic-curve schemes at 112-bit security by 2030 and disallows them by 2035 [6], a written statement that the threat is being paid for. Commercial value flows to the migration (post-quantum standards, hardware refresh, certificate infrastructure), not to the quantum computer.
+Potential offensive users include intelligence and security agencies, but this page has no public procurement record or price for a quantum attack. The defensive customers are visible: operators of public-key infrastructure must prepare to replace vulnerable schemes. NIST IR 8547, still an initial public draft, proposes deprecating 112-bit-strength vulnerable algorithms after 2030 and disallowing them after 2035 [6]. That is evidence of migration demand, not a purchase order for a factoring computation.
 
 ## Bottleneck
 
-Factoring an n-bit RSA modulus classically takes sub-exponential time (the number field sieve); RSA-2048 has not been factored and is not expected to be by classical means. Elliptic-curve discrete logarithms at 256 bits are harder still classically. The task is well defined, the input is a few kilobits and the output a few kilobits, so none of the I/O objections that sink other applications apply.
+The best known general-purpose classical factoring algorithm, the number field sieve, has subexponential asymptotic cost; RSA-2048 has not been factored. No theorem excludes a polynomial-time classical factoring algorithm. The task has compact input and output, avoiding the data-loading and readout obstacles of many other proposed applications. Elliptic-curve discrete logarithm is a distinct problem with its own classical algorithms and quantum circuit estimates.
 
 ## Computational problems
 
@@ -40,14 +40,14 @@ Factoring an n-bit RSA modulus classically takes sub-exponential time (the numbe
 
 ## Best quantum
 
-Gidney and Ekerå's 2019 construction is the reference point: in the abstract circuit model it uses 3n + 0.002 n lg n logical qubits, 0.3 n³ + 0.0005 n³ lg n Toffolis and 500 n² + n² lg n measurement depth for an n-bit modulus, which for n = 2048 is about 6,200 logical qubits and 2.6e9 Toffolis; with surface-code overheads on a planar grid at 0.1% gate error, 1 μs cycle and 10 μs reaction time, they estimate 20 million physical qubits and 8 hours [2]. Gidney's 2025 update keeps the same physical assumptions and brings the count under one million physical qubits at a run time under one week, using approximate residue arithmetic, yoked surface codes for idle logical qubits and magic-state cultivation in place of most distillation; the longer run time comes from more Toffolis and fewer factories [1]. Regev's 2023 algorithm improves the asymptotic gate count from Õ(n²) to Õ(n^{3/2}) per run at the price of more runs and more space, and has not yet displaced the Gidney–Ekerå line in concrete estimates [3]. For ECC, Roetteler et al. give the corresponding logical estimates for P-256 and other curves [4].
+Gidney and Ekerå estimate roughly 6,200 logical qubits and 2.6 billion Toffoli gates for RSA-2048 in an abstract circuit, then about 20 million physical qubits and eight hours under their specified surface-code hardware model [2]. Gidney's 2025 revision estimates fewer than one million physical qubits and under one week under comparable assumptions: 0.1% physical gate error, a 1 μs code cycle and 10 μs control reaction time [1]. Neither estimate is an unconditional prediction of when hardware will exist. Regev's algorithm uses Õ(n^{3/2}) gates per run and roughly √n runs; Pilatte later proved the number-theoretic correctness condition, without establishing a classical lower bound or a better practical circuit [3]. Roetteler et al. separately estimate elliptic-curve discrete-logarithm circuits [4].
 
-## Why it is promising and why it is out of scope
+## Algorithmic result and commercial demand
 
-On the three dimensions this is the only entry in the catalogue that clears every bar. Classical hardness is the cryptographic assumption itself. Quantum easiness is proven, with concrete compiled circuits rather than asymptotic claims. The buyer has written its timeline down. That is what "promising" means here, and the catalogue records it so that the contrast with every commercial candidate is explicit.
+Quantum polynomial time is proven; classical superpolynomial hardness is a long-standing cryptographic assumption, and engineering studies give concrete circuit estimates. These are unusually strong **algorithmic** facts. The site's third dimension asks a different question: who will pay for the quantum computation? NIST's documents answer a defensive procurement question, not an offensive one [6]. No direct buyer evidence is cited here.
 
-It is out of scope for commercial advantage for two reasons. The buyer of the attack is a state, and the price it will pay is not a market signal. And the value it creates for everyone else is negative: the rational commercial response is to stop relying on the broken primitive, which the standards bodies have already scheduled. Nobody will sell factoring as a service. The number-theoretic machinery has no other documented commercial use; class-group and unit-group computations (Biasse–Song and predecessors) have mathematical and cryptanalytic interest but no industrial customer.
+The migration to post-quantum cryptography is a real economic response, but migration can proceed without a quantum computer. The market for an actual quantum factoring service is unknown. Factoring remains central to this catalogue because it is the clearest benchmark for a useful quantum algorithm with a strong classical hardness assumption, even though its customer story differs from chemistry or optimisation.
 
 ## Verdict
 
-Promising, and tagged out of scope. The remaining uncertainty is engineering (whether a million-qubit machine at 0.1% error and 1 μs cycle exists by the 2030–35 deprecation window), not algorithmic or economic. For this catalogue the entry serves as the calibration point: it shows what a candidate looks like when all three dimensions are satisfied, and every other page is measured against it.
+Surviving under this catalogue's three-dimension commercial rubric: quantum easiness is proven and classical hardness has strong cryptographic evidence, while **direct willingness to pay for an attack is unverified**. This label does not downgrade Shor's theorem. The page would move to `promising` if a public buyer requirement for the computation itself were documented; NIST's defensive transition plan cannot supply that evidence [6].

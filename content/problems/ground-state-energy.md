@@ -11,7 +11,7 @@ verdict: surviving
 dimensions:
   classical_hardness: {level: empirical, note: "QMA-hard in general, but the worst case is not the chemical case; FeMoco model solved classically to chemical accuracy in 2026; DMRG/SHCI routine to ~100 orbitals"}
   quantum_easiness: {level: conditional, note: "phase estimation needs overlap ≥ 1/poly with the true ground state; Lee et al. argue exponential advantage is not generically expected; no guarantee for strongly correlated cases"}
-  willingness_to_pay: {level: first-hand, note: "only via specific applications: OLED emitters (0.05 eV target); homogeneous catalysis valued at $200k per case by Zapata's industrial partners"}
+  willingness_to_pay: {level: first-hand, note: "only via specific applications: industrial co-authors studied OLED emitters but did not state a 0.05 eV buyer threshold; catalyst partners assigned the top studied case a $200k utility value"}
 resources: {logical_qubits: "100–200 system + ancillas", gates: "1e9–1e12 Toffoli", note: "double-factorised or THC phase estimation; FeMoco-class instances need ~1e12 Toffoli"}
 related:
   applications: [oled-emitters]
@@ -34,7 +34,7 @@ references:
 
 ## Best quantum
 
-Quantum phase estimation on a block-encoded Hamiltonian (double-factorised or tensor-hypercontracted). Cost scales polynomially in orbitals and 1/ε **given** an initial state with overlap ≥ 1/poly. Resource estimates for FeMoco-class instances are order 10³ logical qubits (after ancillas) and 10¹² Toffoli [3]; for 70–100 orbital OLED emitters, roughly 140–200 system qubits and 10⁹–10¹⁰ T gates.
+Quantum phase estimation on a block-encoded Hamiltonian (double-factorised or tensor-hypercontracted). Cost scales polynomially in orbitals and 1/ε **given** an initial state with overlap ≥ 1/poly. Resource estimates for FeMoco-class instances are order 10³ logical qubits (after ancillas) and 10¹² Toffoli [3]. The published 70–100 orbital OLED active spaces require 140–200 system qubits, but a compiled, same-Hamiltonian phase-estimation cost for those emitters is not available.
 
 Lee et al. argue that exponential advantage is not generically expected, because the same physics (locality, gaps) that makes the initial state good also makes classical heuristics work [1].
 

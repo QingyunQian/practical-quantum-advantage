@@ -3,16 +3,16 @@ type: problem
 id: integer-factoring-hidden-subgroup
 title: Integer factoring, discrete logarithms and abelian hidden subgroup problems
 title_zh: 整数分解、离散对数与交换群隐子群问题
-summary: Shor's family is the one superpolynomial speedup whose classical hardness is backed by fifty years of number theory and the entire public-key ecosystem. Regev's lattice variant is now unconditionally correct (Pilatte 2024), Gidney's 2025 estimate breaks RSA-2048 with under one million noisy qubits in a week, and class groups, unit groups and S-units of number fields are polynomial too. The buyer is cryptanalysis; outside it there is no commercial use.
-summary_zh: Shor 一族是唯一一个超多项式加速，其经典困难性有五十年数论研究和整个公钥密码生态背书。Regev 的格版本已被 Pilatte 无条件证明正确，Gidney 2025 年估计用不到一百万个含噪比特一周内破解 RSA-2048，数域的类群、单位群和 S-单位群也是多项式时间。买家是密码分析；此外没有商业用途。
+summary: Shor proves polynomial-time quantum factoring and discrete logarithms; no superpolynomial classical lower bound is known. Pilatte proved correctness of a later factoring algorithm, and Gidney estimated a conditional RSA-2048 circuit with fewer than one million physical qubits. NIST's post-quantum migration is evidence of defensive demand, not a buyer of quantum attacks.
+summary_zh: Shor 算法已证明量子计算机可在多项式时间内分解整数、求离散对数，但经典算法的超多项式下界尚未证明。Pilatte 证明了后续分解算法的正确性，Gidney 给出在特定硬件条件下以不到一百万物理比特分解 RSA-2048 的估计。NIST 的后量子迁移说明防御需求存在，不能证明有人采购量子攻击。
 status: seed
-last_verified: 2026-09-26
-verdict: promising
+last_verified: 2026-09-27
+verdict: surviving
 dimensions:
-  classical_hardness: {level: crypto, note: "no reduction and no oracle separation; best classical is the number field sieve at exp(O~(n^1/3)); hardness is the assumption behind RSA, Diffie–Hellman and ECC"}
+  classical_hardness: {level: crypto, note: "best known general classical factoring algorithms are subexponential; no superpolynomial lower bound against classical algorithms is known"}
   quantum_easiness: {level: proven, note: "Shor 1994; Regev's O(n^3/2)-gate variant proven correct unconditionally by Pilatte; abelian HSP fully polynomial; unit and S-unit groups of arbitrary-degree number fields polynomial"}
-  willingness_to_pay: {level: first-hand, note: "governments: NIST's 2024 post-quantum standards (FIPS 203) state that a cryptographically relevant quantum computer motivates migration; the paying customer is a security agency, not industry"}
-resources: {logical_qubits: "~1,400 (RSA-2048)", gates: "~6.5e9 Toffoli", note: "Gidney 2025: under 1e6 physical qubits, under one week, surface code at 1e-3 physical error; number-field class-group instances need comparable counts and have no Gidney-level optimisation"}
+  willingness_to_pay: {level: unknown, note: "NIST's post-quantum standard documents defensive migration; no public procurement or price for quantum factoring itself is cited"}
+resources: {logical_qubits: "~1,400 active (RSA-2048)", gates: "~6.5e9 Toffoli", note: "Gidney 2025 conditional engineering estimate: under 1e6 physical qubits and under one week at 0.1% physical error, 1 μs code cycles and 10 μs control reaction; the same estimate does not apply to class groups"}
 related:
   applications: [cryptanalysis]
   problems: [combinatorial-optimization, representation-theory-multiplicities]
@@ -29,20 +29,20 @@ references:
 
 ## Best classical
 
-The general number field sieve factors an n-bit integer in exp(Õ(n^{1/3})) time, and no 2048-bit RSA modulus has been factored classically. Discrete logarithms in prime fields sit at the same complexity; elliptic-curve discrete logarithms have only generic square-root algorithms, which is why 256-bit curves suffice classically. For number fields, Buchmann-type subexponential algorithms compute class groups and unit groups under GRH and degrade with degree; computer-algebra systems struggle beyond discriminants around 10⁶⁰. No lower bound exists for any of these problems. The hardness evidence is that fifty years of algorithmic number theory have not broken the subexponential wall, and that the world's public-key infrastructure is priced on that failure.
+The general number field sieve factors an n-bit integer in subexponential time, and no 2048-bit RSA modulus has been factored classically. Prime-field discrete logarithms also have subexponential classical algorithms. Generic elliptic-curve discrete logarithms require square-root search in the group size. None of these observations proves a superpolynomial classical lower bound; cryptography relies on the practical hardness of selected parameter sizes.
 
-The one attempted classical-side surprise ran the other way: Yilei Chen's April 2024 claim of a polynomial quantum algorithm for approximate LWE had an unfixable bug found within nine days, so lattice cryptography remains quantum-safe and the post-quantum migration rests on it.
+For number-field class groups and units, classical algorithms and quantum results have different assumptions and input models. Their asymptotic relationship merits its own benchmark. This page does not transfer the RSA-2048 circuit estimate to those tasks.
 
 ## Best quantum
 
-Shor's algorithm (1994) factors and takes discrete logarithms in polynomial time via period finding, an instance of the abelian hidden subgroup problem, which is polynomial in full generality. Since 2023 the algorithm has been re-engineered. Regev's multidimensional variant uses O(n^{3/2}) gates per run at the cost of O(n^{3/2}) qubits and a number-theoretic heuristic [1]; Ragavan and Vaikuntanathan reduced the space to Õ(n) qubits and added noise robustness [2]; and Pilatte proved the heuristic unconditionally, so correctness no longer rests on a conjecture [3]. On the engineering side, Gidney's 2025 estimate breaks RSA-2048 with fewer than one million noisy physical qubits in under a week, a 20-fold reduction from the 2019 estimate, using approximate residue arithmetic, yoked surface codes and magic-state cultivation [4].
+Shor's algorithm factors and takes discrete logarithms in quantum polynomial time through period finding. Regev's later construction uses Õ(n^{3/2}) gates per run, with multiple runs and a number-theoretic correctness condition [1]. Ragavan and Vaikuntanathan reduced its space requirement [2]; Pilatte proved the correctness condition, without proving a classical lower bound or a practical circuit advantage [3]. Gidney's 2025 RSA-2048 estimate uses fewer than one million noisy physical qubits and under a week under specified error and timing assumptions [4].
 
-Beyond factoring, Hallgren (2002) and Eisenträger, Hallgren, Kitaev and Song (2014) gave polynomial-time algorithms for unit groups and class groups of number fields of arbitrary degree via a continuous hidden-subgroup problem, and Biasse and Song give an explicitly quantified polynomial algorithm for S-unit groups, the engine behind principal-ideal and class-group discrete-logarithm problems and the first step in attacks on Ideal-SVP lattice assumptions [5]. For a fault-tolerant machine these are the most directly useful results for pure mathematics: class-number tables, tests of Cohen–Lenstra heuristics, numerical evidence for Stark's conjectures. No Gidney-level resource optimisation exists for them; the gap is a concrete open task.
+Beyond factoring, quantum algorithms for number-field unit groups, class groups and S-units connect hidden-subgroup methods with computational number theory [5]. These could help construct class-number tables and test mathematical conjectures. Their input and output encodings, complexity assumptions and classical comparisons must be checked separately. No RSA-like resource estimate is cited here for them.
 
 ## Who pays
 
-Security agencies and the organisations they oblige to migrate. NIST's FIPS 203 standard for post-quantum key encapsulation (August 2024) states in its own text that the prospect of a cryptographically relevant quantum computer motivates the transition [6]; that is a buyer speaking, though a buyer for defence rather than for the computation itself. Outside cryptanalysis, and outside computational number theory as a research tool, no commercial use is known.
+Intelligence and security agencies are potential users of cryptanalysis, but this page has no public procurement record or price for a quantum factoring computation. NIST's FIPS 203 explains why organisations are migrating to post-quantum key encapsulation [6]. That is direct evidence for defensive migration, which can proceed without a quantum computer. Computational number theory supplies a research motivation; a commercial customer for those calculations is not documented here.
 
 ## Verdict
 
-Promising, in the narrow sense that hardness evidence (cryptographic), quantum easiness (proven, now unconditional) and a first-hand buyer (state cryptanalysis and the migration it forces) all exist. It is also the least interesting entry for a company looking for a market: the resource requirement is about 1,400 logical qubits and 6.5×10⁹ Toffoli gates for RSA-2048 [4], an order of magnitude beyond the 2029 roadmaps, and the value realised by everyone else is negative. What would change the page: a classical subexponential-to-polynomial breakthrough (none in sight), or a demonstrated commercial use of class-group computation.
+Surviving under this catalogue's three-dimension rubric: quantum polynomial time is proved, classical hardness rests on cryptographic evidence, and direct willingness to pay for the computation is unverified. Gidney's RSA-2048 engineering model has about 1,400 active logical qubits and billions of Toffoli gates [4]; these numbers are conditional estimates. A public buyer requirement for quantum cryptanalysis, or a documented use for number-field computations, would change the commercial assessment.

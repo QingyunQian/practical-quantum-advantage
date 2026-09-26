@@ -1,0 +1,45 @@
+{
+  "source": "https://arxiv.org/html/2512.13657",
+  "source_version": "arXiv:2512.13657v2",
+  "n_emitters": 14,
+  "units": "eV",
+  "mae_from_rounded_supplement": {
+    "td_b3lyp": 0.12100000000000008,
+    "ccsd": 0.22007142857142845,
+    "cr_cc_2_3": 0.29128571428571426,
+    "iqcc": 0.11778571428571435,
+    "iqcc_pt": 0.049857142857142836
+  },
+  "reported_mae": {
+    "td_b3lyp": 0.1209,
+    "ccsd": 0.22,
+    "cr_cc_2_3": 0.2912,
+    "iqcc": 0.118,
+    "iqcc_pt": 0.0501
+  },
+  "q1_experiment": 1.974,
+  "q1_absolute_error": {
+    "td_b3lyp": 0.05800000000000005,
+    "ccsd": 0.06499999999999995,
+    "cr_cc_2_3": 0.10199999999999987,
+    "iqcc": 0.008000000000000007,
+    "iqcc_pt": 0.014000000000000012
+  },
+  "q1_singlet_solver_hours_by_orbitals": {
+    "50": 87.02,
+    "70": 107.1,
+    "100": 199.37
+  },
+  "q1_uncorrected_iqcc_gap_by_orbitals": {
+    "50": 1.999,
+    "70": 1.988,
+    "100": 1.932
+  },
+  "limitations": [
+    "The per-molecule gaps are rounded to 0.001 eV in the source tables.",
+    "The Q1 runtime is for one singlet-state classical solver run, not the full emission-gap workflow.",
+    "The paper provides no same-Hamiltonian quantum phase-estimation cost or DMRG/SHCI cost curve.",
+    "The 0.0501 eV cohort MAE is an achieved result, not a stated buyer acceptance threshold.",
+    "SI.3-1 and SI.1-2 list different Q1 uncorrected iQCC gaps at CAS(70,70); the active-space series is not joined to the benchmark series."
+  ]
+}
