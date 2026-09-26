@@ -3,13 +3,13 @@ type: problem
 id: linear-response-spectral-functions
 title: Linear response and spectral functions (Green's functions, XAS, ARPES, INS)
 title_zh: 线性响应与谱函数（格林函数、XAS、ARPES、INS）
-summary: Spectral functions are what industry actually measures and decides on, and the correlated cases (3d oxide core-level spectra, 4f and 5f shells) are exactly where CT-QMC impurity solvers hit the sign problem. Dynamical mean-field theory turns this into a 50–100 qubit impurity problem, at an estimated 1e9–1e12 T gates for 10 meV resolution; industry today uses DFT+U and multiplet codes, not DMFT.
-summary_zh: 谱函数是工业界真正测量并据以决策的量，而关联强的情形（3d 氧化物核能级谱、4f 与 5f 壳层）正是 CT-QMC 杂质求解器遇到符号问题的地方。动力学平均场把它变成 50 到 100 比特的杂质问题，10 meV 分辨率估计需要 1e9 到 1e12 个 T 门；工业界目前用的是 DFT+U 和多重态程序，而不是 DMFT。
+summary: Spectra help interpret correlated materials, but an application-level quantum advantage requires a named impurity and a measured classical bottleneck. A cited cathode XPS study used classical CT-QMC for the DMFT step and a separate multiplet code for the core-level spectrum. A 50–100-system-qubit register count and an illustrative gate multiplication do not establish its quantum cost or industrial value.
+summary_zh: 谱学有助于解读关联材料，但量子优势需要具体杂质和可测量的经典瓶颈。所引正极 XPS 研究用经典 CT-QMC 完成 DMFT 步骤，再以独立的多重态程序计算核能级谱。50 到 100 个系统比特的计数和示意性的门数相乘，尚不能确定量子成本或产业价值。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: surviving
 dimensions:
-  classical_hardness: {level: empirical, note: "CT-HYB sign problem grows exponentially with spin-orbit coupling, off-diagonal hybridisation and low temperature; tensor-train QMC and neural-network solvers are eroding the region"}
+  classical_hardness: {level: empirical, note: "CT-HYB has a sign problem on some multi-orbital models, but the cited cathode impurity was solved classically; a matched hard application instance has not been supplied"}
   quantum_easiness: {level: conditional, note: "Green's function from Hamiltonian simulation of the impurity model is polynomial once the impurity ground state is prepared; bath discretisation and sampling set the constant; no end-to-end resource estimate exists"}
   willingness_to_pay: {level: second-hand, note: "spectroscopy users (cathode XAS/XPS, rare-earth magnets, actinide fuels) exist and DMFT is changing interpretations, but no company has written an accuracy target and industry mostly uses DFT+U or multiplet fits"}
 resources: {logical_qubits: "50–100 (impurity + bath)", gates: "1e9–1e12 T (illustrative scenario, not a resource estimate)", note: "5-orbital d shell with SOC and 4–8 bath sites per spin-orbital, or 7-orbital f shell with 3–6 bath sites; Trotter time evolution to ~100 fs for 10 meV resolution; Krylov methods may cut this by orders of magnitude"}
@@ -30,7 +30,7 @@ references:
 
 ## Best classical
 
-The quantities are retarded Green's functions and susceptibilities: single-particle spectral functions (ARPES, XPS), core-level absorption (XAS, RIXS), magnetic response (INS), optical conductivity. Industrial practice is DFT-based almost everywhere: DFT+U projected density of states and charge-transfer multiplet fits for cathode L-edges, DFPT for phonons, GW-BSE for optics, spin-wave models for neutron scattering. DMFT is used where DFT+U fails qualitatively; Xie, de Groot, Zhang and co-workers needed DFT+DMFT plus multiplet simulations to show that delithiation of LiNiO₂ and NMC is not rigid-band, and that the paramagnetic insulating state of LiNiO₂ appears only in DMFT [2].
+The observables include single-particle and core-level spectra, magnetic response and optical conductivity. Different experiments require different models. In the cited cathode study, DFT+DMFT provided transition-metal configuration probabilities through a classical CT-QMC solver; Quanty then used those probabilities in a separate charge-transfer multiplet model to calculate XPS [2]. The study found that delithiation does not follow a rigid-band picture. It did not report CT-QMC failure or a quantum computation of the core-hole response.
 
 The bottleneck inside DMFT is the impurity solver. Continuous-time hybridisation-expansion QMC (CT-HYB) is the workhorse but its sign problem grows exponentially with spin-orbit coupling, off-diagonal hybridisation, cluster size and inverse temperature; the regimes that remain out of reach are a 5-orbital d shell with full SOC below about 100 K, dynamical (non-atomic-limit) treatment of 7-orbital f shells, and 2×2 or larger clusters at low temperature. Rare-earth magnet work sidesteps the f-shell solver entirely with the Hubbard-I atomic limit [3]. Exact diagonalisation and NRG are limited to a few orbitals by bath count; MPS solvers reach three orbitals with about 100 bath sites. Two classical developments are eroding the hard region: tensor-train (tensor cross interpolation) summation of diagrammatic expansions, which has no sign problem [7], and neural-network impurity solvers trained to QMC accuracy at orders-of-magnitude lower cost [6].
 
@@ -42,11 +42,11 @@ The Green's function itself comes from time evolution with a Hadamard test, from
 
 ## What survives
 
-Three scenarios have identifiable decision-makers: cathode operando XAS/XPS/RIXS interpretation (is capacity fade Ni oxidation or O 2p oxidation) [2]; whether cheap Ce can replace Nd in Nd–Fe–B magnets, a 4f Kondo-screening question that current workflows avoid with Hubbard-I [3]; and UO₂/PuO₂ 5f spectra at national laboratories that already run DMFT. All are "explain the spectrum" rather than "design the material", and in each the embedding error (choice of U, double counting, single-site approximation) is typically larger than the solver error that a quantum solver would remove.
+Three possible settings are cathode XPS interpretation [2], rare-earth magnet electronic structure [3] and actinide spectra. The first cited cathode calculation succeeded with classical CT-QMC, so it is evidence of relevance, not of a hard impurity instance. The connection from any improved impurity spectrum to a purchase or changed material decision remains undocumented here. Embedding choices such as U and double counting also contribute uncertainty that a more accurate impurity solver alone cannot remove.
 
 ## Verdict
 
-Surviving. The problem has a natural divide-and-conquer that fits 50–100 qubits, a classical hard region defined by a sign problem rather than folklore, and real spectroscopy users, but willingness to pay is second-hand and the gate count sits at 10⁹–10¹² T. What would settle it: an end-to-end resource estimate for a 5-orbital impurity Green's function with SOC, and a head-to-head against tensor-train QMC and neural-network solvers on the same Sr₂RuO₄ or Ce-4f instance below 100 K.
+Surviving as a computational problem. Some discretised impurity models fit a 50–100-qubit system register, and some classical solvers have a sign problem. The current applications do not yet identify an instance with both a measured classical failure and a documented decision benefit. The quoted T-gate range is an unconstrained sensitivity calculation, not a compiled resource estimate. A matched impurity benchmark with converged bath, output accuracy and full workflow cost would decide whether this candidate progresses.
 
 ## Resource-count assumptions
 

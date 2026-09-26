@@ -6,10 +6,10 @@ title_zh: 动力学平均场（DMFT）中的量子杂质求解器
 summary: "DMFT couples an impurity solver to a classical self-consistency loop. Selected discretised d- and f-shell models fit a 50–100 qubit system register, but bath convergence and state preparation still need to be demonstrated. An illustrative multiplication of time steps, compiled T gates and repetitions gives 1e9–1e12 T gates; this is not an end-to-end resource estimate."
 summary_zh: "DMFT 把杂质求解器嵌入经典自洽循环。部分离散化的 d、f 壳模型可装进 50 到 100 个系统比特，但浴离散化收敛和初态制备仍需验证。按文中假设相乘得到 1e9 到 1e12 个 T 门，这只是成本敏感性计算，不能当作端到端资源估计。"
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: surviving
 dimensions:
-  classical_hardness: {level: empirical, note: "CT-HYB sign problem exponential in spin-orbit coupling, off-diagonal hybridisation, cluster size and 1/T; Sr2RuO4 with SOC only above ~230 K; tensor-train QMC and neural-network solvers are shrinking the region"}
+  classical_hardness: {level: empirical, note: "CT-HYB sign problems occur for some multi-orbital models, but the cited cathode application was solved with classical CT-QMC; no matched application-level failure curve is supplied"}
   quantum_easiness: {level: conditional, note: "polynomial once the impurity ground (or thermal) state is prepared; needs bath discretisation that keeps the self-consistency converged; gate count 1e9–1e12 T from stated Trotter, non-Clifford and shot factors, not from a published estimate"}
   willingness_to_pay: {level: second-hand, note: "inherits the spectroscopy users of the linear-response problem; rare-earth magnet and actinide groups run DMFT but have not stated targets; industry mostly avoids DMFT"}
 resources: {logical_qubits: "50–100", gates: "1e9–1e12 T (illustrative scenario, not a resource estimate)", note: "5-orbital d + SOC with 4–8 bath sites per spin-orbital = 50–90 qubits; 7-orbital f with 3–6 bath sites = 56–98; 2x2 cluster = 40–48; evolution to ~100 fs for 10 meV resolution; Krylov/Arnoldi methods may cut gates by orders of magnitude"}
@@ -36,7 +36,7 @@ DMFT replaces the lattice self-energy by a local one, obtained from an Anderson 
 1. The embedding must be adequate. DMFT is exact only in infinite coordination; the quantum solver removes solver error, not the errors from the choice of U, double counting or the single-site approximation, which are typically larger.
 2. The bath discretisation must fit the register and converge the requested observable. The small bath counts used in the examples are assumptions, not a uniform convergence guarantee. Real-frequency resolution may require larger baths; the required count must be measured for each model.
 3. The impurity ground state (or thermal state) must be preparable with non-negligible overlap; for f shells with strong multiplet structure this is not automatic.
-4. The target regime must be one where classical solvers actually fail: multi-orbital plus spin-orbit coupling below about 100 K, dynamical f-shell treatment (currently sidestepped by Hubbard-I [6]), or clusters at low temperature.
+4. The target regime must be one where the best classical solvers actually fail at the requested accuracy. Multi-orbital spin–orbit models, dynamical f-shell treatments and low-temperature clusters are candidates for such a benchmark. The cited cathode example is not one: its DMFT step was solved with classical CT-QMC.
 
 ## Known limits
 
@@ -44,7 +44,7 @@ DMFT replaces the lattice self-energy by a local one, obtained from an Anderson 
 
 ## Verdict
 
-Surviving. This is the most credible narrative in quantum dynamics because it has a small kernel, a rigorous limit, a classically hard region defined by the sign problem rather than folklore, and identifiable spectroscopy users [1, 2]. It is not a five-year industrial deliverable: the realistic positioning is a first scientific-grade comparison on a 200-logical-qubit machine around 2029–2033 (Sr₂RuO₄ with SOC below 100 K, Ce-4f anisotropy in permanent magnets, 2×2 to 4×2 cluster pseudogap). Evidence that would change the verdict either way: an end-to-end resource estimate for the 5-orbital SOC impurity, and a head-to-head scaling comparison against tensor-train QMC and neural-network solvers on the same instance.
+Surviving. DMFT offers a useful way to isolate a quantum subproblem, and small hardware demonstrations show the self-consistency loop can close [1, 2]. The currently cited industrially relevant cathode impurity was solved classically; other hard regimes remain proposed benchmarks. No publication date or machine size for a practical advantage follows from the system-register count. Evidence that would change the verdict is a same-instance, same-accuracy comparison with CT-QMC, tensor-train and neural-network solvers, including bath convergence and the full loop cost.
 
 ## Resource-count assumptions
 
