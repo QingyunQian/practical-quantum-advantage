@@ -14,3 +14,16 @@ python numerics/dmft_semicircle_bath_fit.py --beta 64 --output numerics/results/
 The other published JSON files use `--beta 16`, `32`, `128` and `256`. The optimization stops at the first tested even number of bath nodes with maximum Matsubara error below `1e-3`, or at ten nodes. Results are achieved errors for this local optimizer, not global optima or lower bounds on the number of bath sites. A quantum comparison still needs convergence of `G` at the same temperature and output error, plus state preparation and full workflow costs.
 
 With matplotlib installed, `python numerics/plot_dmft_bath_fit.py` regenerates the [figure](figs/dmft_bath_input_fit.png). The shaded 50–100-qubit region is a register-size reference, not a crossover claim.
+
+## Discrete-bath interacting Green's-function check
+
+`dmft_discrete_kanamori_ed.py` independently reconstructs the paper's two-orbital **discrete** example: two bath energies `±2.3t` per impurity spin-orbital, `r=0.5`, `U=2t`, `J=0.2t`, hence 12 fermionic modes under the stated bath construction. The script diagonalises all fixed-`N_up`, fixed-`N_down` blocks and evaluates `G_00(τ)` from the finite-temperature Lehmann sum. Its built-in noninteracting check compares against an independently diagonalised one-body Hamiltonian; the maximum difference is around `2.5e-14`. It also checks `G(0+) + G(β-) = -1`.
+
+The printed local Hamiltonian in Eq. 5 contains no explicit impurity one-body energy and no explicit pair-hopping operator, though the prose mentions pair hopping. To make this ambiguity visible, the script computes the printed quartic expression both alone and with an **illustrative** pair-hopping term of strength `J`. Run two impurity-level assumptions:
+
+```sh
+python numerics/dmft_discrete_kanamori_ed.py --impurity-level 0 --output numerics/results/dmft_discrete_kanamori_ed_printed_level0.json
+python numerics/dmft_discrete_kanamori_ed.py --impurity-level -1 --output numerics/results/dmft_discrete_kanamori_ed_level_minus1.json
+```
+
+NumPy is required. `dmft_digitize_fig2.py` downloads the public arXiv v2 source and reads the dashed ED path endpoints from the original vector figure using requests and PyMuPDF. The extracted numbers are **approximate figure readouts**, not raw author data. With matplotlib, `plot_dmft_discrete_ed.py` regenerates the [comparison figure](figs/dmft_discrete_ed_audit.png). A level of `−1` gives a much closer match to the published endpoints, but it is an inference. Other undocumented conventions may contribute. The code therefore makes no claim to have reproduced the authors' exact input Hamiltonian.

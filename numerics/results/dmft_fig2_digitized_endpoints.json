@@ -1,0 +1,65 @@
+{
+  "source": "https://export.arxiv.org/src/1907.08570v2",
+  "figure": "kanamori_gf.pdf, dashed ED curves in the left panels",
+  "extraction": "vector path coordinates calibrated to each panel's 0 and -1 y-axis ticks",
+  "warning": "Plot-derived approximate values; no underlying numeric dataset or error bars. A midpoint is omitted when no vector-path point lies within 0.02 of tau/beta=0.5.",
+  "rows": [
+    {
+      "beta": 8,
+      "G_tau_0": {
+        "G": -0.6941992114623241,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": {
+        "G": -0.14616231459151932,
+        "tau_fraction_error": 0.015000743731849816
+      },
+      "G_tau_beta": {
+        "G": -0.3058013733566837,
+        "tau_fraction_error": 0.0
+      }
+    },
+    {
+      "beta": 16,
+      "G_tau_0": {
+        "G": -0.6949629203947448,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": {
+        "G": -0.04799628210657596,
+        "tau_fraction_error": 0.009993214067474452
+      },
+      "G_tau_beta": {
+        "G": -0.30503685729361407,
+        "tau_fraction_error": 0.0
+      }
+    },
+    {
+      "beta": 32,
+      "G_tau_0": {
+        "G": -0.6877342168863753,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": {
+        "G": -0.004907859874759399,
+        "tau_fraction_error": 0.009993214067474452
+      },
+      "G_tau_beta": {
+        "G": -0.3122662922294904,
+        "tau_fraction_error": 0.0
+      }
+    },
+    {
+      "beta": 64,
+      "G_tau_0": {
+        "G": -0.6776226401683619,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": null,
+      "G_tau_beta": {
+        "G": -0.32233671593815105,
+        "tau_fraction_error": 0.0
+      }
+    }
+  ]
+}
