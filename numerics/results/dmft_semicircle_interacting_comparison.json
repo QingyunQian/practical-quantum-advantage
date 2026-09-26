@@ -1,0 +1,263 @@
+{
+  "scope": "finite-temperature interacting ED against approximate published plot coordinates; no quantum runtime or bath-convergence claim",
+  "source": "https://arxiv.org/abs/1907.08570",
+  "warning": "The impurity level -1 is inferred from a different panel, not specified by the paper. Figure line thickness is a visual ambiguity, not an error bar. All finite baths are below the 1e-3 input-fit threshold at beta=32 or 64.",
+  "rows": [
+    {
+      "beta": 16,
+      "bath_nodes_per_spin": 2,
+      "system_modes": 8,
+      "hamiltonian_variant": "printed_eq5",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.24032481792419158,
+      "figure_line_half_width_G": 0.02563301975084123,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7270537433162411,
+        -0.211774597687538,
+        -0.12463723740567945,
+        -0.08345125817408708,
+        -0.27294625668375777
+      ],
+      "figure_G": [
+        -0.731343332566929,
+        -0.2077720425172193,
+        -0.11140511309273637,
+        -0.07079740669921081,
+        -0.26860053458208316
+      ],
+      "mean_absolute_plot_difference": 0.007704768462100109,
+      "maximum_absolute_plot_difference": 0.013232124312943072
+    },
+    {
+      "beta": 16,
+      "bath_nodes_per_spin": 2,
+      "system_modes": 8,
+      "hamiltonian_variant": "printed_eq5_plus_pair_hopping",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.24032481792419158,
+      "figure_line_half_width_G": 0.02563301975084123,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7168088089901065,
+        -0.22142612079582508,
+        -0.144350852122057,
+        -0.10365324441518131,
+        -0.2831911910098945
+      ],
+      "figure_G": [
+        -0.731343332566929,
+        -0.2077720425172193,
+        -0.11140511309273637,
+        -0.07079740669921081,
+        -0.26860053458208316
+      ],
+      "mean_absolute_plot_difference": 0.021716167005706145,
+      "maximum_absolute_plot_difference": 0.03294573902932063
+    },
+    {
+      "beta": 16,
+      "bath_nodes_per_spin": 4,
+      "system_modes": 12,
+      "hamiltonian_variant": "printed_eq5",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.005515375705680059,
+      "figure_line_half_width_G": 0.02563301975084123,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7266545864354474,
+        -0.21315181835610195,
+        -0.12070036647892902,
+        -0.0813217801872301,
+        -0.2733454135645521
+      ],
+      "figure_G": [
+        -0.731343332566929,
+        -0.2077720425172193,
+        -0.11140511309273637,
+        -0.07079740669921081,
+        -0.26860053458208316
+      ],
+      "mean_absolute_plot_difference": 0.006926605565409008,
+      "maximum_absolute_plot_difference": 0.010524373488019295
+    },
+    {
+      "beta": 16,
+      "bath_nodes_per_spin": 4,
+      "system_modes": 12,
+      "hamiltonian_variant": "printed_eq5_plus_pair_hopping",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.005515375705680059,
+      "figure_line_half_width_G": 0.02563301975084123,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7165498655808822,
+        -0.2214617762214315,
+        -0.14126354800853844,
+        -0.10295305684009015,
+        -0.2834501344191175
+      ],
+      "figure_G": [
+        -0.731343332566929,
+        -0.2077720425172193,
+        -0.11140511309273637,
+        -0.07079740669921081,
+        -0.26860053458208316
+      ],
+      "mean_absolute_plot_difference": 0.021069377116794942,
+      "maximum_absolute_plot_difference": 0.032155650140879344
+    },
+    {
+      "beta": 32,
+      "bath_nodes_per_spin": 4,
+      "system_modes": 12,
+      "hamiltonian_variant": "printed_eq5",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.025133939151271267,
+      "figure_line_half_width_G": 0.02563301975084122,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.747348865377204,
+        -0.1320351120197736,
+        -0.04554671075783688,
+        -0.022310611281286055,
+        -0.25265113462279654
+      ],
+      "figure_G": [
+        -0.7470007029613221,
+        -0.13004783262438635,
+        -0.040100752470712084,
+        -0.014926015036056662,
+        -0.25299910652672847
+      ],
+      "mean_absolute_plot_difference": 0.00310279364951105,
+      "maximum_absolute_plot_difference": 0.0073845962452293926
+    },
+    {
+      "beta": 32,
+      "bath_nodes_per_spin": 4,
+      "system_modes": 12,
+      "hamiltonian_variant": "printed_eq5_plus_pair_hopping",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.025133939151271267,
+      "figure_line_half_width_G": 0.02563301975084122,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7457237892935795,
+        -0.1676337020775845,
+        -0.0714410318862322,
+        -0.03662204062296206,
+        -0.25427621070642104
+      ],
+      "figure_G": [
+        -0.7470007029613221,
+        -0.13004783262438635,
+        -0.040100752470712084,
+        -0.014926015036056662,
+        -0.25299910652672847
+      ],
+      "mean_absolute_plot_difference": 0.01863523846061177,
+      "maximum_absolute_plot_difference": 0.03758586945319814
+    },
+    {
+      "beta": 64,
+      "bath_nodes_per_spin": 4,
+      "system_modes": 12,
+      "hamiltonian_variant": "printed_eq5",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.08414664888253331,
+      "figure_line_half_width_G": 0.0256344645224543,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7499752015702272,
+        -0.04214799324140542,
+        -0.008161976940340057,
+        -0.005409318260214028,
+        -0.2500247984297728
+      ],
+      "figure_G": [
+        -0.7592656354240802,
+        -0.04765151492952514,
+        -0.014306917264442316,
+        0.0012395088275785745,
+        -0.2406784870114198
+      ],
+      "mean_absolute_plot_difference": 0.007386806874444115,
+      "maximum_absolute_plot_difference": 0.009346311418353015
+    },
+    {
+      "beta": 64,
+      "bath_nodes_per_spin": 4,
+      "system_modes": 12,
+      "hamiltonian_variant": "printed_eq5_plus_pair_hopping",
+      "impurity_level": -1.0,
+      "bath_fit_max_matsubara_input_error": 0.08414664888253331,
+      "figure_line_half_width_G": 0.0256344645224543,
+      "tau_over_beta": [
+        0,
+        0.25,
+        0.5,
+        0.75,
+        1
+      ],
+      "ed_G": [
+        -0.7532670427381054,
+        -0.07038552152436722,
+        -0.0152852407332535,
+        -0.006835733110792198,
+        -0.24673295726189468
+      ],
+      "figure_G": [
+        -0.7592656354240802,
+        -0.04765151492952514,
+        -0.014306917264442316,
+        0.0012395088275785745,
+        -0.2406784870114198
+      ],
+      "mean_absolute_plot_difference": 0.008768126987694741,
+      "maximum_absolute_plot_difference": 0.02273400659484208
+    }
+  ]
+}

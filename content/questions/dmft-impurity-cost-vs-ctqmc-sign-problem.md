@@ -76,6 +76,17 @@ The node counts are the first **tested even-node fits** reaching the chosen inpu
 
 ![Finite-bath input errors for the semicircular DMFT benchmark. This figure does not show interacting Green's-function or quantum runtime errors.](../figs/dmft_bath_input_fit.png)
 
+**Interacting Green's-function check on the continuous bath.** We also evaluated the *interacting* thermal `G_00(tau)` for four fitted finite baths. These calculations use the quartic terms in printed Eq. 5 and an impurity one-body level of `-1t`. That level was inferred from the paper's **different discrete-bath** panel; it is not an input parameter documented for the continuous-bath panel. The reference below is read at five points from the green Inchworm curves in the paper's original vector Fig. 2 [8]. The curves are drawn with a line half-width of about `0.026` in `G` units, so differences below that scale cannot be resolved from the published plot. This graphical width is not an uncertainty estimate for the authors' computation.
+
+| Inverse temperature `βt` | Bath levels per spin | System modes | Maximum bath-input error on first 80 Matsubara points | Mean / largest absolute difference at five plotted `G(tau)` points |
+|---|---:|---:|---:|---:|
+| 16 | 2 | 8 | `0.240` | `0.0077 / 0.0132` |
+| 16 | 4 | 12 | `0.00552` | `0.0069 / 0.0105` |
+| 32 | 4 | 12 | `0.0251` | `0.0031 / 0.0074` |
+| 64 | 4 | 12 | `0.0842` | `0.0074 / 0.0093` |
+
+The small plot differences are useful for checking the implementation, but **they do not establish interacting-bath convergence**. At `βt=64`, this four-level bath misses the stated `1e-3` *input* threshold by two orders of magnitude. The five plotted values also cannot resolve the difference between the two- and four-level `βt=16` results. Adding an illustrative pair-hopping term changes the sampled finite-bath `G` by as much as `0.022` at `βt=16` and `0.042` at `βt=64`; the missing Hamiltonian convention matters at the same scale as the graphical comparison. The [source-figure readout, ED outputs and comparison script](https://github.com/yuchenguommm/practical-quantum-advantage/tree/main/numerics) provide every plotted coordinate, bath coupling and calculated `G` value. A higher-resolution classical reference with explicit local parameters is needed before fitting a meaningful bath-size scaling curve. No quantum cost is inferred here.
+
 **Interacting Green's-function cross-check on the paper's discrete bath.** Figure 2 of [8] also shows ED curves for a *different*, discrete bath with levels `±2.3t` and orbital-mixing ratio `r=0.5`. This is a 12-spin-orbital model under the printed two-levels-per-spin-orbital construction. We independently diagonalised its particle-number blocks and computed the finite-temperature Lehmann Green's function. The implementation reproduces its noninteracting one-particle limit to `2.5 × 10⁻¹⁴` and satisfies the fermionic endpoint sum rule. We read the published ED curve endpoints from the vector figure, so the values in the first column below are **approximate plot readouts**, not the authors' underlying data.
 
 | `βt` | Published Fig. 2 `G(β)` [8] | Reconstruction with printed Eq. 5 and impurity level 0 | Same reconstruction with impurity level `−1` |

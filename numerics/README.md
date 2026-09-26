@@ -29,3 +29,15 @@ python numerics/dmft_discrete_kanamori_ed.py --impurity-level -1 --output numeri
 NumPy is required. `dmft_digitize_fig2.py` downloads the public arXiv v2 source and reads the dashed ED path endpoints from the original vector figure using requests and PyMuPDF. The extracted numbers are **approximate figure readouts**, not raw author data. With matplotlib, `plot_dmft_discrete_ed.py` regenerates the [comparison figure](figs/dmft_discrete_ed_audit.png). A level of `−1` gives a much closer match to the published endpoints, but it is an inference. Other undocumented conventions may contribute. The code therefore makes no claim to have reproduced the authors' exact input Hamiltonian.
 
 The JSON also records the low-energy gap. In the level-`−1` variant without the illustrative pair-hopping addition, a doublet lies only `0.0254t` above the ground doublet. Its relative Boltzmann weight at `βt=64` is about `0.20`; a zero-temperature calculation should not be compared directly with the paper's finite-temperature result.
+
+## Continuous-bath interacting Green's-function check
+
+The ED script also accepts the **fitted semicircular bath**. This remains finite-temperature ED of a small discretised Hamiltonian. The option does not simulate a quantum computer. For example, from the repository root:
+
+```sh
+python numerics/dmft_discrete_kanamori_ed.py --semicircle-fit numerics/results/dmft_semicircle_bath_fit_beta16.json --bath-nodes-per-spin 4 --beta 16 --impurity-level -1 --output numerics/results/dmft_semicircle_interacting_ed_beta16_n4_levelminus1.json
+python numerics/dmft_digitize_fig2.py --output numerics/results/dmft_kanamori_fig2_digitized.json
+python numerics/dmft_compare_inchworm.py --output numerics/results/dmft_semicircle_interacting_comparison.json
+```
+
+The other committed ED outputs use `(βt, bath nodes/spin) = (16,2), (32,4), (64,4)`. The digitizer reads the green continuous-bath Inchworm curves from the same vector Fig. 2 source as the dashed discrete ED curves. It can also use `--figure path/to/kanamori_gf.pdf` if the original arXiv v2 figure is cached locally. The code reports five plotted coordinates and the curve's line half-width, about `0.026` in Green's-function units. This is a limit of reading a published plot, not a confidence interval. The source paper does not document the `-1` impurity level for this panel; it was inferred from the separate discrete-bath example. The four-level finite bath at `βt=64` has Matsubara input error `0.084`, so agreement at five plot coordinates is **not** a bath-size convergence test. Reproducing the authors' raw curve and exact Hamiltonian convention remains open.

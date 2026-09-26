@@ -1,9 +1,9 @@
-"""Finite-temperature ED of the 12-mode discrete Kanamori check in arXiv:1907.08570.
+"""Finite-temperature ED of discrete and fitted-bath Kanamori checks.
 
 This is an independent reconstruction from the printed Eq. (5) and the
 discrete-bath paragraph. The paper's prose mentions pair hopping, but the
 printed equation does not contain that operator. Run both variants explicitly.
-No digitized paper data are used, so this is not yet a quantitative replication.
+No digitized paper data are used in the ED calculation itself.
 """
 
 import argparse
@@ -22,6 +22,26 @@ J = 0.2
 BATH_LEVEL = 2.3
 OFFDIAGONAL_RATIO = 0.5
 IMPURITY_LEVEL = 0.0  # printed Eq. (5) has no explicit one-body impurity term
+BATH_ENERGIES = [-BATH_LEVEL, -BATH_LEVEL, BATH_LEVEL, BATH_LEVEL]
+BATH_COUPLINGS = []
+for energy_position in (0, 1):
+    for channel in (0, 1):
+        strength = math.sqrt((1 + (OFFDIAGONAL_RATIO if channel == 0
+                                    else -OFFDIAGONAL_RATIO)) / 2)
+        BATH_COUPLINGS.append((strength, strength * (1 if channel == 0 else -1)))
+
+
+def set_semicircle_bath(fit_row):
+    """Use one rank-one bath mode per energy and spin from a fitted pole row."""
+    global BATH_ENERGIES, BATH_COUPLINGS, SITES_PER_SPIN, MODE_COUNT
+    energies = fit_row["positive_bath_energies"]
+    weights = fit_row["weight_at_each_positive_and_negative_energy"]
+    BATH_ENERGIES = [sign * energy for energy, weight in zip(energies, weights)
+                     for sign in (-1, 1)]
+    BATH_COUPLINGS = [(math.sqrt(weight), math.sqrt(weight))
+                      for weight in weights for sign in (-1, 1)]
+    SITES_PER_SPIN = 2 + len(BATH_ENERGIES)
+    MODE_COUNT = 2 * SITES_PER_SPIN
 
 
 def mode(spin, site):
@@ -71,18 +91,12 @@ def terms(include_pair_hopping):
     """Return off-diagonal (coefficient, creators, annihilators) terms."""
     result = []
     for spin in (0, 1):
-        # At each energy +/-2.3, symmetric and antisymmetric channels give
-        # Delta_ij = [[1, r], [r, 1]] * sum_{e=+/-2.3} 1/(z-e).
-        for energy_position in (0, 1):
-            for channel in (0, 1):
-                bath_site = 2 + 2 * energy_position + channel
-                strength = math.sqrt(1 + (OFFDIAGONAL_RATIO if channel == 0 else -OFFDIAGONAL_RATIO)) / math.sqrt(2)
-                for orbital in (0, 1):
-                    coupling = strength * (1 if channel == 0 or orbital == 0 else -1)
-                    impurity = mode(spin, orbital)
-                    bath = mode(spin, bath_site)
-                    result.append((coupling, (impurity,), (bath,)))
-                    result.append((coupling, (bath,), (impurity,)))
+        for bath_site, couplings in enumerate(BATH_COUPLINGS, start=2):
+            for orbital, coupling in enumerate(couplings):
+                impurity = mode(spin, orbital)
+                bath = mode(spin, bath_site)
+                result.append((coupling, (impurity,), (bath,)))
+                result.append((coupling, (bath,), (impurity,)))
 
     # The i!=j sum and explicit h.c. in the printed Eq. (5) include each
     # spin-exchange operator twice. Keep that literal coefficient here.
@@ -103,10 +117,8 @@ def diagonal_energy(state):
     energy += (U - 2 * J) * (n(1, 0) * n(0, 1) + n(1, 1) * n(0, 0))
     energy += (U - 3 * J) * (n(0, 0) * n(0, 1) + n(1, 0) * n(1, 1))
     for spin in (0, 1):
-        for site in (2, 3):
-            energy -= BATH_LEVEL * occupancy(state, mode(spin, site))
-        for site in (4, 5):
-            energy += BATH_LEVEL * occupancy(state, mode(spin, site))
+        for bath_site, bath_energy in enumerate(BATH_ENERGIES, start=2):
+            energy += bath_energy * occupancy(state, mode(spin, bath_site))
     return energy
 
 
@@ -165,14 +177,13 @@ def green_function(blocks, beta, orbital=0, spin=0, points=21):
 
 
 def noninteracting_self_check():
-    """Compare the Lehmann implementation to a six-by-six one-body solution."""
+    """Compare the Lehmann implementation to a one-body solution."""
     global U, J
     old_u, old_j = U, J
     try:
         U, J = 0.0, 0.0
         blocks = diagonalize_all(False)
-        h_one = np.diag([IMPURITY_LEVEL, IMPURITY_LEVEL, -BATH_LEVEL, -BATH_LEVEL,
-                         BATH_LEVEL, BATH_LEVEL])
+        h_one = np.diag([IMPURITY_LEVEL, IMPURITY_LEVEL] + BATH_ENERGIES)
         for coefficient, creators, annihilators in terms(False):
             if len(creators) == 1 and creators[0] < SITES_PER_SPIN:
                 h_one[creators[0], annihilators[0]] += coefficient
@@ -204,11 +215,28 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output", type=Path)
     parser.add_argument("--impurity-level", type=float, default=0.0)
+    parser.add_argument("--semicircle-fit", type=Path,
+                        help="JSON produced by dmft_semicircle_bath_fit.py")
+    parser.add_argument("--bath-nodes-per-spin", type=int, default=4)
+    parser.add_argument("--beta", type=float, help="compute only one inverse temperature")
     args = parser.parse_args()
     IMPURITY_LEVEL = args.impurity_level
+    fit_row = None
+    if args.semicircle_fit:
+        fit = json.loads(args.semicircle_fit.read_text(encoding="utf-8"))
+        fit_row = next((row for row in fit["rows"]
+                        if row["bath_nodes_per_spin"] == args.bath_nodes_per_spin), None)
+        if fit_row is None:
+            raise ValueError("requested bath size absent from fit JSON")
+        set_semicircle_bath(fit_row)
     output = {"source": "https://arxiv.org/abs/1907.08570",
-              "model": "two spinful impurity orbitals, discrete +/-2.3 bath, r=0.5, t=1, U=2, J=0.2",
-              "bath_construction": "two symmetric/antisymmetric channels at each +/-2.3 energy and per spin; unit spectral weight per energy in each orbital diagonal",
+              "model": "two spinful impurity orbitals, t=1, U=2, J=0.2; "
+                       + ("fitted semicircular bath, r=1" if fit_row else "discrete +/-2.3 bath, r=0.5"),
+              "bath_construction": ("rank-one positive symmetric pole fit, one bath mode per energy and spin" if fit_row else
+                                    "two symmetric/antisymmetric channels at each +/-2.3 energy and per spin; unit spectral weight per energy in each orbital diagonal"),
+              "bath_energies_per_spin": BATH_ENERGIES,
+              "bath_couplings_to_two_impurity_orbitals": BATH_COUPLINGS,
+              "bath_input_fit_max_matsubara_abs_error": (fit_row["max_abs_error_first_80_matsubara"] if fit_row else None),
               "impurity_level": IMPURITY_LEVEL,
               "scope": "independent finite-temperature exact diagonalization; source Hamiltonian ambiguity is not resolved. Level -1 is a sensitivity check inferred from plotted endpoints, not a documented paper parameter. The added pair-hopping variant is illustrative, not a claim about the authors' implementation.",
               "numpy_version": np.__version__,
@@ -224,7 +252,8 @@ def main():
             "ground_state_degeneracy": multiplicity,
             "gap_above_ground_manifold": ordered_energies[multiplicity] - ordered_energies[0],
         }
-        output["variants"][name] = [green_function(blocks, beta) for beta in (8, 16, 32, 64)]
+        output["variants"][name] = [green_function(blocks, beta)
+                                    for beta in ((args.beta,) if args.beta else (8, 16, 32, 64))]
     content = json.dumps(output, indent=2) + "\n"
     if args.output:
         args.output.parent.mkdir(parents=True, exist_ok=True)

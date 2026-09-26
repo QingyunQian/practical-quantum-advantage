@@ -1,0 +1,196 @@
+{
+  "source": "https://export.arxiv.org/src/1907.08570v2",
+  "figure": "kanamori_gf.pdf, dashed ED in left panels and green Inchworm in right panels",
+  "extraction": "vector path coordinates calibrated to each panel's 0 and -1 y-axis ticks",
+  "warning": "Plot-derived approximate values; no underlying numeric dataset or error bars. A midpoint is omitted when no vector-path point lies within 0.02 of tau/beta=0.5.",
+  "rows": [
+    {
+      "beta": 8,
+      "G_tau_0": {
+        "G": -0.6941992114623241,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": {
+        "G": -0.14616231459151932,
+        "tau_fraction_error": 0.015000743731849816
+      },
+      "G_tau_beta": {
+        "G": -0.3058013733566837,
+        "tau_fraction_error": 0.0
+      }
+    },
+    {
+      "beta": 16,
+      "G_tau_0": {
+        "G": -0.6949629203947448,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": {
+        "G": -0.04799628210657596,
+        "tau_fraction_error": 0.009993214067474452
+      },
+      "G_tau_beta": {
+        "G": -0.30503685729361407,
+        "tau_fraction_error": 0.0
+      }
+    },
+    {
+      "beta": 32,
+      "G_tau_0": {
+        "G": -0.6877342168863753,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": {
+        "G": -0.004907859874759399,
+        "tau_fraction_error": 0.009993214067474452
+      },
+      "G_tau_beta": {
+        "G": -0.3122662922294904,
+        "tau_fraction_error": 0.0
+      }
+    },
+    {
+      "beta": 64,
+      "G_tau_0": {
+        "G": -0.6776226401683619,
+        "tau_fraction_error": 0.0
+      },
+      "G_tau_half": null,
+      "G_tau_beta": {
+        "G": -0.32233671593815105,
+        "tau_fraction_error": 0.0
+      }
+    }
+  ],
+  "continuous_bath_inchworm": {
+    "figure": "green curves in the right panels",
+    "calibration": "right-panel 0 and -1 y-axis ticks; nearest vector-path vertex",
+    "warning": "Approximate plotted curves, without author raw data or error bars; line half-width in G units and nearest-vertex x-offset are reported. Line width is a visualization ambiguity, not a statistical confidence interval.",
+    "rows": [
+      {
+        "beta": 8,
+        "points": [
+          {
+            "tau_over_beta": 0,
+            "G": -0.6988837940563736,
+            "tau_fraction_error": 0.0
+          },
+          {
+            "tau_over_beta": 0.25,
+            "G": -0.24433902527012144,
+            "tau_fraction_error": 3.6243274390184567e-06
+          },
+          {
+            "tau_over_beta": 0.5,
+            "G": -0.1710599185075879,
+            "tau_fraction_error": 6.851468309377356e-06
+          },
+          {
+            "tau_over_beta": 0.75,
+            "G": -0.14374185343086918,
+            "tau_fraction_error": 3.425734154688678e-06
+          },
+          {
+            "tau_over_beta": 1,
+            "G": -0.30111431472664707,
+            "tau_fraction_error": 0.0
+          }
+        ],
+        "plotted_line_half_width_G": 0.025634477657488733
+      },
+      {
+        "beta": 16,
+        "points": [
+          {
+            "tau_over_beta": 0,
+            "G": -0.731343332566929,
+            "tau_fraction_error": 0.0
+          },
+          {
+            "tau_over_beta": 0.25,
+            "G": -0.2077720425172193,
+            "tau_fraction_error": 3.6243274390184567e-06
+          },
+          {
+            "tau_over_beta": 0.5,
+            "G": -0.11140511309273637,
+            "tau_fraction_error": 6.851468309377356e-06
+          },
+          {
+            "tau_over_beta": 0.75,
+            "G": -0.07079740669921081,
+            "tau_fraction_error": 3.425734154688678e-06
+          },
+          {
+            "tau_over_beta": 1,
+            "G": -0.26860053458208316,
+            "tau_fraction_error": 0.0
+          }
+        ],
+        "plotted_line_half_width_G": 0.02563301975084123
+      },
+      {
+        "beta": 32,
+        "points": [
+          {
+            "tau_over_beta": 0,
+            "G": -0.7470007029613221,
+            "tau_fraction_error": 0.0
+          },
+          {
+            "tau_over_beta": 0.25,
+            "G": -0.13004783262438635,
+            "tau_fraction_error": 3.6243274390184567e-06
+          },
+          {
+            "tau_over_beta": 0.5,
+            "G": -0.040100752470712084,
+            "tau_fraction_error": 6.851468309377356e-06
+          },
+          {
+            "tau_over_beta": 0.75,
+            "G": -0.014926015036056662,
+            "tau_fraction_error": 3.425734154688678e-06
+          },
+          {
+            "tau_over_beta": 1,
+            "G": -0.25299910652672847,
+            "tau_fraction_error": 0.0
+          }
+        ],
+        "plotted_line_half_width_G": 0.02563301975084122
+      },
+      {
+        "beta": 64,
+        "points": [
+          {
+            "tau_over_beta": 0,
+            "G": -0.7592656354240802,
+            "tau_fraction_error": 0.0
+          },
+          {
+            "tau_over_beta": 0.25,
+            "G": -0.04765151492952514,
+            "tau_fraction_error": 3.6243274390184567e-06
+          },
+          {
+            "tau_over_beta": 0.5,
+            "G": -0.014306917264442316,
+            "tau_fraction_error": 6.851468309377356e-06
+          },
+          {
+            "tau_over_beta": 0.75,
+            "G": 0.0012395088275785745,
+            "tau_fraction_error": 3.425734154688678e-06
+          },
+          {
+            "tau_over_beta": 1,
+            "G": -0.2406784870114198,
+            "tau_fraction_error": 0.0
+          }
+        ],
+        "plotted_line_half_width_G": 0.0256344645224543
+      }
+    ]
+  }
+}
