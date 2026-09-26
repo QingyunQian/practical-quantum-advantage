@@ -25,6 +25,8 @@ references:
   - {arxiv: "2207.06135", title: "Learning Feynman Diagrams with Tensor Trains", authors: "Y. Núñez Fernández, M. Jeannin, P. T. Dumitrescu, T. Kloss, J. Kaye, O. Parcollet, X. Waintal", year: 2022, note: "tensor cross interpolation, sign-problem-free"}
   - {arxiv: "2603.15741", title: "Neural-network quantum embedding solvers for correlated materials", authors: "A. Valenti, I. Park, A. Georges, A. J. Millis, O. Parcollet", year: 2026}
   - {arxiv: "1705.08027", title: "Crystal-field splittings in rare-earth-based hard magnets: an ab initio approach", authors: "P. Delange, S. Biermann, T. Miyake, L. Pourovskii", year: 2017, note: "Hubbard-I workaround for the 4f impurity"}
+  - {arxiv: "1907.08570", title: "A Multiorbital Quantum Impurity Solver for General Interactions and Hybridizations", authors: "E. Eidelstein, E. Gull, G. Cohen", year: 2019, note: "classical Inchworm handles low-temperature examples where CT-HYB fails"}
+  - {arxiv: "2601.04832", title: "Affordable Five-Orbital Dynamical Mean-Field Theory for Layered Iridates and Rhodates", authors: "L. Gaspard, C. Martins", year: 2026, note: "hybrid versus full five-orbital DMFT on two oxides"}
 ---
 
 ## How it works
@@ -41,6 +43,8 @@ DMFT replaces the lattice self-energy by a local one, obtained from an Anderson 
 ## Known limits
 
 - **Gate count.** Under the illustrative assumptions below, 10²–10³ steps × 10⁴–10⁵ T gates per step × 10³–10⁴ repetitions gives 10⁹–10¹² T gates for one measured circuit. An end-to-end estimate must also account for state preparation, time sampling, the desired precision and the DMFT loop. The references listed here do not supply that estimate for the proposed SOC impurity.
+
+- **Classical alternatives.** A low-temperature Kanamori impurity had a CT-HYB cost extrapolated to roughly 3 × 10⁹ core-hours at βt = 64, yet classical Inchworm produced its Green's function in roughly 1.5 × 10³ core-hours [7]. For Ba₂IrO₄ and Ba₂RhO₄, full five-orbital DMFT completed classically, while hybrid DMFT gave 43.8-fold and 41.2-fold total-time gains with reported low-energy agreement [8]. CT-HYB failure alone therefore does not establish a quantum opportunity.
 
 ## Verdict
 

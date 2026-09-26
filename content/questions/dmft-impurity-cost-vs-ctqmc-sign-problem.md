@@ -1,14 +1,14 @@
 ---
 type: question
 id: dmft-impurity-cost-vs-ctqmc-sign-problem
-title: Where does the CT-QMC sign problem bite for f-shell impurities, and does a 50–100 qubit solver beat it?
-title_zh: CT-QMC 符号问题在 f 壳杂质上从哪里开始失效，50 到 100 比特的求解器能否胜过它？
-summary: A discretised Anderson impurity may fit in 50 to 100 system qubits, while CT-HYB can suffer a sign problem for some multi-orbital models. The cited cathode application, however, solved its impurity classically and used a separate multiplet code for XPS. Find a named impurity with measured classical failure and compare a compiled quantum solver at matched output accuracy and full workflow cost.
-summary_zh: 离散化的 Anderson 杂质可能装入 50 到 100 个系统比特，部分多轨道模型的 CT-HYB 也会遇到符号问题。但所引正极案例已经用经典方法解出杂质，再以独立的多重态程序计算 XPS。应先找到经典方法确实失效的具体杂质，再比较同一输出精度下的量子电路和完整流程成本。
+title: Which DMFT impurity defeats the best classical solver, and can a quantum solver help?
+title_zh: 哪个 DMFT 杂质超出最强经典求解器的能力，量子求解器能否帮助？
+summary: "Sign-problem papers supply concrete CT-HYB bottlenecks and classical responses: Inchworm solves a low-temperature model whose CT-HYB cost was extrapolated to 3 billion core-hours, while hybrid DMFT runs roughly 40 times faster than full five-orbital DMFT on two real oxides. A quantum advantage needs the strongest classical baseline on the same impurity and observable."
+summary_zh: 符号问题论文给出了 CT-HYB 的具体瓶颈，也给出了经典替代方案：Inchworm 求解了一个 CT-HYB 外推需要约 30 亿核小时的低温模型；混合 DMFT 在两种真实氧化物上比完整五轨道 DMFT 快约 40 倍。量子优势必须在同一杂质和输出量上与最强经典方法比较。
 status: seed
 last_verified: 2026-09-27
 question:
-  what_would_settle_it: "A phase map for a single-site Anderson impurity with (a) 5 d orbitals plus SOC λ in {0, 0.1, 0.3} eV and (b) 7 f orbitals with Kanamori/Slater interactions, 3 to 8 bath orbitals per spin-orbital, at T in {300, 100, 30} K: the CT-HYB average sign and the CPU-hours to reach 1% accuracy in the Matsubara self-energy, next to the tensor-train (TCI) and MPS solver bond dimensions, next to the number of Trotter steps × samples × non-Clifford gates for a quantum Krylov or robust Arnoldi Green's-function solver at the same accuracy. The question is settled positively if there is a contiguous region (f shell with SOC below 100 K is the candidate) where the sign is below 0.01, TCI/MPS do not converge, and the quantum T count is below 10^9; negatively if TCI or NN solvers cover the whole map."
+  what_would_settle_it: "Publish a named impurity Hamiltonian or hybridisation function, temperature and output observable tied to an application. Show a matched error-versus-cost comparison among optimised CT-HYB, Inchworm, hybrid DMFT where its approximation is valid, tensor-train, MPS and neural-network solvers. Document bath-discretisation and embedding errors. Compile a fault-tolerant quantum Green's-function algorithm on that identical model, including state preparation, ancillas, repetitions and the full DMFT loop. Report whether a documented accuracy or throughput requirement is reached at lower total cost. A small CT-HYB average sign by itself does not settle the question."
   difficulty: phd
   resolved: false
 related:
@@ -23,6 +23,9 @@ references:
   - {arxiv: "1705.08027", title: "Crystal field splittings in rare earth-based hard magnets: an ab initio approach", authors: "P. Delange, S. Biermann, T. Miyake, L. Pourovskii", year: 2017, note: "PRB 96, 155132 (2017); Hubbard-I used to avoid a dynamical 4f solver"}
   - {arxiv: "2510.02875", title: "Redox Chemistry of LiCoO$_2$, LiNiO$_2$, and LiNi$_{1/3}$Mn$_{1/3}$Co$_{1/3}$O$_2$ Cathodes: Deduced via XPS, DFT+DMFT, and Charge Transfer Multiplet Simulations", authors: "Y. Xie, F. Mellin, W. Jaegermann, S. Hofmann, F. M. F. de Groot, H. Zhang", year: 2025}
   - {arxiv: "2404.09527", title: "Dynamical Mean Field Theory for Real Materials on a Quantum Computer", authors: "J. Selisko, M. Amsler, C. Wrigley et al.", year: 2024, note: "Ca2CuO2Cl2 on 14 IBM qubits"}
+  - {arxiv: "1907.08570", title: "A Multiorbital Quantum Impurity Solver for General Interactions and Hybridizations", authors: "E. Eidelstein, E. Gull, G. Cohen", year: 2019, note: "Figs. 1-3; Inchworm versus CT-HYB on matched models"}
+  - {arxiv: "2601.04832", title: "Affordable Five-Orbital Dynamical Mean-Field Theory for Layered Iridates and Rhodates", authors: "L. Gaspard, C. Martins", year: 2026, note: "Table 4; full DMFT and hybrid DMFT on two real materials"}
+  - {arxiv: "1907.11298", title: "Alleviating the Sign Problem in Quantum Monte Carlo Simulations of Spin-Orbit-Coupled Multi-Orbital Hubbard Models", authors: "A. J. Kim, P. Werner, R. Valentí", year: 2020, note: "basis optimisation changes the measured CT-HYB sign"}
 ---
 
 ## Why it matters
@@ -33,14 +36,21 @@ The difficulty region is real but undocumented as numbers. CT-HYB's average sign
 
 ## What is known
 
-- The classical side is moving: tensor-train and tensor-cross-interpolation diagrammatics sum CT-QMC expansions deterministically without a sign problem [4], and neural-network impurity solvers are orders of magnitude faster than CT-HYB on multi-orbital problems [3]. If these cover the f-shell-with-SOC region, the quantum solver has no territory.
+| Instance and observable | Measured or reported classical result | Limit of the evidence |
+|---|---|---|
+| Two-orbital Kanamori impurity with continuous Bethe bath; imaginary-time Green's function at βt = 64 [8] | CT-HYB cost of comparable quality extrapolated to ~3 × 10⁹ core-hours; classical Inchworm ran for ~1.5 × 10³ core-hours and gave controlled results | The huge CT-HYB cost is an extrapolation; this is a model impurity, not an industrial material or a quantum benchmark |
+| Ba₂IrO₄ five-orbital DMFT [9] | Full classical DMFT converged with CT-QMC average sign 0.37; hybrid DMFT obtained sign 0.53 and a 43.8-fold total-time speedup | Hybrid DMFT treats part of the orbital manifold at mean-field level; the result concerns an oxide research problem |
+| Ba₂RhO₄ five-orbital DMFT [9] | Full-DMFT sign 0.58; hybrid-DMFT sign 0.60 and 41.2-fold total-time speedup | Neither method establishes an industrial buyer or a quantum crossover |
+
+The first row is unusually clear evidence that **one classical algorithm** has a bottleneck, followed by evidence that another classical algorithm overcame it for the same Green's function. In the oxide examples, the full five-orbital calculation itself completed, and the cheaper approximation reproduced the reported low-energy self-energies within Monte Carlo noise [9]. The classical frontier also includes basis optimisation for CT-HYB [10], tensor-train diagram summation [4] and neural-network embedding solvers [3]. These methods must be considered before calling a sign-problem instance classically intractable.
+
 - Hardware demonstrations are at 2-site and 14-qubit scale [7]; they show the loop closes, not that it wins.
 - The cathode example [6] already has a successful classical CT-QMC calculation. Its core-hole physics is handled in a distinct multiplet step, so a quantum solver for the first-stage impurity cannot claim the full XPS computation as its benchmark.
 - Embedding error (U, double counting, single-site approximation) is usually larger than solver error; the quantum computer removes only the latter. This bounds the value of a perfect solver from above.
 
 ## What would settle it
 
-See the front matter. The classical half is a systematic CT-HYB and TCI/MPS benchmark on synthetic impurities with controlled SOC and hybridisation, reporting sign and cost; the quantum half is a gate-level count for one Green's-function estimator at matched accuracy, using existing compilers for Trotterised Kanamori Hamiltonians. Deliverable: a map in the (orbitals, SOC, T) space with three regions coloured by which solver is cheapest. A PhD-length project if done for both d and f shells with real-material parameters; the synthetic d-shell map alone is a few months.
+See the front matter. First reproduce one published hybridisation function and output, including the classical Inchworm or hybrid-DMFT result where applicable [8, 9]. Then test CT-HYB with an optimised basis [10], tensor-train and MPS alternatives, recording errors as well as the average sign. Only after the best classical cost curve is established should a quantum Green's-function circuit be compiled at matching accuracy, with the bath and state-preparation requirements stated. The current papers do not provide that quantum curve.
 
 ## Who could take it
 
