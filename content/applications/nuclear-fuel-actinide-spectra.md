@@ -1,61 +1,54 @@
 ---
 type: application
 id: nuclear-fuel-actinide-spectra
-title: Actinide 5f spectra of nuclear fuels and waste forms (UO2, PuO2)
-title_zh: 核燃料与核废料的锕系 5f 谱（UO2、PuO2）
-summary: Valence and multiplet assignment in UO2, PuO2 and mixed-oxide fuels is done from M4,5-edge XAS and photoemission, interpreted with LDA+DMFT that national laboratories already run and that is temperature-limited by the impurity solver. A 7-orbital 5f impurity with 3–6 bath sites per spin-orbital fits in 56–98 qubits. The users are credible but few, the value is scientific and regulatory rather than commercial, and the gate count is 1e9–1e12 T.
-summary_zh: UO2、PuO2 和混合氧化物燃料的价态与多重态归属来自 M4,5 边 XAS 和光电子谱，其解读依赖国家实验室已经在用的 LDA+DMFT，而它受限于杂质求解器的温度范围。7 轨道 5f 杂质加每个自旋轨道 3 到 6 个 bath 位点需要 56 到 98 个比特。用户可信但数量少，价值是科学与监管意义而非商业价值，门数在 1e9 到 1e12 个 T 门。
+title: Actinide spectroscopy in nuclear materials (UO2 and PuO2)
+title_zh: 核材料中的锕系谱学（UO2 与 PuO2）
+summary: Published LDA+DMFT calculations already reproduce valence and core-level photoemission features of UO2, NpO2 and PuO2 using classical exact diagonalisation of a 14-impurity-orbital plus 14-bath-orbital model. M-edge X-ray absorption requires a different core-hole response calculation and also has classical benchmarks. No source here establishes a solver failure or an application-level quantum advantage for a named fuel spectrum.
+summary_zh: 已发表的 LDA+DMFT 工作以经典精确对角化求解 14 个杂质轨道加 14 个浴轨道的模型，重现了 UO2、NpO2 和 PuO2 的价带与核能级光电子谱特征。M 边 X 射线吸收需要不同的核空穴响应计算，也已有经典基准。现有文献未证明某个具体核燃料谱的经典求解器失效或量子应用优势。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: surviving
 dimensions:
-  classical_hardness: {level: empirical, note: "7-orbital 5f shell with strong spin–orbit coupling, mixed valence in Pu, and finite temperature; CT-HYB sign problem is exponential in this regime, and Hubbard-I misses the itinerant part; dense multiplet spectra also make classical multireference chemistry on U2-type benchmarks hard"}
-  quantum_easiness: {level: heuristic, note: "impurity Green's function by Trotter or quantum Krylov/Arnoldi; no fault-tolerant estimate for an f-shell impurity; dense spectra make phase-estimation-type approaches sensitive to initial-state overlap"}
-  willingness_to_pay: {level: second-hand, note: "LANL and LLNL run DFT+DMFT on Pu and U compounds and fund the spectroscopy; no written accuracy target; the value is in fuel and waste-form qualification, not a market"}
-resources: {logical_qubits: "56–98", gates: "1e9–1e12 T (illustrative scenario, not a resource estimate)", note: "7-orbital f impurity with 3–6 bath sites per spin-orbital; T count for ~100 fs evolution at 10 meV resolution; no published end-to-end estimate"}
+  classical_hardness: {level: none, note: "Kolorenc et al. completed UO2/NpO2/PuO2 LDA+DMFT with classical finite-bath Lanczos and reproduced valence and 4f-core XPS features. A harder, decision-relevant spectrum at stated accuracy has not been identified."}
+  quantum_easiness: {level: unknown, note: "The published impurity has 28 spin orbitals before the XPS core-hole extension, but a qubit count alone says nothing about quantum preparation, observable extraction or total cost."}
+  willingness_to_pay: {level: second-hand, note: "Actinide oxidation and spectroscopy matter to nuclear materials research, but no user-defined quantum-computation accuracy, latency or procurement target is documented."}
+resources: {logical_qubits: "28 system qubits for the published finite-bath valence impurity; core-level response needs additional modelling", gates: "unknown on the same observable", note: "The published impurity has 14 f spin orbitals and 14 bath spin orbitals. Its classical solver uses a physically motivated Hilbert-space truncation. The previously quoted 56–98 qubits and 1e9–1e12 T gates were generic hypothetical scenarios, not estimates for this calculation."}
 related:
   applications: [rare-earth-permanent-magnets, battery-cathode-spectroscopy]
-  problems: [linear-response-spectral-functions, ground-state-energy]
+  problems: [linear-response-spectral-functions, excited-states]
   methods: [dmft-impurity-solver]
   questions: [dmft-impurity-cost-vs-ctqmc-sign-problem]
 references:
-  - {arxiv: "1510.03859", title: "Hybrid quantum-classical approach to correlated materials", authors: "B. Bauer, D. Wecker, A. J. Millis, M. B. Hastings, M. Troyer", year: 2015, note: "~100-logical-qubit impurity solver proposal"}
-  - {arxiv: "2605.22920", title: "Estimating Green's functions with a robust quantum Arnoldi method", authors: "J. S. Nelson, A. B. Baczewski (Sandia)", year: 2026}
-  - {arxiv: "2303.11199", title: "A Tensor Train Continuous Time Solver for Quantum Impurity Models", authors: "A. Erpenbeck et al., E. Gull", year: 2023, note: "sign-problem-free classical competitor"}
-  - {arxiv: "2603.15741", title: "Neural-Network Quantum Embedding Solvers for Correlated Materials", authors: "A. Valenti, H. Park, A. Georges, A. J. Millis, O. Parcollet", year: 2026}
-  - {arxiv: "2601.10813", title: "Chemically decisive benchmarks on the path to quantum utility", authors: "S. Poyyapakkam Sundar, V. Abraham, B. Peng, A. Asthana", year: 2026, note: "graded benchmark set whose hardest tier is U2 actinide–actinide bonding"}
-  - {arxiv: "1705.08027", title: "Crystal field splittings in rare earth-based hard magnets: an ab initio approach", authors: "P. Delange, S. Biermann, T. Miyake, L. Pourovskii", year: 2017, note: "Hubbard-I treatment of localised f shells, the approximation that fails for itinerant 5f"}
+  - {arxiv: "1504.07979", title: "Electronic structure and core-level spectra of light actinide dioxides in the dynamical mean-field theory", authors: "J. Kolorenč, A. B. Shick, A. I. Lichtenstein", year: 2015, note: "UO2, NpO2 and PuO2; Methods II.B–C, Fig. 5 and Appendix B"}
+  - {doi: "10.1021/acs.inorgchem.1c01331", title: "Computational and Spectroscopic Tools for the Detection of Bond Covalency in Pu(IV) Materials", authors: "P. S. Bagus, B. Schacherl, T. Vitova", year: 2021, note: "PuO2 M4,5 XAS with relativistic wavefunction and embedded-cluster calculations"}
+  - {arxiv: "1510.03859", title: "Hybrid quantum-classical approach to correlated materials", authors: "B. Bauer et al.", year: 2016, note: "general quantum-impurity proposal, not a benchmark of these spectra"}
 ---
 
 ## Who needs it
 
-National laboratories responsible for fuel qualification, plutonium ageing and waste-form stability (Los Alamos, Lawrence Livermore, Idaho, CEA, JAEA), and the fuel vendors and regulators that rely on their assessments. The questions are the oxidation state and multiplet structure of U and Pu in UO2, PuO2, mixed-oxide fuel and corrosion products, the degree of 5f localisation in δ-Pu and its alloys, and how these change with temperature, radiation damage and non-stoichiometry. The measurements are M4,5-edge X-ray absorption, HERFD-XAS, photoemission and RIXS; the interpretation requires a many-body calculation because 5f multiplets are dense and spin–orbit coupling is strong.
+Researchers studying uranium and plutonium compounds use spectroscopy to assign oxidation states, covalency and electronic excitations. Those assignments may inform nuclear-materials research. This page keeps the **measured observable** explicit: the primary UO₂/PuO₂ benchmark [1] treats valence-band photoemission and 4f-core X-ray photoelectron spectroscopy (XPS). M₄,₅-edge X-ray absorption spectroscopy (XAS) probes a different transition and needs a distinct core-hole calculation. The cited papers do not give a fuel vendor or regulator's acceptance threshold for a faster quantum calculation.
 
 ## Bottleneck
 
-Actinide 5f electrons sit between the localised 4f limit and the itinerant 3d limit. DFT and DFT+U give the wrong metallic ground state for UO2 without symmetry breaking and misplace the 5f states in Pu. The working method is LDA+DMFT, and the laboratories have used it for two decades on δ-Pu and uranium compounds; it is also how the 14-orbital (7 spatial × 2 spin) 5f shell of Pu is currently modelled. The limitation is the impurity solver: CT-HYB with full spin–orbit coupling and off-diagonal hybridisation has a sign problem that grows exponentially with decreasing temperature, so the calculations are restricted to temperatures above where many of the spectroscopic questions are asked. The alternative, Hubbard-I, treats the f shell in the atomic limit [6] and cannot describe the mixed-valent, partially itinerant character of Pu 5f or of U in reduced oxides.
-
-The same physics makes actinide molecules the hardest tier of chemistry benchmarks: the graded benchmark set of Poyyapakkam Sundar et al. places U2 actinide–actinide bonding above Fe–S clusters in difficulty, because of dense near-degenerate spectra, relativistic effects and dynamic correlation together [5]. Unlike the catalysis and OLED cases, however, no one has produced a classical-failure certificate for a specific actinide instance; the difficulty is documented mostly as method disagreement.
-
-Value is real but not commercial: a better assignment of U valence in a corroded fuel pellet feeds a licensing or storage decision, and the users have decades of investment in exactly these calculations. There is no market, and no laboratory has written down a required accuracy.
+The local-density approximation does not describe the paramagnetic insulating state of these oxides. LDA+DMFT adds a correlated 5f impurity and can reproduce the band gaps, photoemission structure and core-level satellites [1]. That improvement is already available classically for the named materials. A future quantum use case would need a specific spectral feature or condition that the best classical workflow cannot predict at the required accuracy, followed by evidence that the feature changes a material decision.
 
 ## Computational problems
 
-- [Linear response and spectral functions](../problems/linear-response-spectral-functions.html): the 5f impurity Green's function inside LDA+DMFT, and core-hole spectra at M4,5 edges.
-- [Ground-state energy](../problems/ground-state-energy.html) of actinide molecules and clusters as benchmark instances (U2, uranyl, Pu oxides).
+- [Spectral functions and linear response](../problems/linear-response-spectral-functions.html): the 5f valence Green's function and the chosen core-level observable.
+- [Excited and core-hole states](../problems/excited-states.html): XPS and XAS have different final states. A quantum algorithm for a valence Green's function does not automatically compute an M-edge XAS line shape.
+
+The U₂ molecule is a separate ground-state chemistry benchmark. Difficulty in U₂ bonding cannot be transferred to the UO₂ or PuO₂ solid-state spectra without a common Hamiltonian and output requirement.
 
 ## Best classical today
 
-LDA+DMFT with CT-HYB above roughly 100 K; Hubbard-I where the f shell is localised; relativistic multireference (CASPT2, DMRG with spin–orbit) for molecular actinide chemistry. Tensor-train CT-QMC removes the sign problem in principle by deterministic summation [3], and neural-network impurity solvers deliver QMC-quality self-energies orders of magnitude faster [4]; neither has been demonstrated on a full 5f shell with spin–orbit coupling at low temperature.
+Kolorenč et al. solved a finite impurity model with **14 5f spin orbitals and 14 bath spin orbitals** using Lanczos exact diagonalisation inside LDA+DMFT [1, Methods II.B]. They reproduced the main valence and 4f-core XPS features of UO₂, NpO₂ and PuO₂. Their 4f-core XPS calculation adds a core state and core–valence interaction [1, Methods II.C]. For the studied oxides, the paper found a physically justified finite bath and checked a restricted Hilbert space until its reported quantities had essentially converged; this is a classical accuracy claim for that model, not proof that all actinide impurities are easy [1, Appendix B].
+
+M₄,₅-edge XAS is a distinct benchmark. Relativistic wavefunction and embedded-cluster calculations have been compared with PuO₂ M-edge measurements [2]. Their remaining theory–experiment discrepancies warrant study, but they are not evidence that the DMFT valence impurity in [1] failed.
 
 ## Best quantum today
 
-The 100-logical-qubit DMFT impurity solver of Bauer et al. [1] applied to a 7-orbital f shell: with 3–6 bath sites per spin-orbital the register is 56–98 qubits, which is the same kernel as the rare-earth magnet case and fits a 2029–2030 machine in qubit count. The T-gate cost of one Green's function at 10 meV resolution is 10^9–10^12 by the maintainers' estimate; quantum Arnoldi methods reduce this by orders of magnitude relative to point-by-point QSVT [2]. The dense multiplet spectrum is a mixed blessing: it is why classical solvers struggle, and also why any overlap-dependent quantum method (phase estimation on the impurity) needs care with initial states. No end-to-end fault-tolerant estimate for a 5f impurity exists.
+A general proposal places a quantum impurity solver within a classical DMFT loop [3]. The published valence impurity in [1] would occupy 28 qubits under a one-qubit-per-spin-orbital mapping before core-level response and ancillary registers. The same problem was already solved classically, including a large reduction of its many-body basis [1, Appendix B]. No compiled quantum circuit at matched spectral error and no bath-convergence or runtime crossover for these oxides is supplied by [3]. A core-level quantum proposal would also have to implement the corresponding final-state Hamiltonian and measurement.
 
 ## Verdict
 
-Surviving. Of the DMFT scenarios, this one has the most credible users (laboratories that already run DMFT and already own the spectrometers) and the least commercial pull. Hardness is empirical and specific to the low-temperature, spin–orbit-coupled f shell; the quantum kernel fits 56–98 qubits; the gate count does not fit a five-year horizon; willingness to pay is second-hand and non-market. A demonstration around 2030 on a 200-logical-qubit machine, reproducing a UO2 or PuO2 M-edge spectrum where CT-HYB cannot reach the temperature and Hubbard-I gives the wrong valence, would be a science result with a real reader. To move the verdict, a laboratory would need to state which spectroscopic assignment, at which temperature and resolution, is currently blocked by the solver, and an end-to-end resource estimate for that instance would need to beat tensor-train and neural-network solvers on the same hybridisation function.
-
-## Resource-count assumptions
-
-The gate range quoted here is a sensitivity calculation: assume 10²–10³ time steps, 10⁴–10⁵ compiled T gates per step and 10³–10⁴ repetitions of one measured circuit. Multiplying endpoints gives **10⁹–10¹² T gates**. These inputs are not calibrated for a named impurity or a target error. The range excludes state preparation, additional time points and Green's-function components, bath convergence and DMFT iterations, so it is not an end-to-end estimate or a hardware readiness claim. See the [impurity-solver page](../methods/dmft-impurity-solver.html) for the conditions that remain to be checked.
+Surviving as a broad application category, with **no demonstrated advantage for the named UO₂/PuO₂ observables**. The directly cited LDA+DMFT calculation is a successful classical baseline. The previous inference from generic f-shell sign problems, a hypothetical 56–98-qubit bath and U₂ molecular bonding conflated different tasks. The next useful case must specify a sample, temperature, spectral line and required error; show that finite-bath ED, CT-QMC or another classical approach misses it; and compare a quantum workflow on the identical model, including core-hole physics where relevant. A documented user decision tied to that line is still needed.
