@@ -1,0 +1,184 @@
+{
+  "source": "https://arxiv.org/html/2512.13657",
+  "source_tables": [
+    "SI.1-2",
+    "SI.1-3",
+    "Table 2"
+  ],
+  "n_molecules": 14,
+  "groups": {
+    "Ir(III)": "Q1-Q7",
+    "Pt(II)": "Q8-Q14"
+  },
+  "calibration": "Within each training fold, offset fits mean(y-x); affine fits y=a*x+b by least squares. Every held-out prediction excludes its own measured target.",
+  "limitations": [
+    "The 14 molecules are a small curated cohort, not a prospective test set.",
+    "The method set and calibration forms were inspected using this same publication; the apparent best result would be selection-biased.",
+    "Leaving out one molecule does not break structural similarity within its Ir/Pt family.",
+    "The two-family holdout trains on only seven molecules and is a stress test, not a future product-domain forecast.",
+    "Calculated gaps are rounded to 0.001 eV; calibration does not address physical-model errors or runtime.",
+    "All iQCC predictions in the paper were calculated on classical processors."
+  ],
+  "rows": [
+    {
+      "method": "ro_b3lyp",
+      "raw_mae_ev": 0.19742857142857145,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.12109890109890112,
+        "leave_one_scaffold_family_out_mae_ev": 0.20571428571428574,
+        "ir_test_mae_ev": 0.2057142857142858,
+        "pt_test_mae_ev": 0.2057142857142857
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.13142878368909178,
+        "leave_one_scaffold_family_out_mae_ev": 0.20759152103085382,
+        "ir_test_mae_ev": 0.2074880603651203,
+        "pt_test_mae_ev": 0.20769498169658732
+      }
+    },
+    {
+      "method": "ro_cam_b3lyp",
+      "raw_mae_ev": 0.11607142857142864,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.09384615384615377,
+        "leave_one_scaffold_family_out_mae_ev": 0.15442857142857155,
+        "ir_test_mae_ev": 0.15442857142857158,
+        "pt_test_mae_ev": 0.1544285714285715
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.10243236787182193,
+        "leave_one_scaffold_family_out_mae_ev": 0.16431399513549363,
+        "ir_test_mae_ev": 0.16963663462086948,
+        "pt_test_mae_ev": 0.15899135565011774
+      }
+    },
+    {
+      "method": "ro_wpbeh",
+      "raw_mae_ev": 0.14557142857142866,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.12476923076923076,
+        "leave_one_scaffold_family_out_mae_ev": 0.2097142857142859,
+        "ir_test_mae_ev": 0.20971428571428594,
+        "pt_test_mae_ev": 0.20971428571428583
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.14051365936149834,
+        "leave_one_scaffold_family_out_mae_ev": 0.25944142083596206,
+        "ir_test_mae_ev": 0.21279964962148715,
+        "pt_test_mae_ev": 0.30608319205043705
+      }
+    },
+    {
+      "method": "ro_wb97x",
+      "raw_mae_ev": 0.21935714285714294,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.07352747252747245,
+        "leave_one_scaffold_family_out_mae_ev": 0.0973061224489796,
+        "ir_test_mae_ev": 0.09732653061224483,
+        "pt_test_mae_ev": 0.09728571428571435
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.07902250616194642,
+        "leave_one_scaffold_family_out_mae_ev": 0.10324840257768506,
+        "ir_test_mae_ev": 0.10349365589911698,
+        "pt_test_mae_ev": 0.10300314925625312
+      }
+    },
+    {
+      "method": "td_b3lyp",
+      "raw_mae_ev": 0.12100000000000008,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.12204395604395614,
+        "leave_one_scaffold_family_out_mae_ev": 0.22457142857142862,
+        "ir_test_mae_ev": 0.22457142857142856,
+        "pt_test_mae_ev": 0.2245714285714287
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.12754397413672397,
+        "leave_one_scaffold_family_out_mae_ev": 0.2300546983988721,
+        "ir_test_mae_ev": 0.23591136703528823,
+        "pt_test_mae_ev": 0.22419802976245595
+      }
+    },
+    {
+      "method": "td_cam_b3lyp",
+      "raw_mae_ev": 0.2554285714285714,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.08940659340659342,
+        "leave_one_scaffold_family_out_mae_ev": 0.14195918367346955,
+        "ir_test_mae_ev": 0.13771428571428593,
+        "pt_test_mae_ev": 0.14620408163265314
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.09836555385326305,
+        "leave_one_scaffold_family_out_mae_ev": 0.13807467401630605,
+        "ir_test_mae_ev": 0.1242794881304865,
+        "pt_test_mae_ev": 0.1518698599021256
+      }
+    },
+    {
+      "method": "ccsd",
+      "raw_mae_ev": 0.22007142857142845,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.0965274725274726,
+        "leave_one_scaffold_family_out_mae_ev": 0.09857142857142862,
+        "ir_test_mae_ev": 0.10361224489795925,
+        "pt_test_mae_ev": 0.09353061224489798
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.09927994964091433,
+        "leave_one_scaffold_family_out_mae_ev": 0.0929355590704383,
+        "ir_test_mae_ev": 0.09778461973362337,
+        "pt_test_mae_ev": 0.08808649840725323
+      }
+    },
+    {
+      "method": "cr_cc_2_3",
+      "raw_mae_ev": 0.29128571428571426,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.10195604395604396,
+        "leave_one_scaffold_family_out_mae_ev": 0.09916326530612256,
+        "ir_test_mae_ev": 0.1100408163265308,
+        "pt_test_mae_ev": 0.08828571428571433
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.10377847359682012,
+        "leave_one_scaffold_family_out_mae_ev": 0.09417011079811012,
+        "ir_test_mae_ev": 0.10432271121990026,
+        "pt_test_mae_ev": 0.08401751037631998
+      }
+    },
+    {
+      "method": "iqcc",
+      "raw_mae_ev": 0.11778571428571435,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.08007692307692309,
+        "leave_one_scaffold_family_out_mae_ev": 0.08555102040816324,
+        "ir_test_mae_ev": 0.0822244897959185,
+        "pt_test_mae_ev": 0.088877551020408
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.06367971743200143,
+        "leave_one_scaffold_family_out_mae_ev": 0.08155553503024858,
+        "ir_test_mae_ev": 0.07385175181207664,
+        "pt_test_mae_ev": 0.08925931824842051
+      }
+    },
+    {
+      "method": "iqcc_pt",
+      "raw_mae_ev": 0.049857142857142836,
+      "offset_calibration": {
+        "leave_one_out_mae_ev": 0.050549450549450446,
+        "leave_one_scaffold_family_out_mae_ev": 0.08428571428571437,
+        "ir_test_mae_ev": 0.08428571428571432,
+        "pt_test_mae_ev": 0.0842857142857144
+      },
+      "affine_calibration": {
+        "leave_one_out_mae_ev": 0.05246273299769942,
+        "leave_one_scaffold_family_out_mae_ev": 0.08320973922653943,
+        "ir_test_mae_ev": 0.09491877460714233,
+        "pt_test_mae_ev": 0.07150070384593654
+      }
+    }
+  ]
+}

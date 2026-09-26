@@ -1,5 +1,17 @@
 # Reproducing the DMFT bath-input check
 
+## OLED calibration sensitivity
+
+`oled_genin2026_dft_si1.csv` transcribes the six DFT columns of Supplementary Table SI.1-3 in [arXiv:2512.13657v2](https://arxiv.org/html/2512.13657). `oled_genin2026_si1.csv` contains the measured and other calculated gaps from SI.1-2. The script checks that each transcribed DFT column reproduces the published Table 2 MAE within rounding, then fits either a mean offset or a two-parameter affine map inside each leave-one-molecule-out fold. It also tests transfer between the seven Ir and seven Pt molecules. With NumPy installed, run:
+
+```sh
+python numerics/oled_calibration_sensitivity.py --output numerics/results/oled_genin2026_calibration_sensitivity.json
+```
+
+The output includes all ten methods and both calibration rules. The six DFT methods were inspected as a group, so selecting the smallest cross-validated error after the fact is optimistic. These 14 related molecules are not an independent prospective test, and no method runtime is measured here. This sensitivity check is a classical comparator for the OLED application, not a quantum algorithm result.
+
+## DMFT bath-input check
+
 The scripts `dmft_semicircle_bath.py` and `dmft_semicircle_bath_fit.py` examine the *input bath* of the two-orbital Kanamori model in [Eidelstein, Gull and Cohen, arXiv:1907.08570](https://arxiv.org/abs/1907.08570), Eqs. 5 and the continuous-band paragraph following it. The parameters are `t=1`, `D=2`, `r=1`. The model has four interacting spin orbitals; at `r=1`, its orbital hybridisation matrix has rank one for each spin.
 
 The first script uses the fixed Gauss-Chebyshev rule for the semicircular spectral density. It is a useful check of the analytic transform, **not** an optimized fit. The second fits symmetric pairs of finite-bath poles with positive normalized weights to the first 80 fermionic Matsubara values. It then checks the imaginary-time bath kernel at 81 points against 2048-node quadrature; 4096-node quadrature checks the numerical reference. The fitted kernel is the noninteracting hybridisation `Delta`. It is **not** the interacting impurity Green's function `G`, a DMFT result or a quantum-algorithm benchmark.

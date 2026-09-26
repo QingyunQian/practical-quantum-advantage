@@ -47,6 +47,17 @@ Supplementary Table SI.3-1 lists an active-space sweep for Q1's uncorrected iQCC
 
 The 100-system-qubit row is a concrete starting point for a near-term experiment. Those 100 qubits exclude ancillas and error correction; the 87.02 hours exclude the triplet solver, Hamiltonian generation and other workflow costs. The errors are non-monotone with active-space size. Table SI.1-2 also reports 1.982 eV for the benchmark's uncorrected Q1 iQCC result, rather than SI.3-1's 1.988 eV at CAS(70,70). That discrepancy needs clarification before joining the sweep to the 14-emitter benchmark. We have kept the two series separate in the figure.
 
+**Sensitivity to classical calibration.** The paper's headline method comparison uses raw calculated gaps [1]. A screening team with measured emitters could fit a simple systematic-bias correction on prior compounds. We transcribed all six DFT columns in SI.1-3 and, for each of the 14 molecules, fitted a one-parameter additive offset on the other 13 before predicting the held-out measurement. We also trained on all seven Ir compounds and tested on the seven Pt compounds, then reversed the direction. The [data and reproducible calculation](https://github.com/yuchenguommm/practical-quantum-advantage/tree/main/numerics) report every method, including CC and iQCC, with offset and affine fits. Selected rows are:
+
+| Method [1] | Raw MAE (eV) | Leave-one-molecule-out offset MAE | Ir/Pt-family holdout offset MAE |
+|---|---:|---:|---:|
+| RO-CAM-B3LYP | 0.1161 | 0.0938 | 0.1544 |
+| RO-ωB97X | 0.2194 | 0.0735 | 0.0973 |
+| CCSD | 0.2201 | 0.0965 | 0.0986 |
+| iQCC+PT, run classically | 0.0499 from rounded SI rows | 0.0505 | 0.0843 |
+
+The paper reports `0.0501 eV` for iQCC+PT from its unrounded values; our `0.0499 eV` uses the displayed three-decimal gaps. The iQCC+PT result remains the lowest MAE in these selected comparisons. Calibration narrows the **observed** gap to some conventional methods, especially for a functional with a large systematic offset. RO-ωB97X was selected for this table *after inspecting six functionals*, so its cross-validated number has method-selection bias. Fourteen related molecules are too few for a prospective error guarantee, and the Ir/Pt holdout trains on only seven cases. DFT and iQCC may also use different geometries [1, SI.1-3]. This check changes the classical comparison that a buyer should test; it does not produce a quantum cost or prove a commercially usable calibrated DFT model.
+
 A smaller alternative is the earlier nine-complex Ir benchmark at CAS(36,36), which maps to 72 active-space qubits [3]. Its iQCC+PT and fine-tuned DFT mean absolute deviations were 0.201 and 0.192 eV, respectively [3, Table 1]. A 72-qubit demonstration would still need to beat a measured classical baseline on the same molecular Hamiltonian; reproducing the already classically simulated circuit would only verify implementation. The older cohort has different molecules and methods, so its accuracy figures cannot be combined with Q1's active-space sweep.
 
 ## Input availability audit
