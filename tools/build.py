@@ -7,12 +7,14 @@ from __future__ import annotations
 import json
 import shutil
 from collections import defaultdict
+from datetime import date
 from pathlib import Path
 
 import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from common import ROOT, TYPES, VERDICT_LABEL, load_all
+from review_queue import MAX_AGE_DAYS, classify
 
 SITE = ROOT / "site"
 TEMPLATES = ROOT / "templates"
@@ -125,6 +127,20 @@ def main() -> None:
 
     html = env.get_template("contribute.html").render(depth="", counts=counts)
     (SITE / "contribute.html").write_text(html, encoding="utf-8")
+
+    review_queue = classify(entries)
+    html = env.get_template("review_queue.html").render(
+        depth="", queue=review_queue, max_age_days=MAX_AGE_DAYS,
+    )
+    (SITE / "review-queue.html").write_text(html, encoding="utf-8")
+    (SITE / "review-queue.json").write_text(json.dumps({
+        "generated": date.today().isoformat(), "max_age_days": MAX_AGE_DAYS,
+        "groups": {key: [
+            {"type": e.type, "id": e.id, "title": e.meta["title"],
+             "url": e.href, "last_verified": e.meta.get("last_verified")}
+            for e in group
+        ] for key, group in review_queue.items()},
+    }, ensure_ascii=False, indent=1), encoding="utf-8")
 
     # machine-readable exports
     export = []

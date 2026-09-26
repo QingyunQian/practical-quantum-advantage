@@ -4,6 +4,7 @@
 <h1>Contribute to the catalogue</h1>
 <p class="lede">Every entry has a source file, public edit history and a review path. You can propose a change without writing code; a maintainer checks the evidence before it appears here.</p>
 <p class="zh">每个条目都有源文件和公开修改记录。你可以通过 GitHub Issue 提交新候选、证据或研究进展，也可以直接修改页面并提交 Pull Request；证据经过审核后才会发布。</p>
+<p><a href="review-queue.html">Find a page awaiting review or an updated source check →</a></p>
 
 <div class="contribute-options">
   <article>
@@ -39,4 +40,5 @@ python tools/check_site.py</code></pre>
 
 <h2>Use an agent</h2>
 <p>Give your agent a specific question or page ID, ask it to read <a href="{{ BASE_URL }}/blob/main/AGENTS.md">AGENTS.md</a>, and have it cite the sources behind every change. It can read the whole catalogue from <a href="index.json">index.json</a> or <a href="llms.txt">llms.txt</a>. Agent-authored changes use the same pull request and human review process. There is no remote write API or automatic research bot yet.</p>
+<p>For a concrete starting task, use the <a href="review-queue.json">machine-readable review queue</a> or an <a href="questions/index.html">open question</a>. A research result should first be made citable as a preprint, paper or reproducible public report; an issue or PR then links the result to the relevant page.</p>
 {% endblock %}

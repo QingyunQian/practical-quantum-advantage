@@ -2,6 +2,9 @@
 
 You can suggest a change without writing code. Every published entry is reviewed through a GitHub pull request; proposals and corrections are welcome before a full page is ready.
 
+The [review queue](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.html) lists seed, disputed and stale pages. Its [JSON export](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json) is a task list for agents. A monthly workflow updates one [catalogue review issue](https://github.com/yuchenguommm/practical-quantum-advantage/issues) so older conclusions remain visible to contributors.
+It also rebuilds the site so the age-based queue stays current. GitHub can disable scheduled workflows on public repositories after 60 days without activity; maintainers can run the workflow manually from Actions or re-enable it when that happens.
+
 ## Choose a route
 
 | You have | Use |
@@ -34,10 +37,14 @@ python tools/check_site.py
 
 **Review standard.** arXiv title matching checks that a cited identifier exists; it does not show that the paper supports a sentence. Reviewers check the cited passage, the numerical assumptions, the best classical comparison and the quantum algorithm's preconditions. The `seed` status means these checks are not complete. Use `reviewed` only after a maintainer has recorded the source and claim checks in the pull request. Use `disputed` when a published conclusion has a documented live challenge. Updating an older page should update `last_verified` to the date of the new source check.
 
+For a review PR, give the entry ID, the date searched, the sources checked, the exact claims checked, and any remaining uncertainty. The reviewer should check both confirming and contrary papers. A fresh date or an added citation by itself does not make a page `reviewed`; a scheduled reminder does not change a verdict automatically. Keep disputed and refuted pages in the catalogue with their history.
+
 **Credit and rights.** Contributors retain copyright in their original writing and contribute it under CC BY 4.0; code is MIT licensed. Cite and paraphrase third-party work, and include scripts plus results for new figures. See [LICENSE](LICENSE). Do not add private notes or personal contact details to public entries.
 
 ## Use an agent
 
 Give an agent the repository and [AGENTS.md](AGENTS.md), then ask for a specific page or evidence task. For example: “Investigate whether classical impurity solvers change the verdict on `rare-earth-permanent-magnets`; cite primary sources, update the relevant page and open a PR with the evidence.” The complete public catalogue is available as [index.json](https://yuchenguommm.github.io/practical-quantum-advantage/index.json) and a compact [llms.txt](https://yuchenguommm.github.io/practical-quantum-advantage/llms.txt). These are read-only; agents submit changes through the same issue and PR process as people.
+
+An agent can start from a queue ID or open question, gather primary sources, propose a focused edit, run the checks and open a PR. The PR must identify agent assistance, sources it rejected, and what remains uncertain. Human review is required before publication; no agent can change the live catalogue through the JSON export.
 
 Four optional Claude Code skills live in `.claude/skills/`. The repository instructions and JSON export work with other agents as well. The catalogue has no remote write API or automatic research bot.

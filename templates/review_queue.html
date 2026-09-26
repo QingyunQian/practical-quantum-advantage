@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Review queue · Practical Quantum Advantage{% endblock %}
+{% block content %}
+<h1>Review queue</h1>
+<p class="lede">These pages need a source review or a fresh literature check. An old verification date is a prompt to investigate, not evidence that the conclusion is wrong.</p>
+<p>Pages enter the stale group after {{ max_age_days }} days without a recorded check. <strong>Seed</strong> means the page has not completed source and claim review; <strong>disputed</strong> means a live challenge is documented. The <a href="review-queue.json">JSON queue</a> lets agents choose a task.</p>
+{% for key, title in [('disputed', 'Disputed'), ('stale', 'Stale'), ('seed', 'Awaiting first review')] %}
+<section>
+<h2>{{ title }} ({{ queue[key]|length }})</h2>
+{% if queue[key] %}
+<div class="cards">
+{% for e in queue[key] %}
+<a class="card" href="{{ e.href }}"><h3>{{ e.meta.title }}</h3><p>{{ e.type }} · last checked {{ e.meta.last_verified }}</p></a>
+{% endfor %}
+</div>
+{% else %}<p>None.</p>{% endif %}
+</section>
+{% endfor %}
+<section class="contribute-callout">
+<h2>Review a page</h2>
+<p>Check the primary sources, the numerical assumptions, the strongest classical comparison and the quantum algorithm's preconditions. Record what you checked in a pull request, and update <code>last_verified</code> only after doing that work. You can also <a href="contribute.html">submit a correction or source</a> without editing code.</p>
+</section>
+{% endblock %}

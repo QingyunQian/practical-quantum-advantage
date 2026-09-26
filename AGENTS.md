@@ -7,6 +7,8 @@ no other database. To change a verdict, change the file and open a pull request.
 The [contributor guide](CONTRIBUTING.md) gives the routes for proposing pages and evidence,
 the review criteria, and the commands for creating a draft. Agents can read the full catalogue
 from `index.json` or `llms.txt` on the published site; write changes through issues or PRs.
+The [review queue](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json)
+lists pages awaiting first review, disputed pages and pages older than 180 days.
 
 ## What a page is
 
@@ -113,6 +115,9 @@ You may add further sections. Keep pages under about 1,200 words. Write in Engli
    evidence changed it. Do not silently soften wording.
 6. Refutations are as valuable as claims. If a classical simulation reproduces a claimed
    advantage, add it to the claim page and set `refuted: true`.
+7. A literature refresh needs both supporting and contrary searches. Record the search date,
+   exact claims checked, sources read and remaining uncertainty in the PR. Change
+   `last_verified` only after that check; do not mark a page `reviewed` by adding a citation.
 
 ## Workflow
 
@@ -127,6 +132,14 @@ Dependencies: `pip install -r requirements.txt` (PyYAML, jsonschema, markdown, j
 Branch from `main`, one topic per pull request. Agent-authored PRs are welcome; label them
 `agent` and list the sources consulted. A maintainer merges after checking the evidence, not the
 prose.
+
+For a research task, start with one page ID from `review-queue.json` or one question ID from
+`index.json`. Search the latest primary literature, compare the best classical and quantum
+methods on the same instance and accuracy, and say explicitly when the evidence does not
+settle the verdict. Run `validate.py`, `verify_refs.py --strict`, `build.py`, and
+`check_site.py` before opening a PR. The agent should never publish a new scientific result
+solely as a catalogue edit; release a citable preprint, paper or reproducible public report
+first, then link it from the page.
 
 To create a draft for any of the five types, run
 `python tools/new_entry.py problem my-problem --title "My problem"`. Replace all placeholders,

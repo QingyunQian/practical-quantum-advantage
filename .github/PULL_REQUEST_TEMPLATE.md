@@ -10,6 +10,10 @@
 
 <!-- arXiv IDs, DOIs, URLs. Agent-authored PRs: list every source you read, including ones you rejected. -->
 
+## Review record
+
+<!-- Date searched; exact claims and numbers checked; best contrary source; remaining uncertainty. Required before changing status to reviewed or last_verified. -->
+
 ## Checklist
 
 - [ ] `python tools/validate.py` passes

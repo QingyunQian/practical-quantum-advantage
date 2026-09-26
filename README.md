@@ -12,6 +12,7 @@ The site also keeps a record of every published "quantum advantage" claim and ho
 
 Site: https://yuchenguommm.github.io/practical-quantum-advantage/
 Machine-readable: `index.json` and `llms.txt` at the site root.
+Review tasks: [`review-queue.html`](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.html) and [`review-queue.json`](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json). A scheduled workflow keeps one GitHub issue up to date each month.
 
 ## Contributing
 
