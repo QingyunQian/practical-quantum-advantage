@@ -18,7 +18,7 @@ references:
   - {arxiv: "2512.13657", title: "Towards Quantum Advantage in Chemistry", authors: "S. N. Genin, O. Kwon et al. (OTI Lumionics, Samsung SAIT)", year: 2026, note: "v2; achieved MAE 0.0501 eV, no explicit buyer acceptance threshold"}
   - {arxiv: "2406.06335", title: "Feasibility of accelerating homogeneous catalyst discovery with fault-tolerant quantum computers", authors: "N. Bellonzi et al. (Zapata AI, University of Toronto)", year: 2024, note: "$200k is an author-derived research-utility estimate; 400,000 DMRG CPU-hours are extrapolated"}
   - {arxiv: "2509.08328", title: "Towards solving industrial integer linear programs with Decoded Quantum Interferometry", authors: "J. Sabater et al.", year: 2026, note: "automotive option-package pricing; QST 11, 025054 (2026); no claim of beating Gurobi"}
-  - {arxiv: "2012.03819", title: "A Threshold for Quantum Advantage in Derivative Pricing", authors: "S. Chakrabarti et al. (Goldman Sachs, IBM)", year: 2021, note: "Quantum 5, 463 (2021); ~8k logical qubits, T-depth 5.4e7, needs 10 MHz logical clock"}
+  - {arxiv: "2012.03819", title: "A Threshold for Quantum Advantage in Derivative Pricing", authors: "S. Chakrabarti et al. (Goldman Sachs, IBM)", year: 2021, note: "Quantum 5, 463 (2021); one-second comparator is an assumption; Table 1 depth 5.4e7 conflicts with prose rate 10 MHz"}
   - {arxiv: "2510.07273", title: "End-to-end quantum algorithms for tensor problems", authors: "M. Fontana et al. (JPMorgan)", year: 2025, note: "900 logical qubits, 1e15 gates, depth 1e12"}
   - {arxiv: "1505.06552", title: "Concrete resource analysis of the quantum linear system algorithm used to compute the electromagnetic scattering cross section of a 2D target", authors: "A. Scherer et al.", year: 2017, note: "QIP 16, 60 (2017); circuit depth ~1e29 with the geometry oracle"}
   - {arxiv: "2605.01138", title: "Crossing the 12,000-atom barrier with heterogeneous quantum-classical supercomputing: quantum chemistry of protein-ligand complexes", authors: "L. Merz, B. Shajan, D. Kaliakin et al. (Cleveland Clinic, RIKEN, IBM)", year: 2026, note: "co-authored by a clinical institution but states no accuracy target"}
@@ -36,7 +36,7 @@ Some finance and engineering pages have bank or contractor co-authors with resou
 |---|---|---|---|
 | oled-emitters | Genin et al. 2026 (OTI Lumionics, Samsung SAIT) [1] | achieved T1-to-S0 MAE 0.0501 eV; buyer threshold unstated | first-hand interest, target unknown |
 | homogeneous-catalysis | Bellonzi et al. 2024 (Zapata and academic authors) [2] | $200k inferred research utility; DMRG ~4e5 CPU-h extrapolated | second-hand; buyer target unknown |
-| derivative-pricing | Chakrabarti et al. 2021 (Goldman Sachs) [4] | about one second to beat the studied classical pricing workflow; no procurement price | first-hand technical crossover, purchase unknown |
+| derivative-pricing | Chakrabarti et al. 2021 (Goldman Sachs) [4] | one-second classical comparator assumed; paper mentions five to ten seconds for some autocallables, but does not measure the compiled contract at equal error or state a buyer acceptance threshold | first-hand interest, target unknown |
 | automotive-pricing-integer-programming | Sabater et al. 2026 (BMW coauthors) [3] | no buyer-defined solve-time or objective threshold | first-hand interest, target unknown |
 | protein-ligand-binding | Merz et al. 2026 (Cleveland Clinic) [7] | none stated | second-hand |
 | radar-cross-section | Scherer et al. 2017 [6] | none; RAND 2026 says not practical short-term | second-hand |
