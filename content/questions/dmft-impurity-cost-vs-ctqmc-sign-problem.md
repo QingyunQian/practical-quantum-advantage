@@ -27,6 +27,7 @@ references:
   - {arxiv: "2601.04832", title: "Affordable Five-Orbital Dynamical Mean-Field Theory for Layered Iridates and Rhodates", authors: "L. Gaspard, C. Martins", year: 2026, note: "Table 4; full DMFT and hybrid DMFT on two real materials"}
   - {arxiv: "1907.11298", title: "Alleviating the Sign Problem in Quantum Monte Carlo Simulations of Spin-Orbit-Coupled Multi-Orbital Hubbard Models", authors: "A. J. Kim, P. Werner, R. Valentí", year: 2020, note: "basis optimisation changes the measured CT-HYB sign"}
   - {arxiv: "1504.07979", title: "Electronic structure and core-level spectra of light actinide dioxides in the dynamical mean-field theory", authors: "J. Kolorenč, A. B. Shick, A. I. Lichtenstein", year: 2015, note: "classically solved UO2/NpO2/PuO2 benchmark; valence and 4f-core XPS"}
+  - {url: "https://github.com/TRIQS/benchmarks/tree/e51cbe48ac0e7106c5b9e0b1b80e17af58e4548f/Sr2RuO4", title: "TRIQS impurity-solver benchmark: Sr2RuO4", authors: "TRIQS benchmark contributors", note: "Pinned public model.py, Wannier hopping file and CT-HYB HDF5 output; a material-derived solver test, not an industrial quantum-advantage result"}
 ---
 
 ## Why it matters
@@ -43,6 +44,7 @@ Hard impurity regimes exist, but difficulty depends on the Hamiltonian, basis, t
 | Ba₂IrO₄ five-orbital DMFT [9] | Full classical DMFT converged with CT-QMC average sign 0.37; hybrid DMFT obtained sign 0.53 and a 43.8-fold total-time speedup | Hybrid DMFT treats part of the orbital manifold at mean-field level; the result concerns an oxide research problem |
 | Ba₂RhO₄ five-orbital DMFT [9] | Full-DMFT sign 0.58; hybrid-DMFT sign 0.60 and 41.2-fold total-time speedup | Neither method establishes an industrial buyer or a quantum crossover |
 | UO₂, NpO₂ and PuO₂ valence and 4f-core XPS [11] | LDA+DMFT with classical Lanczos on 14 impurity plus 14 bath spin orbitals reproduced the reported spectra | This is a finite-bath success case; M-edge XAS is a different observable, and a harder fuel instance is not identified |
+| Sr₂RuO₄ impurity-solver benchmark [12] | Public three-orbital model code, Wannier hopping file and CT-HYB HDF5 output for a material-derived hybridisation | Six impurity spin orbitals; no quantum bath fit, bath-size convergence, measured quantum cost or industrial target |
 
 The first row is unusually clear evidence that **one classical algorithm** has a bottleneck, followed by evidence that another classical algorithm overcame it for the same Green's function. Inchworm avoids this example's exponential temperature scaling but still has exponential dependence on the number of interacting orbitals [8]. In the oxide examples, the full five-orbital calculation itself completed, and the cheaper approximation reproduced the reported low-energy self-energies within Monte Carlo noise [9]. The classical frontier also includes basis optimisation for CT-HYB [10], tensor-train diagram summation [4] and neural-network embedding solvers [3]. These methods must be considered before calling a sign-problem instance classically intractable.
 
@@ -59,13 +61,15 @@ The continuous-bath Kanamori case in [8, Eqs. 5 and the paragraph below it, Figs
 
 The analytic model is a useful algorithm benchmark. It is not yet evidence for a practical quantum advantage: the best reported classical solver solved it, and no matched finite-temperature quantum cost has been published [8].
 
+For a **material-derived input**, the pinned TRIQS Sr₂RuO₄ benchmark [12] is a stronger reproducibility starting point than a generic material name. Its `model.py` sets \(\beta=25\), \(U=2.3\), \(J=0.4\) and three correlated orbitals with two spins; it builds the matrix hybridisation from the supplied Wannier hopping file. Its published `cthyb.h5` contains Matsubara and imaginary-time Green's functions, the supplied bath data and solver settings. This archive provides a concrete classical reference and input path. It does **not** itself give a converged finite quantum bath, a full self-consistent DMFT loop for a target application, or evidence that CT-HYB is prohibitively expensive. A separate `Sr2RuO4_SOC` folder defines a spin-orbit-coupled model but does not contain a results archive at the pinned revision [12]. Keep these two folders and their outputs distinct.
+
 - Hardware demonstrations are at 2-site and 14-qubit scale [7]; they show the loop closes, not that it wins.
 - The cathode example [6] already has a successful classical CT-QMC calculation. Its core-hole physics is handled in a distinct multiplet step, so a quantum solver for the first-stage impurity cannot claim the full XPS computation as its benchmark.
 - Embedding error (U, double counting, single-site approximation) is usually larger than solver error; the quantum computer removes only the latter. This bounds the value of a perfect solver from above.
 
 ## What would settle it
 
-See the front matter. First reproduce one published hybridisation function and output, including the classical Inchworm or hybrid-DMFT result where applicable [8, 9]. Then test CT-HYB with an optimised basis [10], tensor-train and MPS alternatives, recording errors as well as the average sign. A quantum comparison must match temperature and output definition before comparing cost. For the finite-temperature Inchworm instance, thermal-state preparation is part of the quantum task; a zero-temperature spectral calculation alone cannot beat its classical result.
+See the front matter. One practical entry point is to reproduce the public Sr₂RuO₄ CT-HYB archive [12], fit finite baths to its published hybridisation and report Green's-function error versus bath orbitals. Separately, reproduce the continuous-bath Inchworm result [8] and the full versus hybrid-DMFT results [9]; they are **different instances**. Test CT-HYB with an optimised basis [10], tensor-train and MPS alternatives, recording errors as well as the average sign. A quantum comparison must match temperature and output definition before comparing cost. For the finite-temperature Inchworm instance, thermal-state preparation is part of the quantum task; a zero-temperature spectral calculation alone cannot beat its classical result.
 
 ## Who could take it
 
