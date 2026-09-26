@@ -28,6 +28,7 @@ references:
   - {arxiv: "1907.08570", title: "A Multiorbital Quantum Impurity Solver for General Interactions and Hybridizations", authors: "E. Eidelstein, E. Gull, G. Cohen", year: 2019, note: "classical Inchworm handles low-temperature examples where CT-HYB fails"}
   - {arxiv: "2601.04832", title: "Affordable Five-Orbital Dynamical Mean-Field Theory for Layered Iridates and Rhodates", authors: "L. Gaspard, C. Martins", year: 2026, note: "hybrid versus full five-orbital DMFT on two oxides"}
   - {arxiv: "1504.07979", title: "Electronic structure and core-level spectra of light actinide dioxides in the dynamical mean-field theory", authors: "J. Kolorenč, A. B. Shick, A. I. Lichtenstein", year: 2015, note: "UO2/NpO2/PuO2 solved with classical finite-bath Lanczos; 14 impurity and 14 bath spin orbitals"}
+  - {arxiv: "1609.00735", title: "Complexity of quantum impurity problems", authors: "S. Bravyi, D. Gosset", year: 2017, note: "Theorem 1: classical ground-energy algorithm for a quadratic bath plus interactions on m impurity Majorana modes; does not bound finite-temperature Green's-function cost"}
 ---
 
 ## How it works
@@ -47,6 +48,8 @@ DMFT replaces the lattice self-energy by a local one, obtained from an Anderson 
 - **Quantum cost remains instance-specific.** The 2016 zero-temperature proposal gave an illustrative ~10¹⁶ total generic gates across many independent shots [1]. Later methods can change this cost, but no T-gate number here is calibrated for a named impurity, temperature, target error, bath discretisation and complete DMFT loop.
 
 - **Classical alternatives.** A finite-temperature two-orbital Kanamori impurity with a continuous Bethe bath had a CT-HYB cost extrapolated to roughly 3 × 10⁹ core-hours at βt = 64, yet classical Inchworm produced its imaginary-time Green's function in roughly 1.5 × 10³ core-hours [7]. The large CT-HYB figure is an extrapolation, and Inchworm still scales exponentially in impurity-orbital count. For Ba₂IrO₄ and Ba₂RhO₄, full five-orbital DMFT completed classically, while hybrid DMFT gave 43.8-fold and 41.2-fold total-time gains with reported low-energy agreement [8]. For UO₂, NpO₂ and PuO₂, a 14-orbital 5f impurity plus 14 bath orbitals was solved with classical finite-bath Lanczos; the calculation also reproduced 4f-core XPS features [9]. CT-HYB difficulty on a different model cannot be transferred to these applications.
+
+- **A rigorous classical boundary for ground energy.** For a finite impurity model with \(n\) fermion modes, a quadratic bath and interactions confined to \(m\) Majorana modes, Theorem 1 of [10] gives a classical additive-error \(\gamma\) ground-energy algorithm with runtime \(O(n^3)\exp[O(m\log^3(m/\gamma))]\). At fixed impurity size and fixed absolute error, this is polynomial in the number of bath modes. Its dependence on impurity size and precision can still be prohibitive in practice. The theorem concerns ground energy and a low-energy state; it does **not** provide a comparable bound for the finite-temperature imaginary-time Green's functions in [7], real-frequency resolution, or a full DMFT loop. Thus bath-register growth alone does not certify exponential quantum advantage for the *ground-energy* subtask.
 
 ## Verdict
 
