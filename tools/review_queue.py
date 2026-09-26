@@ -25,10 +25,10 @@ def classify(entries, today: date | None = None):
             verified = None
         if status == "disputed":
             queue["disputed"].append(entry)
-        elif verified is None or verified < cutoff:
-            queue["stale"].append(entry)
         elif status == "seed":
             queue["seed"].append(entry)
+        elif verified is None or verified < cutoff:
+            queue["stale"].append(entry)
     for group in queue.values():
         group.sort(key=lambda e: (e.meta.get("last_verified", ""), e.type, e.id))
     return queue
@@ -44,7 +44,7 @@ def markdown(queue, today: date) -> str:
         group = queue[key]
         lines.extend([f"## {title} ({len(group)})", ""])
         for entry in group:
-            lines.append(f"- [{entry.meta['title']}]({SITE_URL}{entry.href}) (`{entry.type}/{entry.id}`, last checked {entry.meta.get('last_verified', 'unknown')})")
+            lines.append(f"- [{entry.meta['title']}]({SITE_URL}{entry.href}) (`{entry.type}/{entry.id}`, last checked {entry.meta.get('last_verified', 'not yet checked')})")
         if not group:
             lines.append("None.")
         lines.append("")

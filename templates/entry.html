@@ -8,7 +8,7 @@
 <p class="meta">
   {{ m.verdict_badge(e.meta.verdict) }}
   <span class="status s-{{ e.meta.status or 'seed' }}">{{ e.meta.status or 'seed' }}</span>
-  <span>last verified {{ e.meta.last_verified }}</span>
+  <span>{% if e.meta.last_verified %}last verified {{ e.meta.last_verified }}{% else %}sources not yet checked{% endif %}</span>
   <a class="edit" href="{{ BASE_URL }}/edit/main/content/{{ e.type }}s/{{ e.id }}.md">edit this page</a>
 </p>
 <p class="summary">{{ e.meta.summary }}</p>

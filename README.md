@@ -15,7 +15,7 @@ algorithm is proved, its output matters independently and the classical hardness
 explicit. This does not claim an unconditional quantum–classical separation. The separate
 `willingness_to_pay` field still records whether someone would buy the computation itself.
 
-The site also keeps a record of every published "quantum advantage" claim and how long it took a classical method to reproduce it, and a board of open questions that anyone (or any agent) can take on.
+The site also records selected published "quantum advantage" claims, including classical reproductions where documented, and a board of open questions that anyone (or any agent) can take on.
 
 Site: https://yuchenguommm.github.io/practical-quantum-advantage/
 Machine-readable: `index.json` and `llms.txt` at the site root.

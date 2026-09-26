@@ -45,9 +45,10 @@ bound. Keep the three dimension grades visible beside the verdict.
 preconditions), `conditional` (polynomial time if a stated precondition holds, e.g. overlap
 ≥ 1/poly, adiabatic gap ≥ 1/poly, decodable dual code), `heuristic`, `unknown`, `no`.
 
-`dimensions.willingness_to_pay.level`: `first-hand` (a company or agency has stated an accuracy
-or speed target in writing, or co-authored a study), `second-hand` (a plausible argument in the
-literature), `none`, `unknown`.
+`dimensions.willingness_to_pay.level`: `first-hand` (a company or agency has documented its
+interest directly, for example through a written target or co-authored study), `second-hand`
+(a plausible argument in the literature), `none`, `unknown`. Co-authorship alone does not
+establish a quantitative buyer requirement or a commitment to pay; state those separately.
 
 There are two routes to `promising`, reflecting the site's two layers. An **application** needs a
 named decision, a credible classical bottleneck on the same task, an end-to-end quantum route,
@@ -71,7 +72,7 @@ title_zh: 分子与材料的基态能量
 summary: One or two sentences in English, 20 to 600 characters. Shown in lists and search.
 summary_zh: 可选的中文摘要。
 status: seed                       # seed | reviewed | disputed
-last_verified: 2026-09-26
+# Add last_verified only after checking the cited sources and claims.
 verdict: surviving
 dimensions:
   classical_hardness: {level: empirical, note: "DMRG and SHCI reach chemical accuracy up to ~100 orbitals"}
@@ -118,8 +119,9 @@ You may add further sections. Keep pages under about 1,200 words. Write in Engli
    unpublished notes; if a number is your own estimate, say so and show the arithmetic.
 3. Figures from `numerics/` go in `numerics/figs/` and are embedded as `![caption](../figs/name.png)`;
    the build copies that folder to the site. Commit the script and the JSON results next to the figure.
-4. `willingness_to_pay: first-hand` needs a citation to a document in which the buyer speaks
-   (a co-authored paper, a public RFP, a written accuracy target). A survey's opinion is
+4. `willingness_to_pay: first-hand` needs a citation to a document in which the industrial or
+   agency participant speaks (a co-authored paper, a public RFP, a written accuracy target).
+   Record whether it states an actual requirement or only interest. A survey's opinion is
    `second-hand`.
 5. When you change a verdict, say in the PR description which dimension changed and what
    evidence changed it. Do not silently soften wording.

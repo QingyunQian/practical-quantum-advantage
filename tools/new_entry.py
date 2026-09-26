@@ -40,7 +40,6 @@ def main() -> None:
         "title": args.title,
         "summary": "Replace with a concise, sourced description of this candidate.",
         "status": "seed",
-        "last_verified": date.today().isoformat(),
     }
     if args.type in ("application", "problem", "method"):
         meta["verdict"] = "unassessed"

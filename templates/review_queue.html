@@ -10,7 +10,7 @@
 {% if queue[key] %}
 <div class="cards">
 {% for e in queue[key] %}
-<a class="card" href="{{ e.href }}"><h3>{{ e.meta.title }}</h3><p>{{ e.type }} · last checked {{ e.meta.last_verified }}</p></a>
+<a class="card" href="{{ e.href }}"><h3>{{ e.meta.title }}</h3><p>{{ e.type }} · last checked {{ e.meta.last_verified or 'not yet checked' }}</p></a>
 {% endfor %}
 </div>
 {% else %}<p>None.</p>{% endif %}

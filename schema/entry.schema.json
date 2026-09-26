@@ -3,7 +3,7 @@
   "$id": "https://github.com/yuchenguommm/practical-quantum-advantage/schema/entry.schema.json",
   "title": "Practical Quantum Advantage entry",
   "type": "object",
-  "required": ["type", "id", "title", "summary", "last_verified"],
+  "required": ["type", "id", "title", "summary"],
   "additionalProperties": false,
   "properties": {
     "type": {"enum": ["application", "problem", "method", "claim", "question"]},
@@ -130,6 +130,10 @@
     {
       "if": {"properties": {"type": {"const": "question"}}},
       "then": {"required": ["question"]}
+    },
+    {
+      "if": {"required": ["status"], "properties": {"status": {"enum": ["reviewed", "disputed"]}}},
+      "then": {"required": ["last_verified"]}
     }
   ]
 }

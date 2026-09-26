@@ -1,6 +1,6 @@
 # Contribute to Practical Quantum Advantage
 
-You can suggest a change without writing code. Every published entry is reviewed through a GitHub pull request; proposals and corrections are welcome before a full page is ready.
+You can suggest a change without writing code. Community changes go through a GitHub pull request; proposals and corrections are welcome before a full page is ready.
 
 The [review queue](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.html) lists seed, disputed and stale pages. Its [JSON export](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json) is a task list for agents. A monthly workflow updates one [catalogue review issue](https://github.com/yuchenguommm/practical-quantum-advantage/issues) so older conclusions remain visible to contributors.
 It also rebuilds the site so the age-based queue stays current. GitHub can disable scheduled workflows on public repositories after 60 days without activity; maintainers can run the workflow manually from Actions or re-enable it when that happens.
@@ -24,7 +24,7 @@ GitHub currently requires an account for these routes. Issues are proposals, not
 1. Search the [catalogue](https://yuchenguommm.github.io/practical-quantum-advantage/) and [open issues](https://github.com/yuchenguommm/practical-quantum-advantage/issues) to avoid duplicates. Choose one of the five types in [AGENTS.md](AGENTS.md): application, problem, method, claim or question. A scenario with a decision maker is an **application**; an algorithmic task shared by scenarios is a **problem**.
 2. Fork the repository, create a branch, and run `python tools/new_entry.py application example-id --title "Example title"` from the repository root. Replace the type and ID as needed. The ID becomes the permanent URL slug, so choose it carefully. The script refuses to overwrite an existing page.
 3. Replace all placeholder text. Add public references in the YAML front matter. For an application, problem or method, grade each of the three dimensions and explain the verdict. Link existing entries in `related:` by ID. A new cross-link can be added once both new files are in the same pull request.
-4. Run the checks below. The generated draft intentionally has no fabricated references and contains placeholder text; it will fail validation until the placeholders are replaced and a source is added for an application, problem, method or claim.
+4. Run the checks below. The generated draft intentionally has no fabricated references or `last_verified` date and contains placeholder text; it will fail validation until the placeholders are replaced and a source is added for an application, problem, method or claim. Set `last_verified` only after checking the sources; a `seed` page may leave it absent.
 5. Open one focused pull request. Use the PR template to state exactly which claims, grades or verdicts change and why. An agent-authored PR should say which sources it consulted and which it rejected. A maintainer reviews the evidence before merging.
 
 ```sh
