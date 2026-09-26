@@ -1,14 +1,14 @@
 ---
 type: question
 id: embedding-fragment-size-vs-correlation-length
-title: At what correlation length does the embedding fragment exceed 100 qubits?
-title_zh: 关联长度到多大时，嵌入碎片会超过 100 比特？
-summary: Embedding methods (DMET, EWF, bootstrap embedding, circuit cutting) split a large system into fragments a 100-qubit solver could handle, but they rely on a short correlation length, and short correlation length is also what makes DLPNO-CCSD(T) and local DMRG work. Nobody has measured, on doped 2D Hubbard and on a metallic system, the fragment size (with bath) needed for a fixed energy error as a function of the correlation length, and hence where the fragment crosses 100 qubits.
-summary_zh: 嵌入方法（DMET、EWF、bootstrap 嵌入、电路切割）把大体系拆成 100 比特求解器能处理的碎片，但它们依赖短关联长度，而短关联长度同样是 DLPNO-CCSD(T) 和局域 DMRG 奏效的前提。还没有人在掺杂二维 Hubbard 模型和金属体系上测量：固定能量误差下所需碎片（含 bath）随关联长度如何增长，从而碎片在何处超过 100 比特。
+title: Which embedding problems fit within 100 logical qubits at useful accuracy?
+title_zh: 哪些嵌入问题能在 100 个逻辑比特内达到有用精度？
+summary: Map the fragment-plus-bath orbitals needed for a fixed observable error against measured correlation diagnostics and the cost of classical fragment solvers. EWF, DMET and related methods have different baths; circuit cutting is a separate technique. Existing protein calculations show 94 physical qubits at CCSD-like fragment accuracy, but do not establish a 100-logical-qubit advantage or a universal correlation-length cutoff.
+summary_zh: 固定目标物理量与误差，测量所需的碎片加环境轨道数、关联特征和经典碎片求解成本。EWF、DMET 等方法构造环境的方式不同，电路切割也不是嵌入方法。现有蛋白质计算最多用了 94 个物理比特，碎片精度接近 CCSD，但没有建立 100 个逻辑比特上的优势，更没有通用的关联长度阈值。
 status: seed
 last_verified: 2026-09-26
 question:
-  what_would_settle_it: "Two scans. (1) Doped 2D Hubbard at U/t = 8, doping 1/8 to 1/16, t'/t in {0, −0.2}: DMET or EWF energy error per site versus fragment size (2×2 up to 8×8 plus bath) against DMRG reference on width-6 to width-8 cylinders, with the spin/charge correlation length extracted from the same reference. (2) A simple metal or a metallic slab (e.g. Cu(111) or Na) with EWF: fragment plus bath orbitals needed for 1 kcal/mol convergence of an adsorption energy, versus a DLPNO-CCSD(T) reference. Report qubits = 2 × (fragment + bath) orbitals at each point. The answer is the correlation length at which that number crosses 100; if it crosses only where DLPNO or DMRG already converge, embedding gives a 100-qubit solver no territory."
+  what_would_settle_it: "Choose one industrially motivated observable, such as a metal-site ligand interaction energy, with a buyer-relevant error tolerance, and one correlated model as a stress test. For each, sweep fragment and bath sizes, basis and solver accuracy; report physical error against a converged reference, orbital count, qubit mapping, and classical CCSD/SCI/DMRG time and memory. Extract relevant correlation diagnostics on the same instances rather than assuming one universal length. Identify any point below 100 logical qubits where the complete quantum workflow has a credible scaling or complexity case over an optimized classical workflow."
   difficulty: phd
   resolved: false
 related:
@@ -18,7 +18,7 @@ related:
   claims: [ibm-sqd-2024]
 references:
   - {arxiv: "2107.04916", title: "Systematic improvability in quantum embedding for real materials", authors: "M. Nusspickel, G. H. Booth", year: 2022, note: "PRX 12, 011046 (2022); the EWF scheme"}
-  - {arxiv: "2605.01138", title: "Crossing the 12,000-atom barrier with heterogeneous quantum-classical supercomputing: quantum chemistry of protein-ligand complexes", authors: "L. Merz, B. Shajan, D. Kaliakin et al.", year: 2026, note: "fragments ≤ 47 orbitals (≤ 94 qubits), 21,006 circuits, > 239 hours on two Heron r2"}
+  - {arxiv: "2605.01138", title: "Crossing the 12,000-atom barrier with heterogeneous quantum-classical supercomputing: quantum chemistry of protein-ligand complexes", authors: "K. M. Merz Jr., A. Shajan, D. Kaliakin et al.", year: 2026, note: "largest circuit 94 physical qubits; 21,006 circuits and >239 cumulative QPU hours across reported runs"}
   - {arxiv: "2305.16472", title: "Some mathematical insights on Density Matrix Embedding Theory", authors: "E. Cancès et al.", year: 2023}
   - {arxiv: "2404.03619", title: "Circuit Knitting Faces Exponential Sampling Overhead Scaling Bounded by Entanglement Cost", authors: "M. Jing, C. Zhu, X. Wang", year: 2024}
   - {arxiv: "1701.00054", title: "Stripe order in the underdoped region of the two-dimensional Hubbard model", authors: "B.-X. Zheng, C.-M. Chung, P. Corboz et al.", year: 2017, note: "Science 358, 1155 (2017)"}
@@ -27,20 +27,20 @@ references:
 
 ## Why it matters
 
-The case for a 100-qubit solver having anything to do rests on divide and conquer: cut the protein, the catalyst or the crystal into fragments, solve each on the quantum computer, stitch. IBM's 12,000-atom protein–ligand demonstration did exactly this with EWF, one cluster per atom, fragments of at most 47 spatial orbitals (94 qubits), and reached CCSD-level fragment energies after 21,006 circuits and more than 239 hours on two Heron r2 processors [2]. IBM's own blog says the result does not yet outperform the best classical approaches; DLPNO-CCSD(T) handles thousand-atom proteins on a single node in days.
+Embedding offers a way to solve a large system through smaller, environmentally coupled problems. IBM's 12,000-atom protein–ligand study used EWF, circuits of up to 94 noisy *physical* qubits and classical subspace diagonalization [2]. Its quantum-assisted energies had classical EWF-CCSD counterparts; its authors explicitly make no quantum-advantage claim. The study did not demonstrate a 100-*logical*-qubit computation or a binding-free-energy prediction.
 
-The reason is a theorem-shaped fact. Density matrices of gapped systems decay as exp(−r/ξ); every embedding scheme (DMET, EWF [1], bootstrap embedding, projection embedding) works because ξ is small, and so does every local classical method. The only mathematical analysis of DMET proves first-order accuracy in the weak-coupling limit [3]; circuit cutting and entanglement forging carry a sampling overhead exponential in the entanglement across the cut [4]. When ξ is large, as in doped Mott insulators where stripe and pairing orders compete on scales of 4 to 8 lattice spacings [5, 6], the fragment must be at least ξ wide, and an 8×8 Hubbard fragment with bath is already 256 or more qubits. When ξ is small, the fragment is classically solvable. The question is whether there is any window between the two, and the answer is a number: the ξ at which the fragment crosses 100 qubits, compared with the ξ at which DLPNO or DMRG stop converging.
+Locality helps both quantum embedding and classical local-correlation methods, but does not make their accuracy or relative cost identical. EWF has a full-bath limit and published convergence studies that include semi-metallic and correlated materials [1]. DMET has a weak-coupling mathematical result [3]. Neither gives a universal relation between a measured correlation length and the number of qubits needed for a chosen energy difference. Circuit cutting has a different sampling-overhead problem [4] and should be analysed separately. This question asks for an empirical and, where possible, theoretical *map* of accuracy, fragment size and competing solver cost.
 
 ## What is known
 
-- The one plausible exception is short correlation length with high local entanglement: several open-shell d or f centres within a few ångström (FeMoco, P450, [4Fe-4S], Fe5S12 with CAS(89,102)) and semiconductor spin defects. These fragments are 50 to 120 orbitals, which is precisely the range where GPU-DMRG and SHCI are still competitive, so even the exception is a race, not a gap.
-- On 2D Hubbard, DMRG on width-6 to width-8 cylinders with bond dimensions in the tens of thousands is the reference [5, 6]; there is no published DMET or EWF fragment-size scan against it at 1/8 doping that reports the bath size needed for a fixed energy error.
-- On metals, EWF with MP2 baths [1] converges systematically for insulators; metallic convergence with fragment size is reported qualitatively but not as a qubit count.
+- Local multireference centres are plausible stress tests, but their size and classical cost depend on the chosen Hamiltonian, orbital basis and accuracy. An orbital-count threshold alone does not establish quantum advantage.
+- Doped 2D Hubbard is a useful comparison problem for embedding and DMRG [5, 6], provided the same observable, geometry and error tolerance are used. Its behaviour should not be presented as a universal theorem about proteins or catalysts.
+- The original EWF paper demonstrates bath convergence on diamond and discusses graphene and SrTiO₃ [1]. That is evidence of systematic improvability toward the selected full-system solver, while the qubit budget for a specific application remains to be measured.
 
 ## What would settle it
 
-See the front matter. The Hubbard scan can be done with existing DMET/EWF codes (Vayesta, QCMaquis interfaces) against block2 DMRG references; the metal scan needs a periodic EWF implementation and a DLPNO reference, which is the harder half. Deliverable: two plots of qubits-needed versus correlation length with the 100-qubit line and the classical-convergence boundary on the same axes. A PhD-length project if both scans are done carefully; the Hubbard half alone is a few months.
+See the front matter. The deliverable is an instance-level table and plot of target error versus fragment-plus-bath orbitals, required qubits, and classical solver cost. Mark the 100-logical-qubit boundary and identify which assumptions control extrapolation. Report electronic interaction energies separately from experimental binding free energies.
 
 ## Who could take it
 
-An embedding group (Booth, Chan, Scuseria, Reiher lineages) with access to DMRG references. The result changes the verdict of `embedding-divide-and-conquer` from `surviving` to either `promising` (a window exists) or `no-go` for the 100-qubit setting.
+An embedding group with access to matched classical solvers and a domain collaborator who can define the application error target. A measured window would strengthen the embedding case; failure on one model would narrow that case without ruling out all embedding problems.
