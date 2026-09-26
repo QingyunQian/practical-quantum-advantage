@@ -8,7 +8,7 @@ summary_zh: 符号问题论文给出了 CT-HYB 的具体瓶颈，也给出了经
 status: seed
 last_verified: 2026-09-27
 question:
-  what_would_settle_it: "Publish a named impurity Hamiltonian or hybridisation function, temperature and output observable tied to an application. Show a matched error-versus-cost comparison among optimised CT-HYB, Inchworm, hybrid DMFT where its approximation is valid, tensor-train, MPS and neural-network solvers. Document bath-discretisation and embedding errors. Compile a fault-tolerant quantum Green's-function algorithm on that identical model, including state preparation, ancillas, repetitions and the full DMFT loop. Report whether a documented accuracy or throughput requirement is reached at lower total cost. A small CT-HYB average sign by itself does not settle the question."
+  what_would_settle_it: "Publish a named impurity Hamiltonian or hybridisation function, inverse temperature, Green's-function definition and error tolerance tied to an application. Compare optimised CT-HYB, Inchworm, hybrid DMFT where valid, tensor-train, MPS and neural-network solvers on that same observable. For a quantum algorithm either prepare the corresponding thermal state and compute the same finite-temperature imaginary-time response, or benchmark both sides at zero temperature. Include bath-discretisation error, state preparation, ancillas, repetitions, and full DMFT-loop cost. A small CT-HYB average sign by itself does not settle the question."
   difficulty: phd
   resolved: false
 related:
@@ -17,7 +17,7 @@ related:
   methods: [dmft-impurity-solver, phase-estimation]
 references:
   - {arxiv: "1510.03859", title: "Hybrid quantum-classical approach to correlated materials", authors: "B. Bauer, D. Wecker, A. J. Millis, M. B. Hastings, M. Troyer", year: 2016, note: "PRX 6, 031045 (2016); the 'about a hundred logical qubits' proposal"}
-  - {arxiv: "2605.22920", title: "Estimating Green's functions with a robust quantum Arnoldi method", authors: "T. Nelson, A. D. Baczewski", year: 2026}
+  - {arxiv: "2605.22920", title: "Estimating Green's functions with a robust quantum Arnoldi method", authors: "J. S. Nelson, A. D. Baczewski", year: 2026}
   - {arxiv: "2603.15741", title: "Neural-Network Quantum Embedding Solvers for Correlated Materials", authors: "A. Valenti, J. Park, A. Georges, A. J. Millis, O. Parcollet", year: 2026}
   - {arxiv: "2207.06135", title: "Learning Feynman Diagrams with Tensor Trains", authors: "Y. Núñez Fernández et al.", year: 2022, note: "PRX 12, 041018 (2022); tensor cross interpolation for diagrammatic sums"}
   - {arxiv: "2206.15093", title: "Ce and Dy substitutions in Nd$_{2}$Fe$_{14}$B: site-specific magnetic anisotropy from first-principles", authors: "J. Boust et al.", year: 2022, note: "Direct alloy study; mixed-valent Ce modelled approximately"}
@@ -33,7 +33,7 @@ references:
 
 DMFT has material users. A direct Ce-substituted Nd₂Fe₁₄B study used Hubbard-I for localised Nd 4f states and approximated mixed-valent Ce through LSDA and an experimentally informed sublattice model [5]. The need for a more dynamical Ce treatment is a research question; the paper did not show that CT-QMC fails for its alloy. A cathode spectroscopy study combined DFT+DMFT with a separate charge-transfer multiplet calculation [6]. **That cathode study solved its DMFT impurity with classical CT-QMC**, then used Quanty for the core-level XPS. A discretised impurity with five d orbitals and four bath orbitals per spin orbital would have 50 system qubits; eight bath orbitals would give 90. These counts do not establish bath convergence or quantum advantage for the cited materials.
 
-Hard impurity regimes exist, but difficulty depends on the Hamiltonian, basis, temperature and observable. Off-diagonal hybridisation and spin–orbit coupling can worsen CT-HYB's sign; [8–10] show why one solver's failure does not determine the classical frontier. The quantum side has Krylov and Arnoldi Green's-function approaches [2]. Multiplying illustrative step, gate and shot ranges gives 10^9–10^12 T gates for one measured circuit, before state preparation, additional observables or self-consistency. No end-to-end estimate exists for a named five-orbital SOC or actinide fuel impurity at a specified error. The classically solved oxide spectra [11] should not be used as evidence of such a failure.
+Hard impurity regimes exist, but difficulty depends on the Hamiltonian, basis, temperature and observable. Off-diagonal hybridisation and spin–orbit coupling can worsen CT-HYB's sign; [8–10] show why one solver's failure does not determine the classical frontier. There is also an output mismatch in the commonly quoted comparison: Inchworm [8] computes a **finite-temperature imaginary-time** Green's function, whereas the original hundred-logical-qubit quantum proposal [1] treats a **zero-temperature ground-state** response. The Arnoldi algorithm [2] describes a thermal extension, but its numerical resource study uses zero-temperature small impurity models with an exact input ground state. No matched quantum cost curve exists for the finite-temperature Kanamori example or a named industrial impurity.
 
 ## What is known
 
@@ -44,7 +44,7 @@ Hard impurity regimes exist, but difficulty depends on the Hamiltonian, basis, t
 | Ba₂RhO₄ five-orbital DMFT [9] | Full-DMFT sign 0.58; hybrid-DMFT sign 0.60 and 41.2-fold total-time speedup | Neither method establishes an industrial buyer or a quantum crossover |
 | UO₂, NpO₂ and PuO₂ valence and 4f-core XPS [11] | LDA+DMFT with classical Lanczos on 14 impurity plus 14 bath spin orbitals reproduced the reported spectra | This is a finite-bath success case; M-edge XAS is a different observable, and a harder fuel instance is not identified |
 
-The first row is unusually clear evidence that **one classical algorithm** has a bottleneck, followed by evidence that another classical algorithm overcame it for the same Green's function. In the oxide examples, the full five-orbital calculation itself completed, and the cheaper approximation reproduced the reported low-energy self-energies within Monte Carlo noise [9]. The classical frontier also includes basis optimisation for CT-HYB [10], tensor-train diagram summation [4] and neural-network embedding solvers [3]. These methods must be considered before calling a sign-problem instance classically intractable.
+The first row is unusually clear evidence that **one classical algorithm** has a bottleneck, followed by evidence that another classical algorithm overcame it for the same Green's function. Inchworm avoids this example's exponential temperature scaling but still has exponential dependence on the number of interacting orbitals [8]. In the oxide examples, the full five-orbital calculation itself completed, and the cheaper approximation reproduced the reported low-energy self-energies within Monte Carlo noise [9]. The classical frontier also includes basis optimisation for CT-HYB [10], tensor-train diagram summation [4] and neural-network embedding solvers [3]. These methods must be considered before calling a sign-problem instance classically intractable.
 
 - Hardware demonstrations are at 2-site and 14-qubit scale [7]; they show the loop closes, not that it wins.
 - The cathode example [6] already has a successful classical CT-QMC calculation. Its core-hole physics is handled in a distinct multiplet step, so a quantum solver for the first-stage impurity cannot claim the full XPS computation as its benchmark.
@@ -52,12 +52,8 @@ The first row is unusually clear evidence that **one classical algorithm** has a
 
 ## What would settle it
 
-See the front matter. First reproduce one published hybridisation function and output, including the classical Inchworm or hybrid-DMFT result where applicable [8, 9]. Then test CT-HYB with an optimised basis [10], tensor-train and MPS alternatives, recording errors as well as the average sign. Only after the best classical cost curve is established should a quantum Green's-function circuit be compiled at matching accuracy, with the bath and state-preparation requirements stated. The current papers do not provide that quantum curve.
+See the front matter. First reproduce one published hybridisation function and output, including the classical Inchworm or hybrid-DMFT result where applicable [8, 9]. Then test CT-HYB with an optimised basis [10], tensor-train and MPS alternatives, recording errors as well as the average sign. A quantum comparison must match temperature and output definition before comparing cost. For the finite-temperature Inchworm instance, thermal-state preparation is part of the quantum task; a zero-temperature spectral calculation alone cannot beat its classical result.
 
 ## Who could take it
 
 A DMFT group with CT-HYB (TRIQS or w2dynamics) and an interest in quantum solvers, or a quantum-algorithms group willing to run the classical benchmarks honestly. The result sets the verdict of `dmft-impurity-solver` and of the three application pages that depend on it.
-
-## Resource-count assumptions
-
-The gate range quoted here is a sensitivity calculation: assume 10²–10³ time steps, 10⁴–10⁵ compiled T gates per step and 10³–10⁴ repetitions of one measured circuit. Multiplying endpoints gives **10⁹–10¹² T gates**. These inputs are not calibrated for a named impurity or a target error. The range excludes state preparation, additional time points and Green's-function components, bath convergence and DMFT iterations, so it is not an end-to-end estimate or a hardware readiness claim. See the [impurity-solver page](../methods/dmft-impurity-solver.html) for the conditions that remain to be checked.
