@@ -3,50 +3,55 @@ type: application
 id: homogeneous-catalysis
 title: Homogeneous transition-metal catalyst design
 title_zh: 均相过渡金属催化剂设计
-summary: The original "killer application" narrative (Reiher et al. 2017) now has a price tag. Zapata and industrial partners valued the most valuable catalyst instance at about $200k, priced the DMRG calculation of the same instance at roughly 400,000 CPU-hours, and estimated the quantum version at 8,478 logical qubits and 1.4e12 Toffoli gates. Open-shell Fe/Co/Ni/Mo centres remain hard for DFT, but the mainstream Pd/Rh/Ru chemistry is single-reference.
-summary_zh: 这是最早的“杀手级应用”叙事（Reiher 等 2017），现在有了价格标签。Zapata 与产业伙伴给最有价值的催化剂实例标价约 20 万美元，同一实例的 DMRG 计算约 40 万 CPU 核时，而量子版本需要 8,478 个逻辑比特和 1.4e12 个 Toffoli 门。开壳层的 Fe/Co/Ni/Mo 中心对 DFT 仍然困难，但工业主流的 Pd/Rh/Ru 化学是单参考的。
+summary: A nitrogen-fixation study compares DMRG and phase estimation for named Mo catalyst Hamiltonians. Its $200,000 utility is the authors' estimate inferred from research funding, not a buyer quote; roughly 400,000 DMRG core-hours are extrapolated. The 8,478-logical-qubit, 1.4e12-Toffoli estimate is for one constituent Hamiltonian, not the entire reaction.
+summary_zh: 一项固氮研究比较了具名 Mo 催化剂哈密顿量的 DMRG 与量子相位估计。20 万美元是作者根据科研经费推算的价值，并非买方报价；约 40 万核小时是 DMRG 外推成本。8,478 个逻辑比特与 1.4e12 个 Toffoli 门对应其中一个哈密顿量，而非整条反应路径。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: surviving
 dimensions:
-  classical_hardness: {level: empirical, note: "DFT spin-state and barrier errors of 5–30 kcal/mol on open-shell 3d and multinuclear centres; DLPNO-CCSD(T) to 1–2 kcal/mol for single-reference Pd/Rh/Ru; DMRG-NEVPT2 routine to 50–100 orbitals; GPU DMRG at CAS(89,102) on Fe–S clusters"}
-  quantum_easiness: {level: conditional, note: "phase estimation with double-factorised or THC block encodings; needs initial-state overlap, which is unverified for multinuclear open-shell clusters; resource estimates at 8,478 logical qubits and 1.4e12 Toffoli for the most valuable instance"}
-  willingness_to_pay: {level: first-hand, note: "Bellonzi et al. elicited utility values from industrial partners: the top instance is valued at about $200k, which is small against the quantum resources and comparable to the classical DMRG cost"}
-resources: {logical_qubits: "8,478 (Mo nitrogen-fixation instance)", gates: "1.4e12 Toffoli", note: "Bellonzi et al. 2024; single-centre Fe active spaces of 30–70 orbitals need 60–140 system qubits, plus ancillas and distillation"}
+  classical_hardness: {level: empirical, note: "Bellonzi et al. measured small-bond-dimension block2 DMRG runs and extrapolated cost to chemical accuracy for larger Mo pincer active spaces. The full reaction was not run at the projected cost; improved orbital ordering and other classical methods remain possible."}
+  quantum_easiness: {level: conditional, note: "Phase estimation is compiled for the same active-space Hamiltonians. For Mo-pincer intermediate I, CAS(101e,75o), the initial CSF overlap proxy from DMRG is 0.86; success and total cost remain conditional on the model and hardware."}
+  willingness_to_pay: {level: second-hand, note: "The $100k-$200k per-reaction utility is the paper authors' heuristic based on public research grants and publication counts; no end-user quote, acceptance requirement or procurement decision is documented."}
+resources: {logical_qubits: "8,478 for Mo-pincer intermediate I", gates: "1.4e12 Toffoli per shot for intermediate I", note: "Bellonzi et al. Table 4(c), large active space CAS(101e,75o); five shots listed for this Hamiltonian. The two-step reaction requires several different Hamiltonians."}
 related:
   applications: [oled-emitters, p450-drug-metabolism, protein-ligand-binding]
   problems: [ground-state-energy, excited-states]
   methods: [phase-estimation, embedding-divide-and-conquer, sqd]
   questions: [dmrg-vs-qpe-cost-accuracy-oled, first-hand-payment-evidence]
 references:
-  - {arxiv: "2406.06335", title: "Feasibility of accelerating homogeneous catalyst discovery with fault-tolerant quantum computers", authors: "N. Bellonzi et al. (Zapata AI, University of Toronto)", year: 2024, note: "$200k utility, 400,000 CPU-h DMRG, 8,478 logical qubits, 1.4e12 Toffoli for the top instance"}
-  - {arxiv: "1605.03590", title: "Elucidating Reaction Mechanisms on Quantum Computers", authors: "M. Reiher, N. Wiebe, K. M. Svore, D. Wecker, M. Troyer", year: 2016, note: "origin of the nitrogen-fixation catalysis narrative"}
-  - {arxiv: "2208.02199", title: "Is there evidence for exponential quantum advantage in quantum chemistry?", authors: "S. Lee, J. Lee, H. Zhai, Y. Tong, et al.", year: 2022}
-  - {arxiv: "2603.28648", title: "Hunting for quantum advantage in electronic structure calculations is a highly non-trivial task", authors: "Ö. Legeza et al.", year: 2026, note: "GPU DMRG at CAS(89,102) on an Fe–S cluster; argues advantage claims must be benchmarked against DMRG"}
-  - {arxiv: "2603.08883", title: "Parallel iQCC Enables 200 Qubit Scale Quantum Chemistry on Accelerated Computing Platforms Surpassing Classical Benchmarks in Ruthenium Catalysts", authors: "S. M. Hosseini Jenab, T. Henderson, S. N. Genin (OTI Lumionics)", year: 2026, note: "classically simulated iQCC at 100–124 qubits on Ru catalysts; authors place the advantage threshold beyond 200 qubits"}
-  - {arxiv: "2601.04621", title: "Classical computational simulation of the FeMo-cofactor model to chemical accuracy and its implications", authors: "H. Zhai et al., G. K.-L. Chan", year: 2026}
+  - {arxiv: "2406.06335", title: "Feasibility of accelerating homogeneous catalyst discovery with fault-tolerant quantum computers", authors: "N. Bellonzi et al.", year: 2024, note: "Abstract; Tables 3, 4 and 6; Sections 5.2-5.3"}
+  - {arxiv: "1605.03590", title: "Elucidating Reaction Mechanisms on Quantum Computers", authors: "M. Reiher et al.", year: 2016}
+  - {arxiv: "2208.02199", title: "Is there evidence for exponential quantum advantage in quantum chemistry?", authors: "S. Lee et al.", year: 2022}
+  - {arxiv: "2603.28648", title: "Hunting for quantum advantage in electronic structure calculations is a highly non-trivial task", authors: "Ö. Legeza et al.", year: 2026, note: "classical DMRG baseline for correlated Fe-S clusters"}
+  - {arxiv: "2601.04621", title: "Classical computational simulation of the FeMo-cofactor model to chemical accuracy and its implications", authors: "H. Zhai et al.", year: 2026}
 ---
 
 ## Who needs it
 
-Fine-chemical and pharmaceutical process groups (BASF, Dow, Merck, Novartis), and the catalyst vendors that supply them. The decisions are which ligand and metal to try next for a cross-coupling, hydrogenation, olefin metathesis or C–H activation, and which of several competing mechanisms controls selectivity. Each experimental iteration costs days to weeks; a computed barrier or spin-state ordering that is wrong by 5 kcal/mol corresponds to a room-temperature rate error of about four orders of magnitude, which is enough to send the experiment in the wrong direction.
+Researchers and companies developing molecular catalysts must compare reaction pathways, selectivity and catalyst stability. A calculation of electronic energies may inform that choice, but geometry, solvent, thermal corrections, side reactions and turnover must also be considered. The cited nitrogen-fixation paper examines Mo-containing catalyst models for two steps leading from dinitrogen to cyanate [1]. It supplies named Hamiltonians and cost models; it does **not** identify a customer who agreed to buy those calculations at a stated price.
 
 ## Bottleneck
 
-Accuracy can be a bottleneck in open-shell transition-metal and multinuclear catalysts. Reiher et al. use nitrogenase-type iron and molybdenum chemistry to motivate fault-tolerant quantum simulation [2]. Establishing an advantage requires identifying a specific reaction and comparing against converged classical multireference calculations on the same Hamiltonian [3, 4]. A difficult catalyst family alone does not establish that its industrial decision needs a quantum calculation.
-
-The economic picture was quantified by Bellonzi et al. with industrial partners [1]. They elicited a utility value for each of a set of catalyst instances; the most valuable one, a Mo nitrogen-fixation catalyst with a CAS(101e,75o) active space, was valued at about $200,000. The DMRG calculation of the same instance was priced at about 400,000 CPU-hours, roughly $16,000 at $0.04 per core-hour (the paper's $2,800 figure is an average over all instances). The fault-tolerant estimate for the same instance is 8,478 logical qubits and 1.4×10^12 Toffoli gates. The value of the answer is therefore an order of magnitude above the classical cost and far below any plausible cost of the quantum calculation, which is why this study is cited as evidence against, not for, near-term catalysis applications.
+For the Mo-pincer reaction, the study ran block2 DMRG at limited bond dimensions and extrapolated the dimension needed to reach approximately chemical accuracy [1]. Its abstract reports roughly **400,000 CPU-hours as an estimate** for an equivalent DMRG calculation on the highest-utility task. Table 3 shows much cheaper runs actually executed: the large-active-space intermediate I, for example, used bond dimension 400 and 217.05 CPU-hours, with residual extrapolation uncertainty. The paper itself notes that orbital ordering, sweep schedules, active-space selection and post-DMRG corrections could alter the classical estimate [1]. A large difference between CCSD(T) and DMRG does not prove that an optimised DMRG calculation is intractable.
 
 ## Computational problems
 
-- [Ground-state energy](../problems/ground-state-energy.html) of intermediates and transition states in 30–150 orbital active spaces, plus dynamic correlation outside the space.
-- [Excited states](../problems/excited-states.html): spin-state orderings, which decide the reactive surface for 3d metals.
-- Geometry optimisation and free-energy corrections, which remain classical.
+- [Ground-state energies](../problems/ground-state-energy.html) for each intermediate and transition-state model, combined into reaction-energy or barrier differences.
+- [Excited and competing spin states](../problems/excited-states.html) where the chosen catalytic pathway requires them.
+- Geometry optimisation, solvent and free-energy corrections, which remain outside the active-space energy estimate.
 
 ## Best classical today
 
-DLPNO-CCSD(T) for single-reference systems; DMRG-NEVPT2 to 50–100 orbitals; phaseless AFQMC at about 2 kcal/mol on 3d systems. GPU DMRG now handles CAS(89,102) on an Fe₅S₁₂ cluster, and Legeza et al. argue that any claimed quantum advantage must be benchmarked against such DMRG runs [4]. The FeMoco model that anchored the 2017 narrative was solved to chemical accuracy classically in 2026 [6]. Lee et al. argue that the single-determinant overlap decays with the number of metal centres (about 0.9 for Fe₂S₂, 0.1–0.2 for Fe₄S₄) but that classical cost at fixed energy-density error grows only polynomially in the same regime [3]. On the quantum-inspired side, OTI Lumionics report classically simulated iQCC at 100–124 qubits on Ru catalysts and place the classical ceiling beyond 200 qubits [5].
+The direct same-model baseline in [1] is block2 DMRG plus an extrapolation in discarded weight and bond dimension. The most expensive projected case was **not** a 400,000-core-hour run. Classical alternatives and improvements must be checked against the same orbitals and target observable. Larger correlated transition-metal clusters continue to be attacked with DMRG [4, 5], so a fixed-orbital-count argument is insufficient evidence for advantage.
+
+## Best quantum estimate
+
+The study compiles double-factorised phase estimation for the named active-space Hamiltonians [1]. Its Table 4(c) assigns **8,478 logical qubits and 1.4 × 10¹² Toffoli gates per shot** to large-active-space Mo-pincer intermediate I, CAS(101e,75o), and lists five shots. Other intermediates and the transition state have separate costs. The estimated dominant-configuration-state-function overlap with the DMRG state is 0.86 for I; this is a model-specific overlap proxy obtained using a classical calculation. The abstract's **139,000 QPU-hours** is a hardware-model estimate for the highest-utility two-step task, not a measured QPU runtime.
+
+## Does the calculation have a buyer?
+
+The paper's $100,000–$200,000 per-reaction utility comes from dividing a public $25 million research grant by an expected 250 papers, then making assumptions about the number of reactions per paper [1, Section 5.2]. Research funding supports the scientific area, but this arithmetic does not establish how much a catalyst developer would pay for the specified electronic energies. The paper's separate $0.04 per CPU-hour assumption converts the projected 400,000 hours to **$16,000**. That excludes uncertainty in the DMRG extrapolation and is not a measured market price for the full chemistry workflow.
 
 ## Verdict
 
-Surviving, not promising. The buyer exists and has stated a value, which is rare, but the stated value ($200k) is small and the classical route to the same answer costs about $16k, so willingness to pay for the quantum route is weak in practice. Hardness is empirical and shrinking: single-reference catalysts are solved, and the multinuclear open-shell ones are being reached by DMRG at 100 orbitals. The quantum precondition (initial-state overlap for multinuclear clusters) is unverified. What would change the verdict is an instance family where DMRG bond dimension demonstrably diverges past 100 orbitals after orbital optimisation, where the spin-state ordering matters to a named process, and where the process owner values the answer at more than the cost of the fault-tolerant run. The Zapata numbers set the bar: any proposal must explain why its instance is worth more than $200k and costs more than 400,000 CPU-hours classically.
+Surviving as a research and potential industrial application. This study is unusually useful because it names Hamiltonians and presents classical and quantum cost models for the same task. Its utility number is an author estimate, the most costly classical result is extrapolated, and the quantum runtime depends on a hypothetical fault-tolerant device. The willingness-to-pay rating is therefore second-hand. A stronger case needs a process owner's written target, a converged best-classical cost–accuracy curve on the same reaction observable, and a quantum estimate including the complete workflow.

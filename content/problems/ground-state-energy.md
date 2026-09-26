@@ -11,7 +11,7 @@ verdict: surviving
 dimensions:
   classical_hardness: {level: empirical, note: "QMA-hard in general, but the worst case is not the chemical case; FeMoco model solved classically to chemical accuracy in 2026; DMRG/SHCI routine to ~100 orbitals"}
   quantum_easiness: {level: conditional, note: "phase estimation needs overlap ≥ 1/poly with the true ground state; Lee et al. argue exponential advantage is not generically expected; no guarantee for strongly correlated cases"}
-  willingness_to_pay: {level: first-hand, note: "only via specific applications: industrial co-authors studied OLED emitters but did not state a 0.05 eV buyer threshold; catalyst partners assigned the top studied case a $200k utility value"}
+  willingness_to_pay: {level: first-hand, note: "industrial co-authors studied OLED emitters but did not state a buyer tolerance; the $200k catalyst utility is an author-derived research estimate, not a buyer quote"}
 resources: {logical_qubits: "100–200 system + ancillas", gates: "1e9–1e12 Toffoli", note: "double-factorised or THC phase estimation; FeMoco-class instances need ~1e12 Toffoli"}
 related:
   applications: [oled-emitters]
@@ -30,7 +30,7 @@ references:
 - DMRG: routine chemical accuracy up to about 100 orbitals; GPU implementations have reached CAS(89,102) on Fe–S clusters [4]. The FeMoco active-space model that motivated early quantum resource estimates was solved to chemical accuracy in 2026 with DMRG at bond dimension 18,000 and about 2.8 million core-hours [2].
 - SHCI / HCI: competitive to ~100 orbitals when the wavefunction is sparse in the determinant basis.
 - AFQMC: scales polynomially but with a phase problem controlled by the trial state; error is non-monotonic in trial quality.
-- Cost reference: Zapata's industrial case study prices a DMRG calculation on a Mo nitrogen-fixation catalyst at about 400,000 CPU-hours (roughly $16k at $0.04/core-hour) against a stated business value of $200k [3].
+- Cost reference: Bellonzi et al. extrapolate about 400,000 DMRG CPU-hours for a Mo-pincer task and infer $100k–$200k per reaction from research funding. Neither number is a measured cost of the completed reaction workflow or a buyer's quoted value [3].
 
 ## Best quantum
 

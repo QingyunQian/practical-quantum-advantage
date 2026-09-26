@@ -16,7 +16,7 @@ related:
   questions: [dmrg-vs-qpe-cost-accuracy-oled]
 references:
   - {arxiv: "2512.13657", title: "Towards Quantum Advantage in Chemistry", authors: "S. N. Genin, O. Kwon et al. (OTI Lumionics, Samsung SAIT)", year: 2026, note: "v2; achieved MAE 0.0501 eV, no explicit buyer acceptance threshold"}
-  - {arxiv: "2406.06335", title: "Feasibility of accelerating homogeneous catalyst discovery with fault-tolerant quantum computers", authors: "N. Bellonzi, A. Kunitsa et al. (Zapata, with industrial co-authors)", year: 2024, note: "prices the highest-value instance at $200k; DMRG on the same instance about 400,000 CPU-hours"}
+  - {arxiv: "2406.06335", title: "Feasibility of accelerating homogeneous catalyst discovery with fault-tolerant quantum computers", authors: "N. Bellonzi et al. (Zapata AI, University of Toronto)", year: 2024, note: "$200k is an author-derived research-utility estimate; 400,000 DMRG CPU-hours are extrapolated"}
   - {arxiv: "2509.08328", title: "Towards solving industrial integer linear programs with Decoded Quantum Interferometry", authors: "J. Sabater et al.", year: 2026, note: "automotive option-package pricing; QST 11, 025054 (2026); no claim of beating Gurobi"}
   - {arxiv: "2012.03819", title: "A Threshold for Quantum Advantage in Derivative Pricing", authors: "S. Chakrabarti et al. (Goldman Sachs, IBM)", year: 2021, note: "Quantum 5, 463 (2021); ~8k logical qubits, T-depth 5.4e7, needs 10 MHz logical clock"}
   - {arxiv: "2510.07273", title: "End-to-end quantum algorithms for tensor problems", authors: "M. Fontana et al. (JPMorgan)", year: 2025, note: "900 logical qubits, 1e15 gates, depth 1e12"}
@@ -26,7 +26,7 @@ references:
 
 ## Why it matters
 
-The catalogue's rule (AGENTS.md) is that `promising` needs classical hardness at least at the lower-bound level, quantum easiness at least conditional, and documented demand from a buyer. The OLED study by OTI Lumionics and Samsung SAIT provides a concrete *achieved* accuracy benchmark, 0.0501 eV MAE across 14 emitters [1]. It does not say the companies would reject predictions above 0.05 eV or buy calculations below it. The Zapata catalyst study offers a different kind of evidence: it estimates a value of $200,000 for its highest-value instance and compares quantum costs with a classical DMRG calculation of about 400,000 CPU-hours [2]. These are starting points for collecting public, application-specific evidence; neither establishes a quantum business case by itself.
+The catalogue's rule (AGENTS.md) is that `promising` needs classical hardness at least at the lower-bound level, quantum easiness at least conditional, and documented demand from a buyer. The OLED study by OTI Lumionics and Samsung SAIT provides a concrete *achieved* accuracy benchmark, 0.0501 eV MAE across 14 emitters [1]. It does not say the companies would reject predictions above 0.05 eV or buy calculations below it. The Zapata catalyst study gives an **author-derived** $200,000 utility estimate, based on a $25 million public grant and expected paper counts, and a roughly 400,000-core-hour **extrapolation** for DMRG [2]. The paper does not quote a catalyst buyer or report that full DMRG run. These studies motivate further inquiry; neither supplies a buyer-defined purchase requirement.
 
 Some finance and engineering pages have bank or contractor co-authors with resource estimates [4, 5, 6]; co-authorship must be distinguished from a buyer-defined performance threshold. The automotive ILP paper does not claim to beat Gurobi [3]. The 12,000-atom protein paper is co-authored by a clinic and states no quantitative buyer target [7].
 
@@ -35,7 +35,7 @@ Some finance and engineering pages have bank or contractor co-authors with resou
 | application | first-hand document | number | status |
 |---|---|---|---|
 | oled-emitters | Genin et al. 2026 (OTI Lumionics, Samsung SAIT) [1] | achieved T1-to-S0 MAE 0.0501 eV; buyer threshold unstated | first-hand interest, target unknown |
-| homogeneous-catalysis | Bellonzi et al. 2024 (Zapata with industry) [2] | $200k value; DMRG 4e5 CPU-h | first-hand, negative |
+| homogeneous-catalysis | Bellonzi et al. 2024 (Zapata and academic authors) [2] | $200k inferred research utility; DMRG ~4e5 CPU-h extrapolated | second-hand; buyer target unknown |
 | derivative-pricing | Chakrabarti et al. 2021 (Goldman Sachs) [4] | none stated; resource estimate only | second-hand |
 | automotive-pricing-integer-programming | Sabater et al. 2026 [3] | none stated | second-hand |
 | protein-ligand-binding | Merz et al. 2026 (Cleveland Clinic) [7] | none stated | second-hand |
