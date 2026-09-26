@@ -3,14 +3,14 @@ type: problem
 id: pde-solving
 title: Solving partial differential equations
 title_zh: 偏微分方程求解
-summary: The computational task behind weather, CFD, electromagnetics and structural engineering. Chaotic and turbulent regimes are ruled out by an exp(Ω(T)) bound; short-time geometrically local linear dynamics is dequantized; the heat equation admits at most a quadratic speedup in d ≥ 2 and the linear-system route is never faster than the best classical method. What remains is a polynomial gain on wave-type problems with a scalar output, which does not pay under error correction.
-summary_zh: 天气、流体、电磁、结构工程背后的计算任务。混沌与湍流区被 exp(Ω(T)) 下界排除；短时间的几何局域线性动力学已被去量子化；热方程在 d ≥ 2 维至多二次加速，且线性方程组路线从不快于最佳经典方法。剩下的是波动型问题在标量输出下的多项式增益，在纠错开销下不划算。
+summary: The computational task behind weather, CFD, electromagnetics and other engineering applications. An exponential-in-time bound applies to algorithms outputting normalised states for specified chaotic systems; short-time local linear dynamics is dequantized in a separate model. Heat-equation comparisons favour classical methods for studied tasks. These results constrain particular PDE formulations and outputs, not all PDE applications.
+summary_zh: 天气、流体、电磁等工程应用背后的计算问题。对满足特定条件的混沌系统，输出归一化解量子态的算法有随时间指数增长的下界；另一个模型中的短时间局域线性动力学已被去量子化。已有热方程任务的比较也更有利于经典方法。这些结论约束的是具体方程、输入和输出形式，不能覆盖所有偏微分方程应用。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: uneconomic
 dimensions:
   classical_hardness: {level: none, note: "for the PDEs industry solves, multigrid and spectral methods are near-linear in the grid size; the classical cost is scale, and data-driven surrogates lower it further; the only hard regime (long-time local linear dynamics) is one nobody buys"}
-  quantum_easiness: {level: conditional, note: "linear PDEs: QLSA or Hamiltonian simulation given block-encodable operator, formula-defined source, polylog condition number and scalar output; nonlinear PDEs: Carleman linearisation only for weak nonlinearity; chaotic: no"}
+  quantum_easiness: {level: conditional, note: "linear PDEs: QLSA or Hamiltonian simulation given efficient operator access, state preparation and restricted output; nonlinear Carleman algorithms require convergence conditions; the Lewis bound addresses normalised-state output for specified chaotic systems"}
   willingness_to_pay: {level: second-hand, note: "every engineering discipline would pay for faster PDE solves, but no buyer has stated a target for a quantum solver; the derived applications (RCS, CFD, weather) are each catalogued separately"}
 resources: {gates: "depth ~1e29 for the one fully compiled instance (2D RCS, N=3.3e8)", note: "Scherer et al. 2017; no other end-to-end estimate on an industrial PDE has been independently checked"}
 related:
@@ -36,13 +36,13 @@ Finite-difference, finite-element and spectral discretisations, with multigrid o
 
 ## Best quantum
 
-Three routes exist, each with its own no-go.
+Three routes illustrate how strongly the result depends on the PDE and requested output.
 
 Linear PDEs via linear systems. Discretise, then apply a quantum linear-system solver (Berry's construction for linear ODEs [5], the finite-element analysis of Montanaro and Pallister [4]). The fine print is that of [sparse linear systems](sparse-linear-systems.html): the source must be prepared from a formula, the operator block-encoded, the condition number kept polylog, and only a scalar functional read out. Under those conditions Montanaro and Pallister find a polynomial speedup whose degree grows with the spatial dimension, and give evidence that no improvement of the quantum algorithm yields a super-polynomial speedup at fixed dimension when the solution is smooth [4]. For the heat equation Linden, Montanaro and Shao compare ten classical and quantum algorithms for computing the heat in a region and find that in d ≥ 2 the best quantum route (amplitude estimation on an accelerated random walk) is at most quadratically faster, and that the linear-system route is never faster than the best classical algorithm [3]. The single fully compiled industrial instance, the 2D radar cross-section, has circuit depth of order 1e29 once oracles are counted [7]. An application-driven benchmark of heat-equation solvers in 2026 finds no resource advantage across the kernels tested [9].
 
 Linear dynamics via Hamiltonian simulation. Wave-type and Maxwell equations can be written as Schrödinger-like evolutions and simulated directly, with the source and the receiver functional defined by formulas. This is the route with the fewest violated preconditions, and it is where the survey's closest engineering match (a single-receiver acoustic or seismic response) sits. Sakamoto and Fujii dequantize the simulation of short-time (polynomial-time) geometrically local classical linear dynamics, so there is no exponential advantage in this regime; the gain is polynomial at best, and the medium (velocity model) is data that has to be loaded [2].
 
-Nonlinear PDEs via Carleman linearisation. Liu et al. embed a dissipative nonlinear ODE into a larger linear one, with convergence only for weak nonlinearity relative to dissipation [6]. Lewis et al. tighten these bounds and prove a general limitation: for any system with a positive Lyapunov exponent and sub-exponentially growing solutions, any quantum algorithm outputting a state approximating the normalised solution costs exp(Ω(T)) in the integration time [1]. Chaotic and turbulent regimes are therefore excluded for any solver that outputs the field; the best remaining analysis of turbulence statistics, by Jennings et al., bounds the gain at O(Re^{3D/8}) for selected observables [8].
+Nonlinear PDEs via Carleman linearisation. Liu et al. embed a dissipative nonlinear ODE into a larger linear one, with convergence requiring weak nonlinearity relative to dissipation [6]. Lewis et al. tighten those bounds and derive an exponential-in-time limitation for algorithms outputting an approximate normalised solution state for specified chaotic dynamics in natural coordinates [1]. This constrains that state-output formulation; it does not prove an impossibility result for every coarse observable or nonlinear PDE task. Jennings et al. analyse selected turbulence observables under their own lattice-Boltzmann and resolution assumptions [8].
 
 ## What survives
 
@@ -50,4 +50,4 @@ Linear, well-conditioned, wave-type problems with formula-defined sources, a sca
 
 ## Verdict
 
-Uneconomic, with no-go sub-regimes. Chaotic and turbulent dynamics and any full-field output are ruled out by lower bounds; short-time local linear dynamics is dequantized; the heat equation and FEM admit at most polynomial gains; the one compiled instance has depth 1e29. The task class survives only as a polynomial speedup on wave-type scalar-output problems, and the catalogue's applications built on it (weather, CFD, RCS) each fail on their own page. It would move to surviving if an engineering problem were exhibited with formula-defined input, scalar output, bounded condition number and an end-to-end estimate showing a super-quadratic separation.
+Uneconomic for the **studied engineering formulations under their stated resource assumptions**. The best classical solvers are strong; the one compiled radar instance has depth of order 1e29 [7], and the cited heat-equation comparisons find at most modest advantages [3]. State-output bounds for chaotic systems and dequantization of short-time local linear dynamics further narrow the options [1, 2]. These results do not establish a theorem covering all PDEs or every application built on them. A named engineering task with formula-defined input, a specified output and accuracy, and a favourable end-to-end comparison against the best classical solver would change this assessment.

@@ -3,15 +3,15 @@ type: application
 id: weather-forecasting
 title: Numerical weather forecasting
 title_zh: 数值天气预报
-summary: The application most often named by industry and the least suited to a quantum computer. A forecast ingests a large volume of classical observations, integrates chaotic nonlinear equations, and must output the whole field. Each of the three steps meets a separate lower bound, so no algorithmic progress on PDE solvers changes the answer.
-summary_zh: 产业界最常提到的应用，也是最不适合量子计算机的一个。预报要读入海量经典观测数据、积分混沌的非线性方程、再输出整个场，三步各自撞上一条下界，所以偏微分方程求解器的任何算法进展都改变不了结论。
+summary: Operational numerical weather prediction ingests classical observations, evolves a nonlinear atmosphere model and delivers a large forecast field. These requirements undermine proposed exponential speedups from state-output PDE solvers, but existing bounds do not rule out every quantum subroutine or a polynomial advantage on a narrower forecast product. No matched operational benchmark is documented here.
+summary_zh: 业务化数值天气预报需要读入经典观测、演化非线性大气模型并交付大范围预报场。这些要求削弱了输出量子态的偏微分方程算法所声称的指数加速，但现有下界没有排除所有量子子程序，也没有排除某些较窄预报产品上的多项式优势。这里尚无同任务的业务基准比较。
 status: seed
-last_verified: 2026-09-26
-verdict: no-go
+last_verified: 2026-09-27
+verdict: surviving
 dimensions:
   classical_hardness: {level: none, note: "operational forecasts already run on schedule on conventional supercomputers; the cost is scale, not an obstruction, and data-driven models have lowered it further"}
-  quantum_easiness: {level: no, note: "chaotic dynamics: any algorithm that outputs the state costs exp(Ω(T)) (Lewis et al.); linear local parts are dequantized at short times (Sakamoto–Fujii); input and output are Ω(N)"}
-  willingness_to_pay: {level: second-hand, note: "Tennie and Palmer discuss the case from inside the weather community; no met service has written a speed or accuracy target for a quantum solver"}
+  quantum_easiness: {level: unknown, note: "Lewis et al. bound algorithms that output a normalised solution state for specified chaotic systems; Sakamoto–Fujii dequantize short-time local linear dynamics. Classical observation loading and full-field extraction add costs, but these results do not exclude every forecast observable or subroutine."}
+  willingness_to_pay: {level: second-hand, note: "Weather services have operational requirements; the cited quantum-weather assessment does not state a service's acceptance or procurement target for a quantum solver."}
 resources: {note: "no end-to-end resource estimate exists for an operational forecast; the obstruction is at the level of lower bounds, not gate counts"}
 related:
   problems: [pde-solving, sparse-linear-systems, monte-carlo-expectation, sorting-fft-storage]
@@ -27,11 +27,11 @@ references:
 
 ## Who needs it
 
-National and regional meteorological services (ECMWF, NOAA, the UK Met Office, the China Meteorological Administration), and downstream buyers of their products: reinsurers, energy traders, airlines, agriculture. The buyer is real and the budgets are large, which is why "weather" heads almost every industry list of quantum applications. This page exists because the argument for it collapses at every step once the computational task is written down.
+National and regional meteorological services produce forecasts used by insurers, energy companies, airlines and agriculture. A useful quantum contribution would have to improve forecast skill, resolution or delivery time within an operational workflow. The cited assessment by Tennie and Palmer discusses possibilities and the difficulty of handling large data sets [1]; it does not supply a service-defined acceptance target for a quantum algorithm.
 
 ## Bottleneck
 
-An operational forecast has three stages. Data assimilation combines a previous forecast with a large volume of new observations (satellite radiances, radiosondes, surface stations) into an initial state. The model then integrates the discretised primitive equations of the atmosphere, a nonlinear system with chaotic dynamics, for hours to weeks of model time. Finally the entire field (pressure, wind, humidity, temperature at every grid point and level) is written out, because every downstream product reads it. The classical cost is dominated by the integration step and grows with resolution. Met services run it on schedule today; the wish is for higher resolution and larger ensembles at the same wall-clock time. Tennie and Palmer, writing from inside the weather community, single out the "big data" input as the first thing a quantum formulation has to survive [1].
+An operational forecast combines observations with a previous model state, integrates a nonlinear atmosphere model and distributes fields and derived products. Each stage has a different input and output contract. Higher resolution and larger ensembles have value, but a quantum speedup for one mathematical kernel does not establish a faster end-to-end forecast. Tennie and Palmer identify the large classical data input as a major obstacle [1].
 
 ## Computational problems
 
@@ -40,16 +40,16 @@ An operational forecast has three stages. Data assimilation combines a previous 
 - [Monte Carlo expectation](../problems/monte-carlo-expectation.html): ensemble statistics.
 - [Sorting, FFT and storage](../problems/sorting-fft-storage.html): the spectral transforms and the observation database, both of which are pure classical-data I/O.
 
-## Why each stage fails
+## What current bounds actually constrain
 
-Input. The observations are classical data. Loading N numbers into amplitudes costs Ω(N) operations however it is done, and the QRAM that would hide this is an addressing structure whose control hardware could run a parallel classical algorithm equally fast [4]. There is no exponential shortcut into the initial state.
+Input. If an algorithm must read N independently supplied observations, acquiring them takes Ω(N) classical-data accesses. A formula-defined or already structured source has a different cost model. QRAM-based analyses must account for building and maintaining the memory; the input bound alone does not forbid an advantage in later processing [4].
 
-Dynamics. The atmosphere has positive Lyapunov exponents; that is what makes it a forecast problem. Lewis et al. prove that for a dynamical system with one or more positive Lyapunov exponents and sub-exponentially growing solutions, any quantum algorithm that outputs a state approximating the normalised solution has cost at least exponential in the integration time [2]. This is a statement about the task, not about a particular algorithm. The linear, geometrically local pieces (advection, diffusion) do not help either: Sakamoto and Fujii dequantize the simulation of short-time geometrically local classical linear dynamics, so no exponential advantage is available there [3].
+Dynamics. For specified chaotic systems in natural coordinates, Lewis et al. prove an exponential-in-time lower bound on quantum algorithms that output a state approximating the normalised solution vector, assuming positive Lyapunov exponents and sub-exponentially growing solutions [2]. The output model and assumptions matter: this theorem does not by itself rule out a small set of forecast statistics, shorter horizons or other tasks. Sakamoto and Fujii dequantize short-time geometrically local **linear** dynamics in their model [3]; the nonlinear forecast workflow needs separate analysis.
 
-Output. A forecast is the field, not a scalar. Reading N amplitudes out costs Ω(N) measurements, which cancels any polylog(N) advantage in the solver, the standard "fine print" condition on quantum linear algebra [4]. The only outputs a quantum solver returns cheaply are a few functionals, and no met service consumes a forecast that way.
+Output. Delivering an N-component field requires Ω(N) output values, which removes a polylog(N) **end-to-end** runtime claim based solely on a state-preparation subroutine [4]. It does not eliminate every possible polynomial gain over a classical workflow that costs much more than N, and some downstream products request selected statistics rather than the whole field.
 
-What is left after the three bounds is a possible polynomial speedup on a linearised sub-problem with a scalar output, which Babbush et al. show does not pay under error-correction overheads unless it is at least quartic [5]. Meanwhile the classical baseline has moved: data-driven forecast models trained on reanalysis data have cut the cost of producing a forecast of comparable skill, so the wall-clock target a quantum solver would have to beat is falling, not rising.
+For an early error-corrected machine, Babbush et al.'s assumed gate speeds and surface-code overhead make quadratic advantages difficult to turn into a runtime win; quartic gains look more favourable in their examples [5]. This is an economic estimate under hardware and oracle assumptions, not a general lower bound for weather prediction. A useful forecast comparison must also include current numerical and data-driven classical methods at matched skill, resolution and latency.
 
 ## Verdict
 
-No-go. Not because a quantum PDE solver is slow, but because the forecast task itself violates the input, dynamics and output conditions under which any quantum linear-algebra speedup is defined. Willingness to pay is genuine but second-hand: no met service has stated a target for a quantum solver, and none is likely to, since the same institutions are the ones publishing the obstacles [1]. The page would change only if a met service identified a scalar-output sub-task (a single verification statistic, say) that is classically expensive and does not require reading the field, and no such task is on record.
+Surviving as a broad application category, with **no supported operational quantum advantage** in the cited work. The strongest exclusions apply to particular state-output and short-time local-linear formulations. A full forecast also has substantial classical input and output costs. To move this entry toward promising, define a service-relevant product and tolerance, show the best classical cost at that tolerance, and give a quantum algorithm with complete data movement, repetitions and error-correction costs. Until such a matched benchmark exists, neither a general no-go theorem nor a practical speedup follows from the available papers.
