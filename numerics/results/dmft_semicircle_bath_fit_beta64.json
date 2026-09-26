@@ -1,0 +1,90 @@
+{
+  "source": "https://arxiv.org/abs/1907.08570",
+  "model": "two spinful Kanamori orbitals, r=1, t=1, D=2 semicircular bath",
+  "calculated_quantity": "bath hybridisation Delta_ij(iomega), not interacting G_ij(tau)",
+  "method": "bounded nonlinear least squares, symmetric positive-energy pole pairs and positive normalized weights, initialized by Gauss-Chebyshev nodes",
+  "numpy_version": "1.24.4",
+  "scipy_version": "1.12.0",
+  "beta": 64.0,
+  "matsubara_frequencies": 80,
+  "rows": [
+    {
+      "bath_nodes_per_spin": 2,
+      "system_qubits_rank_one_bath": 8,
+      "lowest_matsubara_abs_error": 0.8077716178902845,
+      "max_abs_error_first_80_matsubara": 0.8077716178902845,
+      "max_abs_error_81_imaginary_time_points": 0.0488213204660885,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        0.5383324935326239
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.5
+      ],
+      "converged": true,
+      "function_evaluations": 30
+    },
+    {
+      "bath_nodes_per_spin": 4,
+      "system_qubits_rank_one_bath": 12,
+      "lowest_matsubara_abs_error": 0.019152375296524138,
+      "max_abs_error_first_80_matsubara": 0.08414664888253331,
+      "max_abs_error_81_imaginary_time_points": 0.009963567727562572,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        0.8637604795984403,
+        0.0803950674198689
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.41850410764458046,
+        0.08149589235541951
+      ],
+      "converged": true,
+      "function_evaluations": 36
+    },
+    {
+      "bath_nodes_per_spin": 6,
+      "system_qubits_rank_one_bath": 16,
+      "lowest_matsubara_abs_error": 0.00012434400772542986,
+      "max_abs_error_first_80_matsubara": 0.006148361504946354,
+      "max_abs_error_81_imaginary_time_points": 0.0006237634691067251,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        1.2380944720014766,
+        0.3638541424632423,
+        0.05553272884665053
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.28507095422049233,
+        0.16821176266536922,
+        0.04671728311413838
+      ],
+      "converged": true,
+      "function_evaluations": 41
+    },
+    {
+      "bath_nodes_per_spin": 8,
+      "system_qubits_rank_one_bath": 20,
+      "lowest_matsubara_abs_error": 4.453157764761073e-07,
+      "max_abs_error_first_80_matsubara": 0.0003221735538415649,
+      "max_abs_error_81_imaginary_time_points": 3.0192245087462544e-05,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        1.4857636672882246,
+        0.6904372780879817,
+        0.23964678323177793,
+        0.04675401121355866
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.1805333123934233,
+        0.19077023886386932,
+        0.09231659415108416,
+        0.0363798545916232
+      ],
+      "converged": true,
+      "function_evaluations": 97
+    }
+  ],
+  "stopping_rule": "first tested even-node fit with optimizer success and maximum Matsubara error below 1e-3, or five pole pairs",
+  "caveat": "These are achieved errors, not lower bounds or a global optimum; the interacting Green's function and quantum cost are untested."
+}

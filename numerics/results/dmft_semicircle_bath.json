@@ -1,0 +1,101 @@
+{
+  "source": "https://arxiv.org/abs/1907.08570",
+  "model": "two spinful Kanamori orbitals, r=1, t=1, D=2 semicircular bath",
+  "calculated_quantity": "bath hybridisation Delta_ij(iomega), not interacting G_ij(tau)",
+  "method": "unoptimised Gauss-Chebyshev quadrature of the second kind",
+  "beta": 64.0,
+  "matsubara_frequencies": 80,
+  "error_units": "absolute energy units with t=1; each matrix entry has the same error",
+  "rows": [
+    {
+      "bath_nodes_per_spin": 1,
+      "system_qubits_rank_one_bath": 6,
+      "lowest_matsubara_abs_error": 19.396075257291386,
+      "max_abs_error_first_80_matsubara": 19.396075257291386
+    },
+    {
+      "bath_nodes_per_spin": 2,
+      "system_qubits_rank_one_bath": 8,
+      "lowest_matsubara_abs_error": 0.9267880684997899,
+      "max_abs_error_first_80_matsubara": 0.9267880684997899
+    },
+    {
+      "bath_nodes_per_spin": 4,
+      "system_qubits_rank_one_bath": 12,
+      "lowest_matsubara_abs_error": 0.878170404004002,
+      "max_abs_error_first_80_matsubara": 0.878170404004002
+    },
+    {
+      "bath_nodes_per_spin": 8,
+      "system_qubits_rank_one_bath": 20,
+      "lowest_matsubara_abs_error": 0.782887565124839,
+      "max_abs_error_first_80_matsubara": 0.782887565124839
+    },
+    {
+      "bath_nodes_per_spin": 16,
+      "system_qubits_rank_one_bath": 36,
+      "lowest_matsubara_abs_error": 0.6056126061579501,
+      "max_abs_error_first_80_matsubara": 0.6056126061579501
+    },
+    {
+      "bath_nodes_per_spin": 23,
+      "system_qubits_rank_one_bath": 50,
+      "lowest_matsubara_abs_error": 0.8900253437595216,
+      "max_abs_error_first_80_matsubara": 0.8900253437595216
+    },
+    {
+      "bath_nodes_per_spin": 32,
+      "system_qubits_rank_one_bath": 68,
+      "lowest_matsubara_abs_error": 0.33058619543559076,
+      "max_abs_error_first_80_matsubara": 0.33058619543559076
+    },
+    {
+      "bath_nodes_per_spin": 40,
+      "system_qubits_rank_one_bath": 84,
+      "lowest_matsubara_abs_error": 0.23588928676736787,
+      "max_abs_error_first_80_matsubara": 0.23588928676736787
+    },
+    {
+      "bath_nodes_per_spin": 48,
+      "system_qubits_rank_one_bath": 100,
+      "lowest_matsubara_abs_error": 0.1656281508404842,
+      "max_abs_error_first_80_matsubara": 0.1656281508404842
+    },
+    {
+      "bath_nodes_per_spin": 64,
+      "system_qubits_rank_one_bath": 132,
+      "lowest_matsubara_abs_error": 0.07908404337510055,
+      "max_abs_error_first_80_matsubara": 0.07908404337510055
+    },
+    {
+      "bath_nodes_per_spin": 96,
+      "system_qubits_rank_one_bath": 196,
+      "lowest_matsubara_abs_error": 0.016974028820593956,
+      "max_abs_error_first_80_matsubara": 0.016974028820593956
+    },
+    {
+      "bath_nodes_per_spin": 128,
+      "system_qubits_rank_one_bath": 260,
+      "lowest_matsubara_abs_error": 0.0035529879134061915,
+      "max_abs_error_first_80_matsubara": 0.0035529879134061915
+    },
+    {
+      "bath_nodes_per_spin": 192,
+      "system_qubits_rank_one_bath": 388,
+      "lowest_matsubara_abs_error": 0.00015384836913268085,
+      "max_abs_error_first_80_matsubara": 0.00015384836913268085
+    },
+    {
+      "bath_nodes_per_spin": 256,
+      "system_qubits_rank_one_bath": 516,
+      "lowest_matsubara_abs_error": 6.650976951627641e-06,
+      "max_abs_error_first_80_matsubara": 6.650976951627641e-06
+    }
+  ],
+  "first_bath_nodes_below_max_abs_error": {
+    "0.1": 60,
+    "0.01": 108,
+    "0.001": 154
+  },
+  "caveat": "No lower bound on optimized bath size; no interacting-G convergence or quantum cost."
+}

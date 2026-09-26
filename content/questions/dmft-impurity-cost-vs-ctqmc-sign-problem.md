@@ -62,6 +62,20 @@ The continuous-bath Kanamori case in [8, Eqs. 5 and the paragraph below it, Figs
 
 The analytic model is a useful algorithm benchmark. It is not yet evidence for a practical quantum advantage: the best reported classical solver solved it, and no matched finite-temperature quantum cost has been published [8].
 
+**Finite-bath input check.** For the continuous semicircular case at `r=1`, each spin's two-by-two orbital hybridisation matrix has rank one. A symmetric positive-weight discretisation with `N` bath energy levels per spin therefore uses `4 + 2N` system qubits. We fitted the first 80 fermionic Matsubara values of the analytic hybridisation with paired poles and independently checked the imaginary-time bath kernel on 81 points against high-order quadrature. These are **our calculations of the bath input**, not results reported by [8]. Only `βt=64` is the paper's low-temperature endpoint; the other temperatures below are an exploratory input-fit sweep. The [script and JSON outputs](https://github.com/yuchenguommm/practical-quantum-advantage/tree/main/numerics) make the fit reproducible.
+
+| Inverse temperature `βt` | First tested fit below `10⁻³` maximum Matsubara input error | System qubits | Achieved maximum Matsubara error | Achieved maximum imaginary-time bath error |
+|---|---:|---:|---:|---:|
+| 16 | 6 bath levels per spin | 16 | `3.85 × 10⁻⁵` | `1.64 × 10⁻⁵` |
+| 32 | 6 | 16 | `9.08 × 10⁻⁴` | `1.76 × 10⁻⁴` |
+| 64 | 8 | 20 | `3.22 × 10⁻⁴` | `3.02 × 10⁻⁵` |
+| 128 | 10 | 24 | `1.42 × 10⁻⁴` | `7.73 × 10⁻⁶` |
+| 256 | 10 | 24 | `8.13 × 10⁻⁴` | `4.65 × 10⁻⁵` |
+
+The node counts are the first **tested even-node fits** reaching the chosen input threshold, not proven minima. An unfitted eight-node Gauss-Chebyshev discretisation has a much larger maximum Matsubara error (`0.783` at `βt=64`), so the fitting rule matters. Neither input check bounds the error of the **interacting** Green's function, proves bath convergence inside a DMFT loop, nor estimates quantum runtime. It does show that this particular two-orbital model can be represented accurately at the *bath-input level* well below 50–100 system qubits; increasing its bath to fill a larger register is not itself an advantage argument.
+
+![Finite-bath input errors for the semicircular DMFT benchmark. This figure does not show interacting Green's-function or quantum runtime errors.](../figs/dmft_bath_input_fit.png)
+
 For a **material-derived input**, the pinned TRIQS Sr₂RuO₄ benchmark [12] is a stronger reproducibility starting point than a generic material name. Its `model.py` sets `β=25`, `U=2.3`, `J=0.4` and three correlated orbitals with two spins; it builds the matrix hybridisation from the supplied Wannier hopping file. Its published `cthyb.h5` contains Matsubara and imaginary-time Green's functions, the supplied bath data and solver settings. This archive provides a concrete classical reference and input path. It does **not** itself give a converged finite quantum bath, a full self-consistent DMFT loop for a target application, or evidence that CT-HYB is prohibitively expensive. A separate `Sr2RuO4_SOC` folder defines a spin-orbit-coupled model but does not contain a results archive at the pinned revision [12]. Keep these two folders and their outputs distinct.
 
 There is also a complexity limit on a tempting shortcut: for an impurity with a fixed number of interacting modes and an arbitrary number of noninteracting bath modes, a classical algorithm approximates the **ground energy** in polynomial time in bath size at fixed additive precision [13, Theorem 1]. Its bound can have enormous constants and says nothing directly about the finite-temperature Green's function used above. Increasing only the bath register therefore cannot, by itself, establish a Shor-like exponential separation for the ground-energy task; the response calculation needs its own evidence.

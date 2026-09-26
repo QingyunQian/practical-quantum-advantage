@@ -1,0 +1,114 @@
+{
+  "source": "https://arxiv.org/abs/1907.08570",
+  "model": "two spinful Kanamori orbitals, r=1, t=1, D=2 semicircular bath",
+  "calculated_quantity": "bath hybridisation Delta_ij(iomega), not interacting G_ij(tau)",
+  "method": "bounded nonlinear least squares, symmetric positive-energy pole pairs and positive normalized weights, initialized by Gauss-Chebyshev nodes",
+  "numpy_version": "1.24.4",
+  "scipy_version": "1.12.0",
+  "beta": 128.0,
+  "matsubara_frequencies": 80,
+  "rows": [
+    {
+      "bath_nodes_per_spin": 2,
+      "system_qubits_rank_one_bath": 8,
+      "lowest_matsubara_abs_error": 0.9039256214301004,
+      "max_abs_error_first_80_matsubara": 0.9039256214301004,
+      "max_abs_error_81_imaginary_time_points": 0.033891626009965925,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        0.5403795016954811
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.5
+      ],
+      "converged": true,
+      "function_evaluations": 28
+    },
+    {
+      "bath_nodes_per_spin": 4,
+      "system_qubits_rank_one_bath": 12,
+      "lowest_matsubara_abs_error": 0.10029215909764255,
+      "max_abs_error_first_80_matsubara": 0.2021774844306895,
+      "max_abs_error_81_imaginary_time_points": 0.010952756605934047,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        0.7843358925001078,
+        0.05308270393311462
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.4406098164595122,
+        0.0593901835404878
+      ],
+      "converged": true,
+      "function_evaluations": 32
+    },
+    {
+      "bath_nodes_per_spin": 6,
+      "system_qubits_rank_one_bath": 16,
+      "lowest_matsubara_abs_error": 0.0014316525872849484,
+      "max_abs_error_first_80_matsubara": 0.022189564793131722,
+      "max_abs_error_81_imaginary_time_points": 0.0013004428961127246,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        1.1261777774776682,
+        0.2627772353954989,
+        0.03178468281368173
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.3282060168790696,
+        0.14311957020582564,
+        0.028674412915104728
+      ],
+      "converged": true,
+      "function_evaluations": 33
+    },
+    {
+      "bath_nodes_per_spin": 8,
+      "system_qubits_rank_one_bath": 20,
+      "lowest_matsubara_abs_error": 1.5917820871735877e-05,
+      "max_abs_error_first_80_matsubara": 0.001890955208103784,
+      "max_abs_error_81_imaginary_time_points": 0.00014005779614453817,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        1.3695955896701044,
+        0.5291041647756574,
+        0.1523461892602542,
+        0.025793036549325396
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.22964206659995928,
+        0.18230669737116068,
+        0.06709250233308635,
+        0.020958733695793694
+      ],
+      "converged": true,
+      "function_evaluations": 60
+    },
+    {
+      "bath_nodes_per_spin": 10,
+      "system_qubits_rank_one_bath": 24,
+      "lowest_matsubara_abs_error": 1.169847708704097e-07,
+      "max_abs_error_first_80_matsubara": 0.00014199110290014083,
+      "max_abs_error_81_imaginary_time_points": 7.73292189969188e-06,
+      "imaginary_time_reference_refinement_error": 5.551115123125783e-17,
+      "positive_bath_energies": [
+        0.7859369229414183,
+        1.537385407080724,
+        0.3255828163800484,
+        0.11386381602984551,
+        0.022824039381424875
+      ],
+      "weight_at_each_positive_and_negative_energy": [
+        0.18427395205331962,
+        0.15752175041445324,
+        0.09744474855404717,
+        0.04316468828979717,
+        0.017594860688382806
+      ],
+      "converged": true,
+      "function_evaluations": 111
+    }
+  ],
+  "stopping_rule": "first tested even-node fit with optimizer success and maximum Matsubara error below 1e-3, or five pole pairs",
+  "caveat": "These are achieved errors, not lower bounds or a global optimum; the interacting Green's function and quantum cost are untested."
+}
