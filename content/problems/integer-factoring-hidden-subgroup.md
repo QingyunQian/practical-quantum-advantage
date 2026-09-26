@@ -7,7 +7,7 @@ summary: Shor proves polynomial-time quantum factoring and discrete logarithms; 
 summary_zh: Shor 算法已证明量子计算机可在多项式时间内分解整数、求离散对数，但经典算法的超多项式下界尚未证明。Pilatte 证明了后续分解算法的正确性，Gidney 给出在特定硬件条件下以不到一百万物理比特分解 RSA-2048 的估计。NIST 的后量子迁移说明防御需求存在，不能证明有人采购量子攻击。
 status: seed
 last_verified: 2026-09-27
-verdict: surviving
+verdict: promising
 dimensions:
   classical_hardness: {level: crypto, note: "best known general classical factoring algorithms are subexponential; no superpolynomial lower bound against classical algorithms is known"}
   quantum_easiness: {level: proven, note: "Shor 1994; Regev's O(n^3/2)-gate variant proven correct unconditionally by Pilatte; abelian HSP fully polynomial; unit and S-unit groups of arbitrary-degree number fields polynomial"}
@@ -45,4 +45,4 @@ Intelligence and security agencies are potential users of cryptanalysis, but thi
 
 ## Verdict
 
-Surviving under this catalogue's three-dimension rubric: quantum polynomial time is proved, classical hardness rests on cryptographic evidence, and direct willingness to pay for the computation is unverified. Gidney's RSA-2048 engineering model has about 1,400 active logical qubits and billions of Toffoli gates [4]; these numbers are conditional estimates. A public buyer requirement for quantum cryptanalysis, or a documented use for number-field computations, would change the commercial assessment.
+Promising as a **foundational computational problem**. Factoring and discrete logarithms have independently important outputs, quantum polynomial time is proved, and the best known classical algorithms have much worse scaling. The superpolynomial classical lower bound remains unproved, so this verdict does not assert an unconditional separation. Gidney's RSA-2048 engineering model has about 1,400 active logical qubits and billions of Toffoli gates [4]; those are conditional estimates. The linked [cryptanalysis application](../applications/cryptanalysis.html) remains `surviving` because direct willingness to pay for a quantum attack is undocumented. Number-field class-group and S-unit tasks need their own classical and quantum comparison before inheriting this verdict.

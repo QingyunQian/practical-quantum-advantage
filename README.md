@@ -4,9 +4,16 @@ A living catalogue of quantum-computing application candidates, judged on three 
 
 - **Classically hard**: is there a reduction, a cryptographic assumption, a lower bound, or only the observation that today's classical code is slow?
 - **Quantumly easy**: does the quantum algorithm's precondition (initial-state overlap, adiabatic gap, decodable dual code) actually hold for the instances people care about?
-- **Someone pays**: has a buyer said, in writing, that the extra accuracy or speed is worth money?
+- **Someone pays**: for a direct application, has a buyer stated a requirement in writing? For a foundational computational problem, what independent scientific or mathematical use does its output have?
 
 Entries are organised in two layers, because industry and algorithm researchers use the word "application" differently. An **application** is a scenario: electrolyte design, OLED emitters, weather forecasting, derivative pricing. A **problem** is the computational task behind it: ground-state energy, PDE solving, Monte Carlo expectation. The [matrix](https://yuchenguommm.github.io/practical-quantum-advantage/matrix.html) links the two layers.
+
+The overall verdict uses the layers differently. A direct application needs a documented buyer
+requirement and a matched classical/quantum comparison to become `promising`. A foundational
+problem such as integer factoring may be `promising` because its quantum polynomial-time
+algorithm is proved, its output matters independently and the classical hardness assumption is
+explicit. This does not claim an unconditional quantum–classical separation. The separate
+`willingness_to_pay` field still records whether someone would buy the computation itself.
 
 The site also keeps a record of every published "quantum advantage" claim and how long it took a classical method to reproduce it, and a board of open questions that anyone (or any agent) can take on.
 

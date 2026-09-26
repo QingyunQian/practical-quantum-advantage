@@ -24,6 +24,7 @@ references:
   - {arxiv: "1706.06752", title: "Quantum resource estimates for computing elliptic curve discrete logarithms", authors: "M. Roetteler, M. Naehrig, K. M. Svore, K. Lauter", year: 2017}
   - {url: "https://arxiv.org/abs/quant-ph/9508027", title: "Polynomial-Time Algorithms for Prime Factorization and Discrete Logarithms on a Quantum Computer", authors: "P. W. Shor", year: 1997, note: "SIAM J. Comput. 26, 1484"}
   - {url: "https://csrc.nist.gov/pubs/ir/8547/ipd", title: "Transition to Post-Quantum Cryptography Standards (NIST IR 8547, initial public draft)", authors: "NIST", year: 2024, note: "proposed defensive transition timeline; not evidence of an offensive buyer"}
+  - {arxiv: "2404.16450", title: "Unconditional correctness of recent quantum algorithms for factoring and computing discrete logarithms", authors: "C. Pilatte", year: 2024, note: "proof of Regev-algorithm correctness condition; no classical lower bound"}
 ---
 
 ## Who needs it
@@ -40,7 +41,7 @@ The best known general-purpose classical factoring algorithm, the number field s
 
 ## Best quantum
 
-Gidney and Ekerå estimate roughly 6,200 logical qubits and 2.6 billion Toffoli gates for RSA-2048 in an abstract circuit, then about 20 million physical qubits and eight hours under their specified surface-code hardware model [2]. Gidney's 2025 revision estimates fewer than one million physical qubits and under one week under comparable assumptions: 0.1% physical gate error, a 1 μs code cycle and 10 μs control reaction time [1]. Neither estimate is an unconditional prediction of when hardware will exist. Regev's algorithm uses Õ(n^{3/2}) gates per run and roughly √n runs; Pilatte later proved the number-theoretic correctness condition, without establishing a classical lower bound or a better practical circuit [3]. Roetteler et al. separately estimate elliptic-curve discrete-logarithm circuits [4].
+Gidney and Ekerå estimate roughly 6,200 logical qubits and 2.6 billion Toffoli gates for RSA-2048 in an abstract circuit, then about 20 million physical qubits and eight hours under their specified surface-code hardware model [2]. Gidney's 2025 revision estimates fewer than one million physical qubits and under one week under comparable assumptions: 0.1% physical gate error, a 1 μs code cycle and 10 μs control reaction time [1]. Neither estimate is an unconditional prediction of when hardware will exist. Regev's algorithm uses Õ(n^{3/2}) gates per run and roughly √n runs; Pilatte later proved the number-theoretic correctness condition, without establishing a classical lower bound or a better practical circuit [3, 7]. Roetteler et al. separately estimate elliptic-curve discrete-logarithm circuits [4].
 
 ## Algorithmic result and commercial demand
 
@@ -50,4 +51,4 @@ The migration to post-quantum cryptography is a real economic response, but migr
 
 ## Verdict
 
-Surviving under this catalogue's three-dimension commercial rubric: quantum easiness is proven and classical hardness has strong cryptographic evidence, while **direct willingness to pay for an attack is unverified**. This label does not downgrade Shor's theorem. The page would move to `promising` if a public buyer requirement for the computation itself were documented; NIST's defensive transition plan cannot supply that evidence [6].
+Surviving as a **direct application** because willingness to pay for running an attack is unverified. The linked [factoring problem](../problems/integer-factoring-hidden-subgroup.html) is `promising` on algorithmic grounds: Shor proves quantum polynomial time for an independently important task, while classical superpolynomial hardness remains an assumption. NIST's defensive transition plan does not supply evidence of an attack buyer [6]. A documented requirement for the computation itself would change this application's commercial assessment.

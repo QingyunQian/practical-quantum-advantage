@@ -30,10 +30,12 @@ Both layers are kept, and linked through `related.problems` / `related.applicati
 
 Every application, problem and method carries a verdict and three graded dimensions.
 
-Verdicts: `no-go` (information-theoretically impossible or dequantized), `uneconomic` (only a
-quadratic speedup, which does not pay under error-correction overhead), `surviving` (no known
-obstruction, but no proof and no scaling evidence yet), `promising` (hardness evidence and a real
-buyer), `unassessed`.
+Verdicts: `no-go` (a stated task and input/output model has a decisive obstruction), `uneconomic`
+(the studied route does not beat the relevant classical baseline under stated cost assumptions),
+`surviving` (no decisive obstruction, but the evidence does not yet support either a practical or
+a strong algorithmic case), `promising` (the practical or foundational evidence meets the rule
+below), `unassessed`. These labels do not by themselves assert an unconditional classical lower
+bound. Keep the three dimension grades visible beside the verdict.
 
 `dimensions.classical_hardness.level`: `reduction` (BQP- or QMA-hardness), `crypto`
 (cryptographic assumption), `lower-bound` (low-degree, overlap-gap, or similar), `empirical`
@@ -47,8 +49,16 @@ preconditions), `conditional` (polynomial time if a stated precondition holds, e
 or speed target in writing, or co-authored a study), `second-hand` (a plausible argument in the
 literature), `none`, `unknown`.
 
-A verdict of `promising` requires classical_hardness ≥ `lower-bound`, quantum_easiness ≥
-`conditional`, and willingness_to_pay = `first-hand`. Anything weaker is at most `surviving`.
+There are two routes to `promising`, reflecting the site's two layers. An **application** needs a
+named decision, a credible classical bottleneck on the same task, an end-to-end quantum route,
+and first-hand evidence of a buyer's requirement. A **foundational computational problem** can
+qualify without a buyer when it has a polynomial-time quantum algorithm with its preconditions
+met, a credible classical-hardness argument or a standard cryptographic assumption, and an
+independently important output. State the exact missing theorem: for factoring, quantum
+polynomial time is proved while a superpolynomial classical lower bound is not. Methods inherit
+neither route automatically; judge whether their required instance family has been established.
+Do not treat `crypto`, `lower-bound` and `reduction` as an ordered scale or promote a page from
+generic NP-hardness of a broader family.
 
 ## File format
 

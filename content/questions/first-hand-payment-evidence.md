@@ -26,7 +26,7 @@ references:
 
 ## Why it matters
 
-The catalogue's rule (AGENTS.md) is that `promising` needs classical hardness at least at the lower-bound level, quantum easiness at least conditional, and documented demand from a buyer. The OLED study by OTI Lumionics and Samsung SAIT provides a concrete *achieved* accuracy benchmark, 0.0501 eV MAE across 14 emitters [1]. It does not say the companies would reject predictions above 0.05 eV or buy calculations below it. The Zapata catalyst study gives an **author-derived** $200,000 utility estimate, based on a $25 million public grant and expected paper counts, and a roughly 400,000-core-hour **extrapolation** for DMRG [2]. The paper does not quote a catalyst buyer or report that full DMRG run. These studies motivate further inquiry; neither supplies a buyer-defined purchase requirement.
+For a direct application, the catalogue's `promising` verdict requires a documented buyer requirement alongside a credible same-task classical bottleneck and an end-to-end quantum route. Foundational computational problems have a separate algorithmic route to that verdict, so this question concerns **application pages**. The OLED study by OTI Lumionics and Samsung SAIT provides a concrete *achieved* accuracy benchmark, 0.0501 eV MAE across 14 emitters [1]. It does not say the companies would reject predictions above 0.05 eV or buy calculations below it. The Zapata catalyst study gives an **author-derived** $200,000 utility estimate, based on a $25 million public grant and expected paper counts, and a roughly 400,000-core-hour **extrapolation** for DMRG [2]. The paper does not quote a catalyst buyer or report that full DMRG run. These studies motivate further inquiry; neither supplies a buyer-defined purchase requirement.
 
 Some finance and engineering pages have bank or contractor co-authors with resource estimates [4, 5, 6]; co-authorship must be distinguished from a buyer-defined performance threshold. The automotive ILP paper does not claim to beat Gurobi [3]. The 12,000-atom protein paper is co-authored by a clinic and states no quantitative buyer target [7].
 
@@ -36,8 +36,8 @@ Some finance and engineering pages have bank or contractor co-authors with resou
 |---|---|---|---|
 | oled-emitters | Genin et al. 2026 (OTI Lumionics, Samsung SAIT) [1] | achieved T1-to-S0 MAE 0.0501 eV; buyer threshold unstated | first-hand interest, target unknown |
 | homogeneous-catalysis | Bellonzi et al. 2024 (Zapata and academic authors) [2] | $200k inferred research utility; DMRG ~4e5 CPU-h extrapolated | second-hand; buyer target unknown |
-| derivative-pricing | Chakrabarti et al. 2021 (Goldman Sachs) [4] | none stated; resource estimate only | second-hand |
-| automotive-pricing-integer-programming | Sabater et al. 2026 [3] | none stated | second-hand |
+| derivative-pricing | Chakrabarti et al. 2021 (Goldman Sachs) [4] | about one second to beat the studied classical pricing workflow; no procurement price | first-hand technical crossover, purchase unknown |
+| automotive-pricing-integer-programming | Sabater et al. 2026 (BMW coauthors) [3] | no buyer-defined solve-time or objective threshold | first-hand interest, target unknown |
 | protein-ligand-binding | Merz et al. 2026 (Cleveland Clinic) [7] | none stated | second-hand |
 | radar-cross-section | Scherer et al. 2017 [6] | none; RAND 2026 says not practical short-term | second-hand |
 | all others | none found | | unknown |
@@ -48,4 +48,4 @@ See the front matter. Search primary buyer-side documents such as public RFPs, p
 
 ## Who could take it
 
-Anyone with library access and patience; no computation. This is also the item most useful to the repository's maintainers, since every `promising` verdict depends on it.
+Anyone with library access and patience; no computation. The result will help assess direct application pages. A foundational problem such as factoring can have a strong algorithmic verdict while this commercial question remains open.
