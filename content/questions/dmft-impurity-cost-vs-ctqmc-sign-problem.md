@@ -46,6 +46,19 @@ Hard impurity regimes exist, but difficulty depends on the Hamiltonian, basis, t
 
 The first row is unusually clear evidence that **one classical algorithm** has a bottleneck, followed by evidence that another classical algorithm overcame it for the same Green's function. Inchworm avoids this example's exponential temperature scaling but still has exponential dependence on the number of interacting orbitals [8]. In the oxide examples, the full five-orbital calculation itself completed, and the cheaper approximation reproduced the reported low-energy self-energies within Monte Carlo noise [9]. The classical frontier also includes basis optimisation for CT-HYB [10], tensor-train diagram summation [4] and neural-network embedding solvers [3]. These methods must be considered before calling a sign-problem instance classically intractable.
 
+### A reproducible model to start from
+
+The continuous-bath Kanamori case in [8, Eqs. 5 and the paragraph below it, Figs. 2–3] is more specific than a generic “DMFT sign problem.” It defines two *spinful* interacting orbitals (four impurity spin orbitals), including spin-exchange and pair-hopping interactions. In units where \(t=1\), the reported parameters are \(U=2\), \(J=0.2\), off-diagonal hybridisation ratio \(r=1\), and a semicircular bath with half-bandwidth \(D=2\). The measured quantity is the diagonal, same-spin imaginary-time Green's function \(G_{i\sigma,i\sigma}(\tau)\), with the low-temperature endpoint at \(\beta=64\). The paper specifies its analytic bath function and describes 80 imaginary-time intervals, maximum Inchworm diagram order 8 and five independent runs for its error bars [8].
+
+| Reproducibility item | Current evidence and next action |
+|---|---|
+| Classical reference | The published Inchworm result used about 1,500 core-hours. The comparable CT-HYB cost of about 3 billion core-hours is an **extrapolation**, not a completed run. Reproduce the Green's-function error at fixed cost before fitting any new scaling curve [8]. |
+| Quantum input | The classical bath is continuous. A finite quantum register needs a discrete fit to that same hybridisation function; publish bath energies, couplings and convergence of \(G(\tau)\) as the number of bath orbitals grows. Four impurity spin orbitals alone do not make this a 50–100-qubit instance. |
+| Quantum output | Match \(\beta=64\), the imaginary-time grid and the diagonal Green's function, with a stated absolute error. Include thermal-state preparation, repetitions and bath-fit error. The existing zero-temperature quantum proposals do not provide this comparison [1, 2]. |
+| Application link | This is a generic Bethe-bath model. To support a magnet, cathode or fuel claim, repeat the comparison for a material-derived hybridisation function and show that the improved solver changes a decision-relevant prediction. |
+
+The analytic model is a useful algorithm benchmark. It is not yet evidence for a practical quantum advantage: the best reported classical solver solved it, and no matched finite-temperature quantum cost has been published [8].
+
 - Hardware demonstrations are at 2-site and 14-qubit scale [7]; they show the loop closes, not that it wins.
 - The cathode example [6] already has a successful classical CT-QMC calculation. Its core-hole physics is handled in a distinct multiplet step, so a quantum solver for the first-stage impurity cannot claim the full XPS computation as its benchmark.
 - Embedding error (U, double counting, single-site approximation) is usually larger than solver error; the quantum computer removes only the latter. This bounds the value of a perfect solver from above.
