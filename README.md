@@ -19,6 +19,10 @@ The site also records selected published "quantum advantage" claims, including c
 
 For breadth, the [candidate idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.html) lists application–problem pairs and a first research question without assigning a verdict. An idea is not an assessed entry. The public `ideas.json` lets people and agents browse or add leads without first writing a full report. A few [worked examples](https://yuchenguommm.github.io/practical-quantum-advantage/) show the evidence standard; contributors can expand the rest.
 
+## Research sequence
+
+The current phase expands and deduplicates the idea pool across fields. A useful contribution can be one new application–problem link or a better first question; it does not require a literature review. Once the breadth is stable enough for contributors to see and challenge omissions, select **one or two** cases for a full, same-instance comparison: public input, target observable and error, strongest classical baseline, complete quantum route and reproducible costs. The open research issues are invitations, not a requirement to complete every case before expanding the pool.
+
 Site: https://yuchenguommm.github.io/practical-quantum-advantage/
 Machine-readable: `index.json`, `ideas.json` and `llms.txt` at the site root.
 Review tasks: [`review-queue.html`](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.html) and [`review-queue.json`](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json). A scheduled workflow keeps one GitHub issue up to date each month.
