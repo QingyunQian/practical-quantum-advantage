@@ -3,8 +3,8 @@ type: application
 id: p450-drug-metabolism
 title: Cytochrome P450 drug metabolism
 title_zh: 细胞色素 P450 药物代谢
-summary: P450 Compound I is a textbook strongly correlated active site and the subject of the best-known pharmaceutical resource estimate (1,426–2,158 logical qubits, 4.3–8.3e9 Toffoli). But the decision pharma makes, which site of a drug is metabolised, is already predicted to 82–91% top-2 accuracy with DFT descriptors, and the errors that matter for clearance and drug–drug interactions come from sampling and induced fit, not from the active-site electronic structure.
-summary_zh: P450 的 Compound I 是教科书级的强关联活性位点，也是最著名的制药资源估计对象（1,426 到 2,158 个逻辑比特，4.3 到 8.3e9 个 Toffoli）。但药企要做的决策，即药物的哪个位点被代谢，用 DFT 描述符已经能达到 82% 到 91% 的 top-2 准确率；影响清除率和药物相互作用的误差来自采样和诱导契合，而不是活性位点的电子结构。
+summary: P450 Compound I is a challenging electronic-structure model with published quantum resource estimates of 1,426–2,158 logical qubits and 4.3–8.3e9 Toffoli gates. A separate 2016 semiempirical-QM and ligand-based model placed an observed metabolism site among its top two predictions for 82–91% of compounds on seven isoform-specific test sets. This site-ranking result neither measures clearance nor shows that solving Compound I improves a drug-development decision.
+summary_zh: P450 的 Compound I 是有难度的电子结构模型，已发表的量子资源估计为 1,426 到 2,158 个逻辑比特及 4.3 到 8.3e9 个 Toffoli 门。另一项 2016 年的半经验量子化学与配体模型，在七种同工酶各自的测试集中，对 82% 到 91% 的化合物将已观测到的代谢位点排在前两名。位点排序结果既不是清除率精度，也没有证明计算 Compound I 能改善药物研发决策。
 status: seed
 last_verified: 2026-09-26
 verdict: surviving
@@ -25,6 +25,7 @@ references:
   - {arxiv: "2502.15882", title: "Fast quantum simulation of electronic structure by spectrum amplification", authors: "G. H. Low et al. (Google Quantum AI)", year: 2025, note: "4–195× Toffoli reductions on chemistry benchmarks"}
   - {arxiv: "2301.04114", title: "Drug design on quantum computers", authors: "R. Santagati et al. (Boehringer Ingelheim and others)", year: 2023, note: "pharma-authored perspective; bottleneck is sampling of large systems at finite temperature"}
   - {arxiv: "2208.02199", title: "Is there evidence for exponential quantum advantage in quantum chemistry?", authors: "S. Lee et al.", year: 2022}
+  - {doi: "10.1021/acs.jcim.6b00233", url: "https://pubmed.ncbi.nlm.nih.gov/27753488/", title: "Predicting Regioselectivity and Lability of Cytochrome P450 Metabolism Using Quantum Mechanical Simulations", authors: "J. D. Tyzack, P. A. Hunt, M. D. Segall", year: 2016, note: "Independent test sets across seven CYP isoforms; semiempirical QM plus a trained ligand-based accessibility model; 82–91% top-2 site identification"}
 ---
 
 ## Who needs it
@@ -37,14 +38,16 @@ The active-site chemistry is hard. Compound I, the iron(IV)-oxo porphyrin radica
 
 Active-site electronic energies are only one part of predicting drug metabolism. Conformational sampling, accessibility, solvation and protonation also enter the workflow. The pharmaceutical perspective by Santagati et al. discusses the wider challenges of connecting quantum calculations to drug design [5]. The industry-co-authored resource study says that ensemble workflows would need individual energy evaluations on the scale of seconds or faster [3, Introduction]. It does not define a P450-specific accuracy, acceptance or procurement threshold.
 
+A separate, industry-developed predictor uses semiempirical quantum calculations to estimate site reactivity, then a trained ligand-based model to account for isoform-specific access to the binding pocket. On independent test sets across seven CYP isoforms, an experimentally observed metabolism site appeared among its top two predictions for 82–91% of compounds [7]. This is a **top-two site-ranking metric**, not an 82–91% probability of predicting clearance, drug–drug interactions or every metabolite. The study does not isolate an error attributable to the Compound I electronic Hamiltonian, and it does not test whether replacing its reactivity model with phase estimation improves decisions.
+
 ## Computational problems
 
 - [Ground-state energy](../problems/ground-state-energy.html) and [excited states](../problems/excited-states.html) of the heme–oxo cluster: spin-state ordering of Compound I and hydrogen-abstraction barriers.
-- Sampling of substrate poses in the pocket and of the protein at 300 K, a classical MD and free-energy problem that dominates the practical error.
+- Sampling of substrate poses and protein conformations, with solvation and protonation, when a target prediction depends on the enzyme environment. Their contributions to error need to be measured for the specific endpoint.
 
 ## Best classical today
 
-DMRG and DMRG-NEVPT2 on CAS(63e,58o) models, converged according to Goings et al. [1]; DLPNO-CCSD(T) on cluster models; QM/MM with DFT for barriers; empirical and ML SoM predictors for the actual decision. Lee et al.'s general argument applies: the single-centre heme cluster is exactly where classical heuristics work best [6].
+DMRG and DMRG-NEVPT2 on CAS(63e,58o) models, converged according to Goings et al. [1]; DLPNO-CCSD(T) on cluster models; QM/MM with DFT for barriers; and empirical or machine-learned site-of-metabolism (SoM) predictors for site ranking. The 2016 semiempirical-QM/ligand model supplies one measured SoM baseline [7], but its test-set score cannot be transferred to clearance or binding kinetics. Lee et al.'s general argument applies: the single-centre heme cluster is exactly where classical heuristics work best [6].
 
 ## Best quantum today
 
