@@ -115,7 +115,7 @@ p { margin: 0 0 1em; }
 .spotlight-results strong { font-size: 1.55rem; line-height: 1.2; }
 .spotlight-results strong small { font-size: .65em; }
 .spotlight-results > a { display: inline-block; font-size: 12px; margin-top: 14px; }
-.route-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 13px; }
+.route-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 13px; }
 .route-card { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 23px; color: var(--ink); text-decoration: none; display: flex; flex-direction: column; min-height: 245px; transition: transform .15s, box-shadow .15s; }
 .route-card:hover, .card:hover { transform: translateY(-2px); box-shadow: var(--shadow); text-decoration: none; }
 .route-card > span { color: var(--accent-dark); font: 700 10px ui-monospace, Consolas, monospace; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 27px; }
