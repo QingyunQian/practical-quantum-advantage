@@ -171,13 +171,17 @@ table.dims tr:last-child th, table.dims tr:last-child td { border-bottom: 0; }
 .claims { display: block; overflow-x: auto; }
 .claims tr.refuted td:first-child::before { content: "● "; color: var(--nogo); }
 .claims tr.standing td:first-child::before { content: "● "; color: var(--prom); }
+.matrix-title { font-size: clamp(2rem, 3.4vw, 3rem); }
+.matrix-hint { margin: 20px 0 10px; color: var(--muted); font-size: 12px; font-weight: 650; }
 .matrix-wrap { overflow: auto; max-height: 78vh; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
-.matrix { margin: 0; width: max-content; }
+.matrix-wrap:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.matrix { margin: 0; width: max-content; border-collapse: separate; border-spacing: 0; table-layout: fixed; }
 .matrix th { font-weight: 600; font-size: 12px; }
-.matrix th:first-child { position: sticky; left: 0; z-index: 2; background: var(--surface); min-width: 190px; max-width: 220px; }
-.matrix thead th { position: sticky; top: 0; z-index: 1; writing-mode: vertical-rl; transform: none; white-space: nowrap; height: 180px; padding: 9px 5px; background: var(--surface-alt); }
+.matrix th:first-child { position: sticky; left: 0; z-index: 2; background: var(--surface); width: 230px; min-width: 230px; max-width: 230px; }
+.matrix thead th { position: sticky; top: 0; z-index: 1; width: 190px; min-width: 190px; max-width: 190px; height: 205px; padding: 12px; background: var(--surface-alt); white-space: normal; line-height: 1.3; text-align: left; vertical-align: bottom; }
+.matrix thead th:not(:first-child) a { position: absolute; left: 54px; bottom: 14px; display: block; width: 170px; font-size: 11px; line-height: 1.25; overflow-wrap: anywhere; transform: rotate(-40deg); transform-origin: left bottom; }
 .matrix thead th:first-child { z-index: 3; background: var(--surface-alt); }
-.matrix td { text-align: center; font-size: 15px; width: 39px; min-width: 39px; }
+.matrix td { text-align: center; font-size: 15px; width: 190px; min-width: 190px; max-width: 190px; }
 .matrix td a { color: inherit; font-weight: 700; text-decoration: none; display: block; }
 .matrix td.v-no-go { color: var(--nogo); } .matrix td.v-uneconomic { color: var(--unecon); } .matrix td.v-surviving { color: var(--surv); } .matrix td.v-promising { color: var(--prom); } .matrix td.v-unassessed { color: var(--unass); }
 .legend { display: flex; flex-wrap: wrap; gap: 6px; }

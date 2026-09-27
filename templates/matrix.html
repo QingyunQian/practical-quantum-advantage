@@ -2,14 +2,15 @@
 {% import "_macros.html" as m with context %}
 {% block title %}Application × problem matrix · Practical Quantum Advantage{% endblock %}
 {% block content %}
-<h1>Applications × computational problems</h1>
+<h1 class="matrix-title">Applications × problems</h1>
 <p>Rows are application scenarios (what industry calls "an application"). Columns are the computational problems behind them (what quantum-algorithm papers call "an application"). Each linked cell shows the verdict on the problem: N = no-go, E = uneconomic, S = surviving, P = promising, ? = unassessed.</p>
-<div class="matrix-wrap">
+<p class="matrix-hint">Scroll horizontally to explore all computational problems →</p>
+<div class="matrix-wrap" role="region" aria-label="Application by computational problem matrix" tabindex="0">
 <table class="matrix">
-<thead><tr><th></th>{% for p in probs %}<th><a href="{{ depth }}{{ p.href }}">{{ p.meta.title }}</a></th>{% endfor %}</tr></thead>
+<thead><tr><th scope="col">Application</th>{% for p in probs %}<th scope="col"><a href="{{ depth }}{{ p.href }}">{{ p.meta.title }}</a></th>{% endfor %}</tr></thead>
 <tbody>
 {% for a in apps %}
-<tr><th><a href="{{ depth }}{{ a.href }}">{{ a.meta.title }}</a> {{ m.verdict_badge(a.meta.verdict) }}</th>
+<tr><th scope="row"><a href="{{ depth }}{{ a.href }}">{{ a.meta.title }}</a> {{ m.verdict_badge(a.meta.verdict) }}</th>
 {% for p in probs %}{% set v = cells.get((a.id, p.id)) %}<td class="{{ 'v-' + v if v else '' }}" title="{{ a.meta.title }} → {{ p.meta.title }}{% if v %}: {{ VERDICT_LABEL[v][0] }}{% endif %}">{% if v %}<a href="{{ p.href }}" aria-label="{{ p.meta.title }}: {{ VERDICT_LABEL[v][0] }}">{{ {'no-go':'N','uneconomic':'E','surviving':'S','promising':'P','unassessed':'?'}[v] }}</a>{% endif %}</td>{% endfor %}
 </tr>
 {% endfor %}
