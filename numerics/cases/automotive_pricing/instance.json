@@ -1,0 +1,6 @@
+{
+  "objective": [261, 286, 312, 218, 251, 275, 247, 376, 298],
+  "constraints": [[1, 1, 1, 1, 1, 1, 1, 1, 1]],
+  "constraints_rhs": [5],
+  "source": "https://github.com/BCG-X-Official/dqi/blob/8456eaddb0033fa703c169c19ff264b51ccd0711/pipelines/data/milp_formulation.json"
+}

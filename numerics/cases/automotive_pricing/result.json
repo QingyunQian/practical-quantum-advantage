@@ -1,0 +1,88 @@
+{
+  "input_sha256": "851ecb7e5b0f7aeebdb45e4f46a477434b868ac3032d0ed4d8a3690321137a2f",
+  "variables": 9,
+  "capacity": 5,
+  "threshold": 1500,
+  "all_assignments": 512,
+  "feasible_assignments": 382,
+  "optimum": 1547,
+  "optimal_bits": [
+    0,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1
+  ],
+  "winning_assignments": 9,
+  "ideal_grover_iterations": 5,
+  "ideal_grover_success_probability": 0.9883637502920734,
+  "uniform_one_draw_success_probability": 0.017578125,
+  "classical_sort_certificate": [
+    7,
+    2,
+    8,
+    1,
+    5
+  ],
+  "compiled_circuits": {
+    "qiskit_terra_version": "0.23.3",
+    "basis": [
+      "u1",
+      "u2",
+      "u3",
+      "cx"
+    ],
+    "one_oracle": {
+      "logical_qubits": 45,
+      "depth": 25095,
+      "gate_counts": {
+        "u1": 15870,
+        "cx": 13439,
+        "u2": 5894,
+        "u3": 1602
+      }
+    },
+    "full_ideal_grover_circuit": {
+      "logical_qubits": 45,
+      "depth": 128686,
+      "gate_counts": {
+        "u1": 83175,
+        "cx": 71015,
+        "u2": 29589,
+        "u3": 8100
+      }
+    },
+    "note": "Unoptimized generic decomposition; these are neither fault-tolerant T counts nor physical runtimes."
+  },
+  "circuit_interference_checks": {
+    "winner_vs_neighbor": {
+      "1": 32
+    },
+    "exact_threshold": {
+      "1": 32
+    },
+    "over_capacity": {
+      "1": 32
+    },
+    "two_losers": {
+      "0": 32
+    }
+  },
+  "upstream_dqi_encoding": {
+    "upstream_commit": "8456eaddb0033fa703c169c19ff264b51ccd0711",
+    "source_sha256": "bc1500e94eb4182935600894f620c338de24b9c95bcfef7577ab23f3a76690d5",
+    "binary_matrix_rows": 827,
+    "binary_matrix_columns": 345,
+    "nonzero_entries": 1842,
+    "rhs_ones": 175,
+    "reported_generator_row_min_weight": 3,
+    "ell": 1,
+    "beta_in_shifted_objective": 285,
+    "objective_threshold_in_shifted_units": 286,
+    "gadget_max_satisfied": 656
+  }
+}
