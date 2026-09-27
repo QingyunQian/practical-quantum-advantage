@@ -11,6 +11,7 @@ import sys
 from jsonschema import Draft202012Validator
 
 from common import TYPES, load_all, load_schema
+from cases import load_cases
 from ideas import load_ideas
 
 REQUIRED_SECTIONS = {
@@ -49,14 +50,17 @@ def main() -> int:
                     e.errors.append(f"related.{kind}: '{target}' does not exist")
     bad = [e for e in entries if e.errors]
     ideas, idea_errors = load_ideas(entries)
+    cases, case_errors = load_cases(entries)
     for e in bad:
         print(f"{e.path.relative_to(e.path.parents[2])}:")
         for err in e.errors:
             print(f"  - {err}")
     for err in idea_errors:
         print(f"data/ideas.json: {err}")
-    print(f"{len(entries)} entries, {len(bad)} with errors; {len(ideas)} ideas, {len(idea_errors)} with errors")
-    return 1 if bad or idea_errors else 0
+    for err in case_errors:
+        print(err)
+    print(f"{len(entries)} entries, {len(bad)} with errors; {len(ideas)} ideas, {len(idea_errors)} with errors; {len(cases)} cases, {len(case_errors)} with errors")
+    return 1 if bad or idea_errors or case_errors else 0
 
 
 if __name__ == "__main__":

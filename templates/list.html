@@ -2,7 +2,7 @@
 {% import "_macros.html" as m with context %}
 {% block title %}{{ SECTION_TITLE[t][0] }} · Practical Quantum Advantage{% endblock %}
 {% block content %}
-<h1>{{ SECTION_TITLE[t][0] }} <span class="zh">{{ SECTION_TITLE[t][1] }}</span></h1>
+<section class="page-intro"><p class="eyebrow">Browse the catalogue · {{ items|length }} entries</p><h1>{{ SECTION_TITLE[t][0] }} <span class="zh">{{ SECTION_TITLE[t][1] }}</span></h1><p class="lede">{% if t == 'application' %}Real-world decisions, buyer needs and the computational tasks behind them.{% elif t == 'problem' %}Foundational tasks, their strongest classical methods and conditional quantum routes.{% elif t == 'method' %}Algorithms and hybrid approaches, with their assumptions made explicit.{% elif t == 'claim' %}Published advantage claims and the classical challenges that followed.{% else %}Concrete questions that could change a verdict or establish a missing result.{% endif %}</p></section>
 {% if t == 'claim' %}
 <table class="claims">
 <thead><tr><th>Claim</th><th>Date</th><th>Refuted by</th><th>Time to refute</th></tr></thead>
@@ -29,6 +29,7 @@
 <a class="card" href="{{ depth }}{{ e.href }}" data-verdict="{{ e.meta.verdict or '' }}">
   <h3>{{ e.meta.title }}{% if e.meta.title_zh %} <span class="zh">{{ e.meta.title_zh }}</span>{% endif %}</h3>
   {{ m.verdict_badge(e.meta.verdict) }}
+  <span class="status s-{{ e.meta.status or 'seed' }}">{{ STATUS_LABEL[e.meta.status or 'seed'] }}</span>
   {% if e.type == 'question' %}<span class="badge">{{ e.meta.question.difficulty }}</span>{% endif %}
   <p>{{ e.meta.summary }}</p>
 </a>

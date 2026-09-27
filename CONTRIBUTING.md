@@ -9,6 +9,8 @@ It also rebuilds the site so the age-based queue stays current. GitHub can disab
 
 The [candidate idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.html) is the lightest route. An idea records a scenario, its computational problem and a question to investigate. It has **no verdict or resource claim**. You can propose a new idea in an issue or add one to `data/ideas.json` by PR. A sourced page can follow when evidence is available; there is no requirement to research every idea before listing it.
 
+A [reproducible case](https://yuchenguommm.github.io/practical-quantum-advantage/cases.html) fixes one public input, target output and matched classical/quantum routes. Add a folder under `numerics/cases/` using the [case format](numerics/cases/README.md). The manifest automatically feeds `cases.html` and `cases.json`. A case can report a negative or inconclusive result; it does not automatically make a linked catalogue page `reviewed`.
+
 | You have | Use |
 |---|---|
 | A new application, computational problem or method | [Propose a candidate](https://github.com/yuchenguommm/practical-quantum-advantage/issues/new?template=new-candidate.md) |

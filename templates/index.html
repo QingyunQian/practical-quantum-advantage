@@ -2,48 +2,62 @@
 {% import "_macros.html" as m with context %}
 {% block content %}
 <section class="hero">
-<h1>Practical Quantum Advantage</h1>
-<p class="lede">A living catalogue of quantum-computing application candidates. Every entry is judged on three dimensions: <strong>classically hard</strong>, <strong>quantumly easy</strong>, and <strong>someone pays</strong>. Verdicts are meant to be argued with: each page is a Markdown file, and pull requests from humans and agents are welcome.</p>
-<p class="lede zh">量子计算应用候选的活目录。每个条目都从三个维度评判：经典难、量子易、有人付费。每一页都是一个 Markdown 文件，欢迎人和 agent 提交 pull request 来推翻结论。</p>
-<p><a class="action-link" href="contribute.html">Contribute a page, evidence or research result →</a></p>
-<p class="stats">
-{% for t in TYPES %}<a href="{{ t }}s/index.html"><b>{{ counts[t] }}</b> {{ SECTION_TITLE[t][0].lower() }}</a>{% endfor %}
-</p>
-<p class="stats">
-{% for v in ['promising','surviving','uneconomic','no-go','unassessed'] %}<span class="badge v-{{ v }}">{{ verdict_counts[v] }} {{ VERDICT_LABEL[v][0] }}</span> {% endfor %}
-</p>
+  <div class="hero-copy">
+    <p class="eyebrow">Open research catalogue · Evidence before claims</p>
+    <h1>Where can quantum computing <em>matter?</em></h1>
+    <p class="lede">A public map from real-world uses to the computational problems behind them. Every candidate keeps the classical baseline, quantum assumptions and decision value in view.</p>
+    <p class="zh">从真实应用场景出发，追踪背后的计算问题。每个候选都明确经典基线、量子算法的前提，以及结果对谁有用。</p>
+    <div class="hero-actions"><a class="action-link" href="applications/index.html">Explore applications <span aria-hidden="true">↗</span></a><a class="text-link" href="contribute.html">Contribute evidence →</a></div>
+  </div>
+  <div class="hero-panel" aria-label="The three evidence questions">
+    <p class="panel-kicker">A candidate needs three answers</p>
+    <div class="evidence-step"><span>01</span><div><strong>Classically hard?</strong><small>Which established method was tested, on which input?</small></div></div>
+    <div class="evidence-step"><span>02</span><div><strong>Quantumly easy?</strong><small>Does the claimed algorithm work for that same input?</small></div></div>
+    <div class="evidence-step"><span>03</span><div><strong>Worth solving?</strong><small>A buyer's requirement, or an independently useful output.</small></div></div>
+    <p class="panel-note">An open question is a research invitation, not evidence of advantage.</p>
+  </div>
 </section>
 
-<section>
-<h2>Start with a worked example</h2>
-<p>These pages show how the catalogue separates a real-world scenario, a computational problem, a published claim and a research question. The status on each page states whether source review is complete.</p>
-<div class="cards">
-{% for e, why in examples %}
-<a class="card" href="{{ e.href }}"><h3>{{ e.meta.title }}</h3><p>{{ why }}</p><p>{{ e.type }} · {{ e.meta.status }}</p></a>
-{% endfor %}
-</div>
-<p><a href="ideas.html">Browse {{ idea_count }} unassessed candidate ideas and contribute one →</a></p>
+<section class="number-strip" aria-label="Catalogue size">
+  <a href="applications/index.html"><strong>{{ counts.application }}</strong><span>Applications</span></a>
+  <a href="problems/index.html"><strong>{{ counts.problem }}</strong><span>Computational problems</span></a>
+  <a href="cases.html"><strong>{{ cases|length }}</strong><span>Reproducible case{{ '' if cases|length == 1 else 's' }}</span></a>
+  <a href="ideas.html"><strong>{{ idea_count }}</strong><span>Unassessed ideas</span></a>
 </section>
 
-<section>
-<h2>One reproducible same-instance case</h2>
-<p><a href="applications/automotive-pricing-integer-programming.html">Vehicle option pricing</a> uses a public nine-variable ILP. The exact classical optimum, the authors' 827×345 DQI encoding, a clean 45-qubit arithmetic oracle, circuit checks and reproduction commands are collected in the <a href="https://github.com/yuchenguommm/practical-quantum-advantage/tree/main/numerics/cases/automotive_pricing">case files</a>. This particular instance has a simple exact classical algorithm, so its result is negative for practical advantage.</p>
+<section class="section-block">
+  <div class="section-heading"><div><p class="eyebrow">The organizing principle</p><h2>Two levels of “application”</h2></div><a href="matrix.html">Explore the full matrix →</a></div>
+  <p class="section-intro">An application is a decision or scientific use. A computational problem is the task an algorithm actually solves. Linking the two keeps a speedup theorem from being mistaken for a product.</p>
+  <div class="level-map">
+    <div class="level-label"><span>Real-world use</span><span>Computational task</span></div>
+    <div class="level-row"><a href="applications/oled-emitters.html"><small>Materials</small><strong>OLED emitter design</strong></a><span aria-hidden="true">→</span><a href="problems/ground-state-energy.html"><small>Electronic structure</small><strong>Ground-state energy</strong></a></div>
+    <div class="level-row"><a href="applications/weather-forecasting.html"><small>Forecasting</small><strong>Weather prediction</strong></a><span aria-hidden="true">→</span><a href="problems/pde-solving.html"><small>Numerical methods</small><strong>PDE solving</strong></a></div>
+    <div class="level-row"><a href="applications/derivative-pricing.html"><small>Finance</small><strong>Derivative pricing</strong></a><span aria-hidden="true">→</span><a href="problems/monte-carlo-expectation.html"><small>Statistics</small><strong>Expectation estimation</strong></a></div>
+  </div>
 </section>
 
-<section>
-<h2>Latest advantage claims</h2>
-<table class="claims">
-<thead><tr><th>Claim</th><th>Date</th><th>Refuted by</th><th>Time to refute</th></tr></thead>
-<tbody>
-{% for e in claims %}{% set c = e.meta.claim %}
-<tr class="{{ 'refuted' if c.refuted else 'standing' }}"><td><a href="{{ e.href }}">{{ e.meta.title }}</a></td><td>{{ c.date }}</td><td>{% if c.refuted %}{{ c.refuted_by }}{% else %}<em>standing</em>{% endif %}</td><td>{{ c.time_to_refute or '' }}</td></tr>
-{% endfor %}
-</tbody>
-</table>
-<p><a href="claims/index.html">All claims →</a></p>
+<section class="section-block">
+  <div class="section-heading"><div><p class="eyebrow">Evidence in practice</p><h2>A case with a clear negative result</h2></div><a href="cases.html">All cases →</a></div>
+  <div class="case-spotlight">
+    <div><span class="spotlight-label">Case 01 · Classical baseline</span><h3>Vehicle option-package pricing</h3><p>The published nine-variable input has an exact sorting solution. We reproduced its 827×345 DQI encoding and compiled a 45-qubit arithmetic Grover circuit for the original decision problem. The result narrows the claim for this instance; richer pricing models remain open.</p><a href="applications/automotive-pricing-integer-programming.html">Read the analysis →</a></div>
+    <div class="spotlight-results"><div><span>Exact classical optimum</span><strong>1547</strong></div><div><span>DQI encoded variables</span><strong>345</strong></div><div><span>Compiled Grover circuit</span><strong>45 <small>qubits</small></strong></div><a href="{{ BASE_URL }}/tree/main/numerics/cases/automotive_pricing">Input · code · result ↗</a></div>
+  </div>
 </section>
 
-<section class="readme">
-{{ readme|safe }}
+<section class="section-block">
+  <div class="section-heading"><div><p class="eyebrow">Browse and contribute</p><h2>Choose a starting point</h2></div></div>
+  <div class="route-grid">
+    <a class="route-card" href="applications/index.html"><span>01 / Scenarios</span><h3>Applications</h3><p>Start with a user, a decision and an accuracy or speed target.</p><b>Explore {{ counts.application }} pages →</b></a>
+    <a class="route-card" href="problems/index.html"><span>02 / Algorithms</span><h3>Computational problems</h3><p>Examine the underlying task and the strongest known classical method.</p><b>Explore {{ counts.problem }} pages →</b></a>
+    <a class="route-card" href="claims/index.html"><span>03 / Evidence</span><h3>Advantage claims</h3><p>Follow published claims and subsequent classical challenges.</p><b>Explore {{ counts.claim }} records →</b></a>
+    <a class="route-card" href="questions/index.html"><span>04 / Research</span><h3>Open questions</h3><p>Take on a specific missing proof, instance or benchmark.</p><b>Explore {{ counts.question }} questions →</b></a>
+  </div>
 </section>
+
+<section class="section-block status-explainer">
+  <div><p class="eyebrow">Read the evidence labels</p><h2>Page status and scientific verdict are separate</h2><p><strong>{{ status_counts.reviewed }} reviewed pages</strong> have recorded source checks; <strong>{{ status_counts.seed }} await full review</strong>. A reproduced case is an evidence artifact, not a new review tier. The <a href="review-queue.html">review queue</a> shows where a contributor can help.</p></div>
+  <div class="status-key"><p><span class="status s-seed">Awaiting review</span> Sources are listed, but full claim review is pending.</p><p><span class="status s-reviewed">Reviewed</span> A maintainer recorded checks of the cited claims.</p><p><span class="badge v-surviving">Surviving</span> No decisive obstruction yet; advantage remains unproved.</p></div>
+</section>
+
+<section class="contribute-banner"><div><p class="eyebrow">An open project</p><h2>Find an omission. Test a claim. Add a better baseline.</h2><p>People and agents use the same public evidence and review path. A first contribution can be one new candidate idea or one corrected source.</p></div><a class="action-link" href="contribute.html">How to contribute →</a></section>
 {% endblock %}

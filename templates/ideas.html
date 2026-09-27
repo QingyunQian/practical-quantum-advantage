@@ -5,7 +5,7 @@
 <p class="lede">A breadth-first list of possible applications and computational problems. These are <strong>unassessed suggestions</strong>: no quantum advantage, buyer demand, qubit count or hardness claim is implied.</p>
 <p class="zh">这是尚未评估的候选清单。列出应用场景、背后的计算问题和第一步该查什么；它们没有优势判词，也没有默认的产业需求或量子资源结论。</p>
 <p>Find an idea worth testing? <a href="{{ BASE_URL }}/issues/new?template=new-candidate.md">Propose it in an issue</a>, or follow the <a href="contribute.html">contribution guide</a> to turn it into a sourced page. Add new ideas by editing the public <a href="{{ BASE_URL }}/blob/main/data/ideas.json">idea list</a>. Agents can read <a href="ideas.json">ideas.json</a> alongside the assessed <a href="index.json">catalogue</a>.</p>
-<p>The current phase is to broaden and deduplicate this list. After contributors have had a chance to add missing directions, the project will choose one or two cases for a reproducible, same-instance classical–quantum comparison. An idea here does not commit anyone to a full case study.</p>
+<p>The current phase broadens and deduplicates this list while contributors develop selected <a href="cases.html">reproducible same-instance cases</a>. One negative baseline case is already published. An idea here does not commit anyone to a full case study.</p>
 
 <h2>{{ idea_apps|length }} possible applications</h2>
 {% for domain, group in idea_apps|groupby('domain') %}

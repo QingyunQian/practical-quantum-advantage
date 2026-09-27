@@ -1,0 +1,15 @@
+{
+  "id": "automotive-pricing-public-9",
+  "title": "Nine-option vehicle pricing model",
+  "title_zh": "九变量汽车选装包定价模型",
+  "summary": "A public synthetic ILP with an exact classical certificate, reproduced DQI encoding and compiled arithmetic Grover circuit. Sorting already solves the original instance exactly.",
+  "application": "automotive-pricing-integer-programming",
+  "problems": ["combinatorial-optimization"],
+  "finding": "classical baseline",
+  "review_status": "seed",
+  "input": "instance.json",
+  "result": "result.json",
+  "protocol": "README.md",
+  "code": "run.py",
+  "last_checked": "2026-09-27"
+}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Reproducible cases · Practical Quantum Advantage{% endblock %}
+{% block content %}
+<section class="page-intro">
+  <p class="eyebrow">Evidence at the instance level</p>
+  <h1>Reproducible cases <span class="zh">可复核案例</span></h1>
+  <p class="lede">Each case fixes a public input, an output target, a classical method and a quantum route. Cases can have positive or negative findings. A case is an evidence artifact linked to catalogue pages; it is not a higher review status.</p>
+  <p class="zh">案例固定同一输入、目标输出和双方成本。负结果同样保留。案例与应用、计算问题页面相连，不等于“已复核”。</p>
+</section>
+<section class="case-list">
+{% for c in cases %}
+<article class="case-feature" id="{{ c.id }}">
+  <div>
+    <p class="eyebrow">Case {{ '%02d'|format(loop.index) }} · {{ c.finding }}</p>
+    <h2><a href="{{ depth }}applications/{{ c.application }}.html">{{ c.title }}</a></h2>
+    <p class="zh">{{ c.title_zh }}</p>
+    <p>{{ c.summary }}</p>
+    <p class="meta"><span class="status s-{{ c.review_status }}">{{ STATUS_LABEL[c.review_status] }}</span><span>checked {{ c.last_checked }}</span></p>
+    <div class="case-links"><a href="{{ BASE_URL }}/tree/main/numerics/cases/{{ c.folder }}">Protocol and files</a><a href="{{ BASE_URL }}/blob/main/numerics/cases/{{ c.folder }}/{{ c.result }}">Result data</a><a href="applications/{{ c.application }}.html">Application analysis</a></div>
+  </div>
+  <div class="case-file-list" aria-label="Reproduction contract">
+    <strong>Reproduction contract</strong>
+    <a href="{{ BASE_URL }}/blob/main/numerics/cases/{{ c.folder }}/{{ c.input }}">01 · Fixed input</a>
+    <a href="{{ BASE_URL }}/blob/main/numerics/cases/{{ c.folder }}/{{ c.protocol }}">02 · Target and methods</a>
+    <a href="{{ BASE_URL }}/blob/main/numerics/cases/{{ c.folder }}/{{ c.code }}">03 · Executable code</a>
+    <a href="{{ BASE_URL }}/blob/main/numerics/cases/{{ c.folder }}/{{ c.result }}">04 · Machine-readable result</a>
+  </div>
+</article>
+{% endfor %}
+</section>
+<section class="contribute-callout">
+  <h2>Add a case</h2>
+  <p>Use the <a href="{{ BASE_URL }}/blob/main/numerics/cases/README.md">case format</a> to publish a versioned input, matching methods, result data and limitations. Link it to an existing application and computational problem. Submit it for public review through <a href="contribute.html">GitHub</a>.</p>
+</section>
+{% endblock %}

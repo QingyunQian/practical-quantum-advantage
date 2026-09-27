@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% import "_macros.html" as m with context %}
 {% block title %}{{ e.meta.title }} · Practical Quantum Advantage{% endblock %}
+{% block description %}{{ e.meta.summary }}{% endblock %}
 {% block content %}
 <article class="entry type-{{ e.type }}">
 <p class="crumb"><a href="{{ depth }}{{ e.type }}s/index.html">{{ SECTION_TITLE[e.type][0] }}</a></p>
 <h1>{{ e.meta.title }}{% if e.meta.title_zh %} <span class="zh">{{ e.meta.title_zh }}</span>{% endif %}</h1>
 <p class="meta">
   {{ m.verdict_badge(e.meta.verdict) }}
-  <span class="status s-{{ e.meta.status or 'seed' }}">{{ e.meta.status or 'seed' }}</span>
-  <span>{% if e.meta.last_verified %}last verified {{ e.meta.last_verified }}{% else %}sources not yet checked{% endif %}</span>
+  <span class="status s-{{ e.meta.status or 'seed' }}">{{ STATUS_LABEL[e.meta.status or 'seed'] }}</span>
+  <span>{% if e.meta.last_verified %}source check {{ e.meta.last_verified }}{% else %}source check pending{% endif %}</span>
   <a class="edit" href="{{ BASE_URL }}/edit/main/content/{{ e.type }}s/{{ e.id }}.md">edit this page</a>
 </p>
 <p class="summary">{{ e.meta.summary }}</p>
@@ -44,6 +45,7 @@
 </table>
 {% endif %}
 
+{% if toc %}<nav class="toc" aria-label="On this page"><strong>On this page</strong>{{ toc|safe }}</nav>{% endif %}
 <div class="body">{{ body|safe }}</div>
 {{ m.refs(e) }}
 <section class="related">

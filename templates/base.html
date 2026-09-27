@@ -3,33 +3,38 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="{% block description %}An open, evidence-led catalogue of practical quantum advantage candidates, reproducible cases and open questions.{% endblock %}">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="{{ depth }}static/favicon.svg" type="image/svg+xml">
 <title>{% block title %}Practical Quantum Advantage{% endblock %}</title>
 <link rel="stylesheet" href="{{ depth }}static/style.css">
 <script defer src="{{ depth }}static/app.js"></script>
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="{{ depth }}index.html">Practical Quantum Advantage</a>
-  <nav>
-    <a href="{{ depth }}applications/index.html">Applications</a>
-    <a href="{{ depth }}problems/index.html">Problems</a>
-    <a href="{{ depth }}methods/index.html">Methods</a>
-    <a href="{{ depth }}claims/index.html">Claims</a>
-    <a href="{{ depth }}questions/index.html">Open questions</a>
-    <a href="{{ depth }}matrix.html">Matrix</a>
-    <a href="{{ depth }}ideas.html">Candidate ideas</a>
-    <a href="{{ depth }}review-queue.html">Review queue</a>
-    <a href="{{ depth }}contribute.html">Contribute</a>
-    <a href="{{ BASE_URL }}" rel="noopener">GitHub</a>
-  </nav>
-  <input id="search" type="search" aria-label="Search the catalogue" placeholder="Search…" data-root="{{ depth }}" autocomplete="off">
-  <div id="search-results" hidden></div>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="{{ depth }}index.html" aria-label="Practical Quantum Advantage home"><span class="brand-mark" aria-hidden="true">P<span>Q</span>A</span><span class="brand-text">Practical Quantum Advantage<small>An open evidence catalogue</small></span></a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="{{ depth }}applications/index.html">Applications</a>
+      <a href="{{ depth }}problems/index.html">Problems</a>
+      <a href="{{ depth }}cases.html">Cases</a>
+      <a href="{{ depth }}claims/index.html">Claims</a>
+      <a href="{{ depth }}questions/index.html">Questions</a>
+    </nav>
+    <div class="header-tools">
+      <div class="search-wrap"><input id="search" type="search" aria-label="Search the catalogue" placeholder="Search catalogue" data-root="{{ depth }}" autocomplete="off"><div id="search-results" hidden aria-live="polite"></div></div>
+      <details class="nav-more"><summary>Explore</summary><nav aria-label="More pages"><a href="{{ depth }}methods/index.html">Methods</a><a href="{{ depth }}matrix.html">Application × problem matrix</a><a href="{{ depth }}ideas.html">Candidate ideas</a><a href="{{ depth }}review-queue.html">Review queue</a><a href="{{ depth }}contribute.html">Contribute</a><a href="{{ BASE_URL }}">GitHub repository</a></nav></details>
+    </div>
+  </div>
 </header>
-<main>
+<main id="main-content">
 {% block content %}{% endblock %}
 </main>
-<footer>
-  Content CC-BY-4.0 · Code MIT · <a href="{{ depth }}contribute.html">Contribute (humans and agents)</a> · Every page is a Markdown file; edit it and open a pull request.
+<footer class="site-footer">
+  <div><strong>Practical Quantum Advantage</strong><p>Open evidence, explicit assumptions, reproducible comparisons.</p></div>
+  <div><a href="{{ depth }}contribute.html">Contribute</a><a href="{{ depth }}review-queue.html">Review queue</a><a href="{{ BASE_URL }}">Source code</a></div>
+  <small>Content CC BY 4.0 · Code MIT · Each entry has a public edit history.</small>
 </footer>
 </body>
 </html>

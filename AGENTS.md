@@ -11,6 +11,10 @@ The [review queue](https://yuchenguommm.github.io/practical-quantum-advantage/re
 lists pages awaiting first review, disputed pages and pages older than 180 days.
 The separate [idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.json)
 contains unassessed application and problem suggestions. They have no verdict or evidence grade.
+The [case directory](https://yuchenguommm.github.io/practical-quantum-advantage/cases.html)
+holds fixed-input reproducible comparisons. A case is evidence linked to an application and
+problem, not a sixth page type or a higher review status. Add one by following
+[`numerics/cases/README.md`](numerics/cases/README.md); the build exposes `cases.json`.
 To add breadth without a full source review, add an idea to `data/ideas.json`, linking each
 application to an existing or proposed computational problem. Give it one concrete first
 question. Do not copy an idea into `content/` or assign a verdict until there is evidence.

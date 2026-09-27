@@ -9,11 +9,15 @@
     if (data) return cb(data);
     Promise.all([
       fetch(root + 'index.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
-      fetch(root + 'ideas.json').then(function (r) { return r.json(); }).catch(function () { return []; })
+      fetch(root + 'ideas.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
+      fetch(root + 'cases.json').then(function (r) { return r.json(); }).catch(function () { return []; })
     ]).then(function (parts) {
       data = parts[0].concat(parts[1].map(function (i) {
         return { title: i.title, title_zh: i.title_zh, summary: i.question,
           type: 'proposed ' + i.type, url: 'ideas.html#' + i.id, tags: [i.domain] };
+      })).concat(parts[2].map(function (c) {
+        return { title: c.title, title_zh: c.title_zh, summary: c.summary,
+          type: 'reproducible case', url: 'cases.html#' + c.id, tags: [c.finding] };
       }));
       cb(data);
     });
@@ -58,7 +62,10 @@
       });
     });
     document.addEventListener('click', function (ev) { if (!box.contains(ev.target) && ev.target !== input) box.hidden = true; });
+    input.addEventListener('keydown', function (ev) { if (ev.key === 'Escape') { box.hidden = true; input.blur(); } });
   }
+  var more = document.querySelector('.nav-more');
+  if (more) document.addEventListener('click', function (ev) { if (!more.contains(ev.target)) more.open = false; });
   var filters = document.querySelector('.filters');
   if (filters) {
     filters.addEventListener('change', function () {
