@@ -17,7 +17,7 @@ related:
   applications: [battery-cathode-spectroscopy, oled-emitters]
   problems: [ground-state-energy]
   methods: [phase-estimation]
-  questions: [first-hand-payment-evidence]
+  questions: [electrolyte-decomposition-matched-benchmark, first-hand-payment-evidence]
 references:
   - {arxiv: "2104.10653", title: "Fault-tolerant resource estimate for quantum chemical simulations: Case study on Li-ion battery electrolyte molecules", authors: "I. H. Kim et al.", year: 2022, note: "Sections II.1-II.2: EC, FEC, PF6- and variants; 1 mHartree per total energy; no frozen core or active-space reduction; DFT geometries"}
   - {doi: "10.1021/acs.jpca.3c04369", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10795021/", title: "Accurate Quantum Chemical Reaction Energies for Lithium-Mediated Electrolyte Decomposition and Evaluation of Density Functional Approximations", authors: "S. Debnath et al.", year: 2023, note: "EC ring-opening barrier and six-step reaction-energy comparison; supporting information includes individual energies and molecular coordinates"}
@@ -46,4 +46,4 @@ This benchmark rules out a blanket claim that ordinary DFT is already accurate e
 
 ## Verdict
 
-Surviving as an application question, with no demonstrated quantum advantage. The published small-molecule path is accessible to strong classical methods; the quantum study estimates a much larger all-electron calculation on related molecules and has no matched barrier or buyer comparison. A decisive next test would specify a formulation choice whose ranking changes at a stated barrier uncertainty, publish the reactant and transition-state inputs, compare the best classical cost–error curve, and estimate quantum preparation, energy-difference and wall-time costs on those same inputs. Until then, the resource estimate supports feasibility analysis, not an industrial advantage claim.
+Surviving as an application question, with no demonstrated quantum advantage. The published small-molecule path is accessible to strong classical methods; the quantum study estimates a much larger all-electron calculation on related molecules and has no matched barrier or buyer comparison. The [same-instance benchmark question](../questions/electrolyte-decomposition-matched-benchmark.html) specifies the needed inputs, cost–error curve and decision evidence. Until then, the resource estimate supports feasibility analysis, not an industrial advantage claim.
