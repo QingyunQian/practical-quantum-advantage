@@ -3,10 +3,10 @@ type: problem
 id: sparse-linear-systems
 title: Sparse linear systems and quantum linear algebra
 title_zh: 稀疏线性方程组与量子线性代数
-summary: Matrix inversion is BQP-complete and the HHL family solves it in polylog(N) time, but only under four conditions on input preparation, block encoding, condition number and output. Low-rank cases are dequantized (Tang, Chia et al.), constant-precision sparse QSVT is dequantized (Gharibian–Le Gall), and active QRAM removes the rest of the asymptotic advantage. The surviving window is sparse, high-rank, well-conditioned systems with formula-defined input and a scalar output, and no industrial instance in it has an economic resource estimate.
-summary_zh: 矩阵求逆是 BQP 完全问题，HHL 一族能以 polylog(N) 时间求解，但要满足输入制备、块编码、条件数、输出这四个条件。低秩情形已被去量子化（Tang、Chia 等），常数精度的稀疏 QSVT 已被去量子化（Gharibian–Le Gall），主动式 QRAM 抹掉了其余的渐近优势。幸存的窗口是稀疏、高秩、良态、输入由公式定义、输出为标量的方程组，其中没有一个工业实例有经济的资源估计。
+summary: Matrix inversion has a BQP-complete quantum-native formulation, while polylog(N) linear-system algorithms need efficient input preparation, operator access, bounded condition number and limited output. Low-rank and specified constant-precision routes have classical counterparts; active-QRAM opportunity costs narrow many classical-data proposals without proving a universal no-go. No named industrial instance in the remaining window has a matched economic comparison.
+summary_zh: 矩阵求逆在量子输入输出的定义下是 BQP 完全问题；线性方程组算法若要达到 polylog(N) 规模，还需要高效制备输入、访问算子、控制条件数并限制输出。低秩及特定常数精度任务已有经典对应算法；主动式 QRAM 的硬件机会成本削弱了许多经典数据方案，但未构成普遍不可能性证明。剩余窗口中尚无具名工业实例完成同任务的经济比较。
 status: seed
-last_verified: 2026-09-26
+last_verified: 2026-09-27
 verdict: surviving
 dimensions:
   classical_hardness: {level: reduction, note: "BQP-complete in the worst case (HHL), but only with quantum-native input and output; for the systems engineering produces, conjugate gradient and multigrid run in O(N √κ) or O(N) and are not obstructed"}
@@ -36,7 +36,7 @@ For sparse symmetric positive-definite systems, conjugate gradient converges in 
 
 ## Best quantum
 
-Harrow, Hassidim and Lloyd prepare |x⟩ ∝ A⁻¹|b⟩ in time polylog(N) × poly(κ, 1/ε) and show that matrix inversion (with quantum input and output) is BQP-complete [1]. Costa et al. bring the query complexity to the optimal O(κ log 1/ε) [3]. The "fine print" [2]: (i) |b⟩ must be preparable in polylog time, so b must come from a formula, not a file; (ii) A must be sparse or otherwise block-encodable with polylog cost; (iii) κ must be polylog(N), since κ enters at least linearly; (iv) the output is the state, so reading x costs Ω(N) and only a scalar functional ⟨x|M|x⟩ is cheap. Any one of these failing removes the exponential advantage. Jaques and Rattew add that if the input is loaded through active QRAM, the control hardware that operates the QRAM could instead run a highly parallel classical algorithm equally fast, and they prove that most asymptotic advantage in quantum linear algebra disappears under active QRAM [7].
+Harrow, Hassidim and Lloyd prepare |x⟩ ∝ A⁻¹|b⟩ in time polylog(N) × poly(κ, 1/ε) and show that matrix inversion (with quantum input and output) is BQP-complete [1]. Costa et al. bring the query complexity to O(κ log 1/ε) in their oracle model [3]. The "fine print" [2]: (i) |b⟩ must be preparable in polylog time, for example from an efficient circuit; an arbitrary length-N file does not supply this for free; (ii) A must be sparse or otherwise block-encodable with polylog cost; (iii) κ must be polylog(N) for a polylog overall bound; (iv) the output is a state, so reading all N components costs at least Ω(N), while a specified expectation value may be cheaper. Failure of one condition invalidates that *particular exponential end-to-end claim*, not every possible polynomial gain. For active QRAM, Jaques and Rattew show that accounting for control hardware and an equally resourced classical comparator removes most asymptotic advantage in the linear-algebra settings they analyse, with architectural qualifications [7].
 
 ## Where the conditions might hold
 
@@ -44,4 +44,4 @@ Discretised PDEs with a formula-defined source and a single response functional.
 
 ## Verdict
 
-Surviving, in the narrowest sense the catalogue allows. Classical hardness holds only for the quantum-native formulation (BQP-completeness with 1/poly precision), which no engineering caller uses; the quantum precondition is a conjunction of four conditions that real problems violate one at a time; willingness to pay is generic rather than stated. Nothing forbids an instance that is sparse, high-rank, well-conditioned, formula-defined and scalar-output, but the only compiled candidate is uneconomic by many orders of magnitude, and the polynomial gains that remain do not pay under error correction. The page would move to promising if such an instance were exhibited with an end-to-end estimate; it would move to no-go if the remaining sparse, 1/poly-precision window were dequantized for the operator classes engineering produces.
+Surviving for a narrow input/output model, with no identified industrial advantage. BQP-completeness concerns quantum-native input and output at suitable precision; it cannot be transferred to a classical engineering file. The four algorithmic conditions and active-QRAM costs rule out many proposed exponential claims. A sparse, high-rank, well-conditioned, efficiently specified system with a limited output remains a possible target. The only compiled industrial example here has an uneconomic depth estimate under its assumptions [9]. A matched public instance and total cost curve could change this assessment; the existing dequantization results do not prove a universal no-go for every linear-system formulation.
