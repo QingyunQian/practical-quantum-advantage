@@ -17,8 +17,10 @@ explicit. This does not claim an unconditional quantum–classical separation. T
 
 The site also records selected published "quantum advantage" claims, including classical reproductions where documented, and a board of open questions that anyone (or any agent) can take on.
 
+For breadth, the [candidate idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.html) lists application–problem pairs and a first research question without assigning a verdict. An idea is not an assessed entry. The public `ideas.json` lets people and agents browse or add leads without first writing a full report. A few [worked examples](https://yuchenguommm.github.io/practical-quantum-advantage/) show the evidence standard; contributors can expand the rest.
+
 Site: https://yuchenguommm.github.io/practical-quantum-advantage/
-Machine-readable: `index.json` and `llms.txt` at the site root.
+Machine-readable: `index.json`, `ideas.json` and `llms.txt` at the site root.
 Review tasks: [`review-queue.html`](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.html) and [`review-queue.json`](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json). A scheduled workflow keeps one GitHub issue up to date each month.
 
 ## Contributing

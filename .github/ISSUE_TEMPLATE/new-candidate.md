@@ -1,18 +1,23 @@
 ---
 name: New candidate
-about: Propose an application, problem, or method that is not yet catalogued
+about: Add a lightweight idea or propose a sourced application, problem, or method page
 labels: candidate
 ---
+
+**Stage** (idea only / ready for a sourced page):
+
+An idea only needs the next three fields. An idea has no verdict and does not claim quantum advantage.
 
 **Type** (application / problem / method):
 
 **One-sentence description**:
 
-**Which layer does it belong to?** If it is a scenario (someone would pay for the answer), name the computational problems behind it. If it is a computational problem, name at least one scenario that needs it.
+**Which layer does it belong to?** For an application, name at least one computational problem behind it. For a problem, name a scenario that could use its output.
 
-**Best evidence on the three dimensions** (links):
+**First concrete question to investigate**:
+
+**Optional evidence for a sourced page** (public links; leave blank for an idea only):
 - classically hard:
 - quantumly easy:
-- someone pays:
-
-**Best classical method today and its cost**:
+- someone pays or independent use of the answer:
+- best classical method and cost:

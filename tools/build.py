@@ -14,6 +14,7 @@ import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 from common import ROOT, TYPES, VERDICT_LABEL, load_all
+from ideas import load_ideas
 from review_queue import MAX_AGE_DAYS, classify
 
 SITE = ROOT / "site"
@@ -39,6 +40,9 @@ def render_md(text: str) -> str:
 
 def main() -> None:
     entries = [e for e in load_all() if e.meta and e.meta.get("type") in TYPES and e.meta.get("id")]
+    ideas, idea_errors = load_ideas(entries)
+    if idea_errors:
+        raise ValueError("Invalid idea catalogue: " + "; ".join(idea_errors))
     by_type = defaultdict(list)
     by_id = {}
     for e in entries:
@@ -46,6 +50,11 @@ def main() -> None:
         by_id[(e.type, e.id)] = e
     for t in by_type:
         by_type[t].sort(key=lambda e: e.meta["title"].lower())
+    idea_apps = sorted((i for i in ideas if i["type"] == "application"), key=lambda i: (i["domain"], i["title"]))
+    idea_problems = sorted((i for i in ideas if i["type"] == "problem"), key=lambda i: i["title"])
+    problem_links = {p.id: {"title": p.meta["title"], "url": p.href} for p in by_type["problem"]}
+    problem_links.update({p["id"]: {"title": p["title"], "url": "ideas.html#" + p["id"]} for p in idea_problems})
+    idea_app_for_problem = {p["id"]: [a for a in idea_apps if p["id"] in a["problem_ids"]] for p in idea_problems}
 
     env = Environment(loader=FileSystemLoader(TEMPLATES), autoescape=select_autoescape(["html"]))
     env.globals.update(
@@ -110,6 +119,14 @@ def main() -> None:
     html = env.get_template("matrix.html").render(apps=apps, probs=used_probs, cells=cells, depth="")
     (SITE / "matrix.html").write_text(html, encoding="utf-8")
 
+    # Unassessed breadth pool, separate from evidence-graded entries.
+    html = env.get_template("ideas.html").render(
+        depth="", idea_apps=idea_apps, idea_problems=idea_problems,
+        problem_links=problem_links, idea_app_for_problem=idea_app_for_problem,
+    )
+    (SITE / "ideas.html").write_text(html, encoding="utf-8")
+    (SITE / "ideas.json").write_text(json.dumps(ideas, ensure_ascii=False, indent=1), encoding="utf-8")
+
     # home
     claims = sorted(by_type["claim"], key=lambda e: e.meta["claim"]["date"], reverse=True)
     counts = {t: len(by_type[t]) for t in TYPES}
@@ -121,7 +138,14 @@ def main() -> None:
     readme = readme.replace("](AGENTS.md)", f"]({BASE_URL}/blob/main/AGENTS.md)")
     readme = readme.replace("](CONTRIBUTING.md)", f"]({BASE_URL}/blob/main/CONTRIBUTING.md)")
     html = env.get_template("index.html").render(
-        counts=counts, verdict_counts=verdict_counts, claims=claims[:8], depth="", readme=render_md(readme)
+        counts=counts, verdict_counts=verdict_counts, claims=claims[:8], depth="", readme=render_md(readme),
+        idea_count=len(ideas),
+        examples=[
+            (by_id[("application", "battery-electrolyte-design")], "Reviewed application: a named benchmark and missing buyer target"),
+            (by_id[("problem", "integer-factoring-hidden-subgroup")], "Foundational problem: proved quantum algorithm and explicit classical assumption"),
+            (by_id[("claim", "ibm-sqd-2024")], "Reviewed claim: published result and later classical challenge"),
+            (by_id[("question", "classical-output-fourier-crossover")], "Open question: a matched task and result that would settle it"),
+        ],
     )
     (SITE / "index.html").write_text(html, encoding="utf-8")
 
@@ -150,13 +174,14 @@ def main() -> None:
         d["body_markdown"] = e.body
         export.append(d)
     (SITE / "index.json").write_text(json.dumps(export, ensure_ascii=False, indent=1), encoding="utf-8")
-    llms = ["# Practical Quantum Advantage", "", "A living catalogue of quantum-computing application candidates, each judged on three dimensions: classically hard, quantumly easy, someone pays.", "", "Full data: index.json (one object per entry, includes body_markdown).", ""]
+    llms = ["# Practical Quantum Advantage", "", "Evidence-graded catalogue: index.json. Unassessed idea pool: ideas.json. Ideas have no verdict and must not be cited as advantage evidence.", ""]
     for t in TYPES:
         llms.append(f"## {SECTION_TITLE[t][0]}")
         for e in by_type[t]:
             v = e.meta.get("verdict")
             llms.append(f"- [{e.meta['title']}]({e.href})" + (f" — {v}" if v else "") + f": {e.meta['summary']}")
         llms.append("")
+    llms.extend(["## Unassessed ideas", "See ideas.json or ideas.html. Propose evidence through GitHub issues; ideas are not catalogue entries.", ""])
     (SITE / "llms.txt").write_text("\n".join(llms), encoding="utf-8")
     (SITE / ".nojekyll").write_text("")
     print(f"built {len(entries)} pages -> {SITE}")

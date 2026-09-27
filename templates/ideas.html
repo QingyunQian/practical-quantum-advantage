@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Candidate ideas · Practical Quantum Advantage{% endblock %}
+{% block content %}
+<h1>Candidate ideas</h1>
+<p class="lede">A breadth-first list of possible applications and computational problems. These are <strong>unassessed suggestions</strong>: no quantum advantage, buyer demand, qubit count or hardness claim is implied.</p>
+<p class="zh">这是尚未评估的候选清单。列出应用场景、背后的计算问题和第一步该查什么；它们没有优势判词，也没有默认的产业需求或量子资源结论。</p>
+<p>Find an idea worth testing? <a href="{{ BASE_URL }}/issues/new?template=new-candidate.md">Propose it in an issue</a>, or follow the <a href="contribute.html">contribution guide</a> to turn it into a sourced page. Add new ideas by editing the public <a href="{{ BASE_URL }}/blob/main/data/ideas.json">idea list</a>. Agents can read <a href="ideas.json">ideas.json</a> alongside the assessed <a href="index.json">catalogue</a>.</p>
+
+<h2>{{ idea_apps|length }} possible applications</h2>
+{% for domain, group in idea_apps|groupby('domain') %}
+<h3>{{ domain }}</h3>
+<div class="cards">
+{% for i in group %}
+<article class="card idea-card" id="{{ i.id }}">
+  <h3>{{ i.title }}</h3>
+  <p class="zh">{{ i.title_zh }}</p>
+  <p><strong>Computational problems:</strong>
+    {% for pid in i.problem_ids %}<a href="{{ problem_links[pid].url }}">{{ problem_links[pid].title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+  </p>
+  <p><strong>First question:</strong> {{ i.question }}</p>
+  <p><a href="{{ BASE_URL }}/issues/new?template=new-candidate.md&amp;title={{ ('Investigate: ' ~ i.title)|urlencode }}">Take this idea on →</a></p>
+</article>
+{% endfor %}
+</div>
+{% endfor %}
+
+<h2>{{ idea_problems|length }} possible computational problems</h2>
+<div class="cards">
+{% for i in idea_problems %}
+<article class="card idea-card" id="{{ i.id }}">
+  <h3>{{ i.title }}</h3>
+  <p class="zh">{{ i.title_zh }}</p>
+  <p><strong>Connected scenarios:</strong>
+    {% for a in idea_app_for_problem[i.id] %}<a href="#{{ a.id }}">{{ a.title }}</a>{% if not loop.last %}, {% endif %}{% endfor %}
+  </p>
+  <p><strong>First question:</strong> {{ i.question }}</p>
+  <p><a href="{{ BASE_URL }}/issues/new?template=new-candidate.md&amp;title={{ ('Investigate: ' ~ i.title)|urlencode }}">Take this idea on →</a></p>
+</article>
+{% endfor %}
+</div>
+{% endblock %}

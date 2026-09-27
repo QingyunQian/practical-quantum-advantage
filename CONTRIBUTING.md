@@ -7,6 +7,8 @@ It also rebuilds the site so the age-based queue stays current. GitHub can disab
 
 ## Choose a route
 
+The [candidate idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.html) is the lightest route. An idea records a scenario, its computational problem and a question to investigate. It has **no verdict or resource claim**. You can propose a new idea in an issue or add one to `data/ideas.json` by PR. A sourced page can follow when evidence is available; there is no requirement to research every idea before listing it.
+
 | You have | Use |
 |---|---|
 | A new application, computational problem or method | [Propose a candidate](https://github.com/yuchenguommm/practical-quantum-advantage/issues/new?template=new-candidate.md) |
@@ -21,7 +23,7 @@ GitHub currently requires an account for these routes. Issues are proposals, not
 
 ## Add a page by pull request
 
-1. Search the [catalogue](https://yuchenguommm.github.io/practical-quantum-advantage/) and [open issues](https://github.com/yuchenguommm/practical-quantum-advantage/issues) to avoid duplicates. Choose one of the five types in [AGENTS.md](AGENTS.md): application, problem, method, claim or question. A scenario with a decision maker is an **application**; an algorithmic task shared by scenarios is a **problem**.
+1. Search the [catalogue](https://yuchenguommm.github.io/practical-quantum-advantage/), [idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.html) and [open issues](https://github.com/yuchenguommm/practical-quantum-advantage/issues) to avoid duplicates. Choose one of the five types in [AGENTS.md](AGENTS.md): application, problem, method, claim or question. A scenario with a decision maker is an **application**; an algorithmic task shared by scenarios is a **problem**.
 2. Fork the repository, create a branch, and run `python tools/new_entry.py application example-id --title "Example title"` from the repository root. Replace the type and ID as needed. The ID becomes the permanent URL slug, so choose it carefully. The script refuses to overwrite an existing page.
 3. Replace all placeholder text. Add public references in the YAML front matter. For an application, problem or method, grade each of the three dimensions and explain the verdict. Link existing entries in `related:` by ID. A new cross-link can be added once both new files are in the same pull request.
 4. Run the checks below. The generated draft intentionally has no fabricated references or `last_verified` date and contains placeholder text; it will fail validation until the placeholders are replaced and a source is added for an application, problem, method or claim. Set `last_verified` only after checking the sources; a `seed` page may leave it absent.
@@ -49,7 +51,7 @@ For a review PR, give the entry ID, the date searched, the sources checked, the 
 
 ## Use an agent
 
-Give an agent the repository and [AGENTS.md](AGENTS.md), then ask for a specific page or evidence task. For example: “Investigate whether classical impurity solvers change the verdict on `rare-earth-permanent-magnets`; cite primary sources, update the relevant page and open a PR with the evidence.” The complete public catalogue is available as [index.json](https://yuchenguommm.github.io/practical-quantum-advantage/index.json) and a compact [llms.txt](https://yuchenguommm.github.io/practical-quantum-advantage/llms.txt). These are read-only; agents submit changes through the same issue and PR process as people.
+Give an agent the repository and [AGENTS.md](AGENTS.md), then ask for a specific idea, page or evidence task. For example: “Investigate `grid-unit-commitment` from the idea pool; identify one public instance, the computational problem and the strongest classical baseline, then report what remains unknown.” The assessed catalogue is available as [index.json](https://yuchenguommm.github.io/practical-quantum-advantage/index.json), unassessed leads as [ideas.json](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.json), and a compact guide as [llms.txt](https://yuchenguommm.github.io/practical-quantum-advantage/llms.txt). These are read-only; agents submit changes through the same issue and PR process as people.
 
 An agent can start from a queue ID or open question, gather primary sources, propose a focused edit, run the checks and open a PR. The PR must identify agent assistance, sources it rejected, and what remains uncertain. Human review is required before publication; no agent can change the live catalogue through the JSON export.
 

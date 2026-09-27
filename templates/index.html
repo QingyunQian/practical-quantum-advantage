@@ -15,6 +15,17 @@
 </section>
 
 <section>
+<h2>Start with a worked example</h2>
+<p>These pages show how the catalogue separates a real-world scenario, a computational problem, a published claim and a research question. The status on each page states whether source review is complete.</p>
+<div class="cards">
+{% for e, why in examples %}
+<a class="card" href="{{ e.href }}"><h3>{{ e.meta.title }}</h3><p>{{ why }}</p><p>{{ e.type }} · {{ e.meta.status }}</p></a>
+{% endfor %}
+</div>
+<p><a href="ideas.html">Browse {{ idea_count }} unassessed candidate ideas and contribute one →</a></p>
+</section>
+
+<section>
 <h2>Latest advantage claims</h2>
 <table class="claims">
 <thead><tr><th>Claim</th><th>Date</th><th>Refuted by</th><th>Time to refute</th></tr></thead>

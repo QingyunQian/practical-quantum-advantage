@@ -1,4 +1,4 @@
-// Client-side search over index.json and verdict filters on list pages.
+// Client-side search over assessed entries and the separate unassessed idea pool.
 (function () {
   var input = document.getElementById('search');
   var box = document.getElementById('search-results');
@@ -7,7 +7,16 @@
 
   function load(cb) {
     if (data) return cb(data);
-    fetch(root + 'index.json').then(function (r) { return r.json(); }).then(function (d) { data = d; cb(d); }).catch(function () { data = []; cb(data); });
+    Promise.all([
+      fetch(root + 'index.json').then(function (r) { return r.json(); }).catch(function () { return []; }),
+      fetch(root + 'ideas.json').then(function (r) { return r.json(); }).catch(function () { return []; })
+    ]).then(function (parts) {
+      data = parts[0].concat(parts[1].map(function (i) {
+        return { title: i.title, title_zh: i.title_zh, summary: i.question,
+          type: 'proposed ' + i.type, url: 'ideas.html#' + i.id, tags: [i.domain] };
+      }));
+      cb(data);
+    });
   }
   function score(e, q) {
     var hay = (e.title + ' ' + (e.title_zh || '') + ' ' + e.summary + ' ' + (e.summary_zh || '') + ' ' + (e.tags || []).join(' ')).toLowerCase();

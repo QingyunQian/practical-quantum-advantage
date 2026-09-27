@@ -9,6 +9,11 @@ the review criteria, and the commands for creating a draft. Agents can read the 
 from `index.json` or `llms.txt` on the published site; write changes through issues or PRs.
 The [review queue](https://yuchenguommm.github.io/practical-quantum-advantage/review-queue.json)
 lists pages awaiting first review, disputed pages and pages older than 180 days.
+The separate [idea pool](https://yuchenguommm.github.io/practical-quantum-advantage/ideas.json)
+contains unassessed application and problem suggestions. They have no verdict or evidence grade.
+To add breadth without a full source review, add an idea to `data/ideas.json`, linking each
+application to an existing or proposed computational problem. Give it one concrete first
+question. Do not copy an idea into `content/` or assign a verdict until there is evidence.
 
 ## What a page is
 
