@@ -48,7 +48,8 @@ def render_md(text: str) -> str:
 
 
 def main() -> None:
-    entries = [e for e in load_all() if e.meta and e.meta.get("type") in TYPES and e.meta.get("id")]
+    entries = [e for e in load_all() if e.meta and e.meta.get("type") in TYPES
+               and e.meta.get("id") and e.meta.get("published", True)]
     ideas, idea_errors = load_ideas(entries)
     if idea_errors:
         raise ValueError("Invalid idea catalogue: " + "; ".join(idea_errors))
@@ -189,6 +190,11 @@ def main() -> None:
     export = []
     for e in entries:
         d = dict(e.meta)
+        if d.get("related"):
+            d["related"] = {
+                kind: [i for i in ids if (kind[:-1], i) in by_id]
+                for kind, ids in d["related"].items()
+            }
         d["url"] = e.href
         d["body_markdown"] = e.body
         export.append(d)

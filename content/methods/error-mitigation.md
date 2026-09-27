@@ -1,5 +1,6 @@
 ---
 type: method
+published: false
 id: error-mitigation
 title: Error mitigation on noisy circuits (ZNE, PEC, post-selection)
 title_zh: 含噪电路上的误差缓解（零噪声外推、概率误差消除、后选择）

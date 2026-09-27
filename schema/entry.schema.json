@@ -7,6 +7,7 @@
   "additionalProperties": false,
   "properties": {
     "type": {"enum": ["application", "problem", "method", "claim", "question"]},
+    "published": {"type": "boolean", "description": "Set false to retain a draft in the repository while excluding it from the public site and exports."},
     "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9-]*$"},
     "title": {"type": "string", "minLength": 3},
     "title_zh": {"type": "string"},

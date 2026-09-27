@@ -23,6 +23,9 @@ question. Do not copy an idea into `content/` or assign a verdict until there is
 
 Five page types live in five folders:
 
+Set `published: false` to keep a draft source in `content/` while excluding it from the
+public site, search export and related-page links. The source still runs through validation.
+
 | folder | type | what it describes | example |
 |---|---|---|---|
 | `content/applications/` | application | a scenario that a company or lab would pay for | electrolyte design, OLED emitters, derivative pricing |
